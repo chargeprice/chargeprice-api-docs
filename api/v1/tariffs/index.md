@@ -20,13 +20,13 @@ The following query filter parameters are available:
 
 ## Response Body
 
-A response contains 0 to many `fixed_price_tariff` or `flexible_price_tariff` objects.
+A response contains 0 to many `tariff` objects.
 The following table lists the `attributes` of these objects:
 
 | **Name**                 | **Type** | **Example**         | **Description**                                                                                         |
 | ------------------------ | -------- | ------------------- | ------------------------------------------------------------------------------------------------------- |
 | provider                 | String   | "Maingau Energie"   | Name of the charge card provider                                                                        |
-| name                     | String   | "EinfachStromLaden" | Name of the tariff, if available (not available for `flexible_price_tariff`)                            |
+| name                     | String   | "EinfachStromLaden" | Name of the tariff                                                                                      |
 | direct_payment           | Boolean  | true                | This tariff can be used without registration                                                            |
 | provider_customer_tariff | Boolean  | true                | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
 | charge_card_id           | String   | "201"               | GoingElectric charge card ID                                                                            |
@@ -51,7 +51,7 @@ Body:
   "data": [
     {
       "id": "cbe781a1-c16e-4af0-890a-b5f5943b6b77",
-      "type": "fixed_price_tariff",
+      "type": "tariff",
       "attributes": {
         "provider": "Energie Graz",
         "name": "Energie Graz Direct",
@@ -62,7 +62,7 @@ Body:
     },
     {
       "id": "1be781a1-c16e-4af0-890a-b5f5943b6b73",
-      "type": "flexible_price_tariff",
+      "type": "tariff",
       "attributes": {
         "provider": "Plugsurfing",
         "provider_customer_only": false,

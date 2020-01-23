@@ -15,7 +15,7 @@ The following fields are to be sent in the request body, in the `attributes` sec
 
 | **Name**                          | **Type**      | **Presence**                      | **Example**      | **Description**                                                                                                          |
 | --------------------------------- | ------------- | --------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| data_adapter                      | string        | mandatory                         | "going_electric" | The source of the station and charge_card_id data. Possible values: "going_electric"                                     |
+| data_adapter                      | string        | mandatory                         | "going_electric" | The source of the station and charge_card_id data. Possible values: "going_electric", "chargeprice"                      |
 | station                           | Object        | mandatory                         |                  | Station related request data                                                                                             |
 | station.longitude                 | Float         | mandatory                         | 43.123           | Longitude coordinate of the station                                                                                      |
 | station.latitude                  | Float         | mandatory                         | 123.456          | Latitude coordinate of the station                                                                                       |
@@ -26,21 +26,21 @@ The following fields are to be sent in the request body, in the `attributes` sec
 | station.charge_points.plug        | String        | mandatory                         | "CCS"            | Name of plug at charge point                                                                                             |
 | options                           | Object        | mandatory                         |                  | Charge related request data                                                                                              |
 | options.max_monthly_fees          | Float         | optional                          | 0                | Array with 2 values, that defines the battery start and end values for the charge in percentage.                         |
-| options.energy                    | Float         | See **Duration and Energy Input** | 30               | Only returns tariffs, where `total_monthly_fee` + `total_monthly_fee` <= the given value.                                                                               |
+| options.energy                    | Float         | See **Duration and Energy Input** | 30               | Only returns tariffs, where `total_monthly_fee` + `monthly_min_sales` <= the given value.                                |
 | options.duration                  | Float         | See **Duration and Energy Input** | 45               | Duration of the charge in minutes                                                                                        |
 | options.battery_range             | Array[Float]  | See **Duration and Energy Input** | [20.0,80.0]      | Array with 2 values, that defines the battery start and end values for the charge in percentage.                         |
 | options.car_ac_phases             | Integer       | optional (default: 3)             | 3                | Number of AC phases the car can use to charge. Possible values: 1,3                                                      |
-| options.currency                  | String        | optional (default: "EUR")         | "EUR"            | Currency in which the prices should be returned. Possible values are listed at the [eurofxref]                                     |
+| options.currency                  | String        | optional (default: "EUR")         | "EUR"            | Currency in which the prices should be returned. Possible values are listed at the [eurofxref]                           |
 | options.allow_unbalanced_load     | Boolean       | optional (default: false)         | false            | If true, it allows higher powers for uniphase charging vehicles. If false, power is restricted to 4.5 kW.                |
 | options.provider_customer_tariffs | Boolean       | optional (default: false)         | false            | Include prices of tariffs, that are only available for customers of a provider (e.g. electricity provider for the home). |
 | charge_card_ids                   | Array[Float]  | mandatory                         | ["30"]           | IDs of available charge cards. Only prices for the provided charge cards will be returned.                               |
 
 The following table lists the `relationships` section of a `charge_prices_request` object:
 
-| **Name** | **Type**               | **Presence**                                           | **Example**                                            | **Description**                                                                                                   |
-| -------- | ---------------------- | ------------------------------------------------------ | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
-| tariffs  | Array of Relationships | optional (default: all available tariffs are returned) | `[{"id": "some-uuid", type:"flexible_price_tariff" }]` | Only return charge prices for the given tariffs. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
-| vehicle  | Relationship           | See **Duration and Energy Input**                      | `[{"id": "some-uuid", type:"car" }]`                   | Vehicle at charge. See [GET v1/vehicles](../vehicles/index.md) for the valid options.                             |
+| **Name** | **Type**               | **Presence**                                           | **Example**                             | **Description**                                                                                                   |
+| -------- | ---------------------- | ------------------------------------------------------ | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| tariffs  | Array of Relationships | optional (default: all available tariffs are returned) | `[{"id": "some-uuid", type:"tariff" }]` | Only return charge prices for the given tariffs. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
+| vehicle  | Relationship           | See **Duration and Energy Input**                      | `[{"id": "some-uuid", type:"car" }]`    | Vehicle at charge. See [GET v1/vehicles](../vehicles/index.md) for the valid options.                             |
 
 \* Relationships are represented as id+type pairs. E.g.
 ```json
@@ -65,28 +65,29 @@ If both or no values are given, an error is raised.
 A response contains 0 to many `charge_price` objects, which define the prices per charge of a tariff per charge point.
 The following table lists the `attributes` of these objects:
 
-| **Name**                  | **Type**       | **Example**                 | **Description**                                                                                         |
-| ------------------------- | -------------- | --------------------------- | ------------------------------------------------------------------------------------------------------- |
-| provider                  | String         | "Maingau Energie"           | Name of the charge card provider                                                                        |
-| tariff_name               | String or null | "EinfachStromLaden"         | Name of the tariff, if available                                                                        |
-| url                       | String         | "http://my.tarif.at/prices" | Link to tariff at the website of the provider                                                           |
-| monthly_min_sales         | Float          | 12.49                       | Minimum charging costs per month                                                                        |
-| total_monthly_fee         | Float          | 12.30                       | Any monthly fee + any yearly (service) fee (proportional)                                               |
-| flat_rate                 | Boolean        | true                        | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                  |
-| direct_payment            | Boolean        | true                        | This tariff can be used without registration                                                            |
-| provider_customer_tariff  | Boolean        | true                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
-| currency                  | String         | "EUR"                       | Currency of the prices or fees                                                                          |
-| charge_point_prices       | Array[Object]  |                             |                                                                                                         |
-| charge_point_prices.plug  | String         | "ac"                        | Name of plug at charge point                                                                            |
-| charge_point_prices.power | Float          | 22                          | In kW                                                                                                   |
-| charge_point_prices.price | Float          | 8.43                        | Cost of a single charge at the given connector, given the options of the request                        |
+| **Name**                               | **Type**       | **Example**                       | **Description**                                                                                         |
+| -------------------------------------- | -------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| provider                               | String         | "Maingau Energie"                 | Name of the charge card provider                                                                        |
+| tariff_name                            | String or null | "EinfachStromLaden"               | Name of the tariff, if available                                                                        |
+| url                                    | String         | "http://my.tarif.at/prices"       | Link to tariff at the website of the provider                                                           |
+| monthly_min_sales                      | Float          | 12.49                             | Minimum charging costs per month                                                                        |
+| total_monthly_fee                      | Float          | 12.30                             | Any monthly fee + any yearly (service) fee (proportional)                                               |
+| flat_rate                              | Boolean        | true                              | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                  |
+| direct_payment                         | Boolean        | true                              | This tariff can be used without registration                                                            |
+| provider_customer_tariff               | Boolean        | true                              | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
+| currency                               | String         | "EUR"                             | Currency of the prices or fees                                                                          |
+| charge_point_prices                    | Array[Object]  |                                   |                                                                                                         |
+| charge_point_prices.plug               | String         | "ac"                              | Name of plug at charge point                                                                            |
+| charge_point_prices.power              | Float          | 22                                | In kW                                                                                                   |
+| charge_point_prices.price              | Float          | 8.43                              | Cost of a single charge at the given connector, given the options of the request                        |
+| charge_point_prices.price_distribution | Hash           | { "session": 0.4, "minute": 0.6 } | Distribution of price in percentage of each dimension which applies (session, kwh and/or minute)           |
 
 
 The following table lists the `relationships`:
 
-| **Name** | **Type**     | **Example**                                            | **Description**                                                                                                     |
-| -------- | ------------ | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| tariff   | Relationship | `[{"id": "some-uuid", type:"flexible_price_tariff" }]` | The tariff that was applied for this charge price. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
+| **Name** | **Type**     | **Example**                             | **Description**                                                                                                     |
+| -------- | ------------ | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| tariff   | Relationship | `[{"id": "some-uuid", type:"tariff" }]` | The tariff that was applied for this charge price. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
 
 
 The following table lists the `meta` data:
@@ -145,7 +146,7 @@ with `energy`, `duration` and `tariffs`.
         "data": [
           {
             "id": "c6adf982-4e41-431b-833a-dfa89b484c75",
-            "type": "flexible_price_tariff"
+            "type": "tariff"
           }
         ]
       }
@@ -218,7 +219,12 @@ Body:
           {
             "power":  22,
             "plug":   "CCS",
-            "price":  12
+            "price":  12,
+            "price_distribution": {
+              "kwh": 0.3,
+              "minute": 0.1,
+              "session": 0.6
+            }
           }
         ]
       },
@@ -226,7 +232,7 @@ Body:
         "tariff": {
           "data": {
             "id": "c6adf982-4e41-431b-833a-dfa89b484c75",
-            "type": "flexible_price_tariff"
+            "type": "tariff"
           }
         } 
       }

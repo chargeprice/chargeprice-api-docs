@@ -9,6 +9,7 @@ Documentation for 3rd party applications to communicate with the **Chargeprice A
 * [Charge Prices](./api/v1/charge_prices/index.md)
 * [Tariffs Overview](./api/v1/tariffs/index.md)
 * [Vehicles](./api/v1/vehicles/index.md)
+* [Charging Stations](./api/v1/charging_stations/index.md)
 
 ## Guides
 

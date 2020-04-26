@@ -18,11 +18,12 @@ No parameters.
 A response contains 0 to many vehicles. At the moment vehicles of type `car` are supported.
 The following table lists the `attributes` of a `car`:
 
-| **Name**        | **Type**      | **Example**         | **Description**                                                                                |
-| --------------- | ------------- | ------------------- | ---------------------------------------------------------------------------------------------- |
-| name            | String        | "Kona 64kWh (2019)" | Name of the car including variant and release year, if available                               |
-| brand           | String        | "Hyundai"           | Brand of the car                                                                               |
-| dc_charge_ports | Array<String> | ["ccs","tesla_ccs"] | All DC charge ports, that the car is capable to charge with. Possible values: `ccs`, `chademo` |
+| **Name**        | **Type**      | **Example**                 | **Description**                                                                                |
+| --------------- | ------------- | --------------------------- | ---------------------------------------------------------------------------------------------- |
+| name            | String        | "Kona 64kWh (2019)"         | Name of the car including variant and release year, if available                               |
+| brand           | String        | "Hyundai"                   | Brand of the car                                                                               |
+| dc_charge_ports | Array<String> | ["ccs","tesla_ccs"]         | All DC charge ports, that the car is capable to charge with. Possible values: `ccs`, `chademo` |
+| manufacturer    | Relationship  | { id: "..", type: "brand" } | Manufacturer (Brand) of the car                                                                             |
 
 ## Example
 
@@ -51,6 +52,14 @@ Body:
         "dc_charge_ports": [
           "ccs"
         ]
+      },
+      "relationships": {
+        "manufacturer": {
+          "data": {
+            "type": "brand",
+            "id": "3e49b853-36fc-47ed-9826-97828b5b2fd1"
+          }
+        }
       }
     }
   ]
@@ -100,8 +109,8 @@ An unexpected error happened.
 {
   "errors": [
     {
-      "status": "403",
-      "title": "api_key missing"
+      "status": "500",
+      "title": "some error"
     }
   ]
 }

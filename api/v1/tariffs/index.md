@@ -116,8 +116,8 @@ An unexpected error happened.
 {
   "errors": [
     {
-      "status": "403",
-      "title": "api_key missing"
+      "status": "500",
+      "title": "some error"
     }
   ]
 }

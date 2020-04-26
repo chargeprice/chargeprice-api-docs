@@ -31,6 +31,7 @@ The following fields are to be sent in the request body, in the `attributes` sec
 | options.battery_range             | Array[Float]  | See **Duration and Energy Input** | [20.0,80.0]      | Array with 2 values, that defines the battery start and end values for the charge in percentage.                         |
 | options.car_ac_phases             | Integer       | optional (default: 3)             | 3                | Number of AC phases the car can use to charge. Possible values: 1,3                                                      |
 | options.currency                  | String        | optional (default: "EUR")         | "EUR"            | Currency in which the prices should be returned. Possible values are listed at the [eurofxref]                           |
+| options.start_time                | Integer       | optional (default: 12:00)         | 720 (=12:00)     | Time of day in minutes when the charging session gets started. Min value: 0 (00:00), max value: 1439 (23:59)             |
 | options.allow_unbalanced_load     | Boolean       | optional (default: false)         | false            | If true, it allows higher powers for uniphase charging vehicles. If false, power is restricted to 4.5 kW.                |
 | options.provider_customer_tariffs | Boolean       | optional (default: false)         | false            | Include prices of tariffs, that are only available for customers of a provider (e.g. electricity provider for the home). |
 | charge_card_ids                   | Array[Float]  | mandatory                         | ["30"]           | IDs of available charge cards. Only prices for the provided charge cards will be returned.                               |
@@ -76,11 +77,12 @@ The following table lists the `attributes` of these objects:
 | direct_payment                         | Boolean        | true                              | This tariff can be used without registration                                                            |
 | provider_customer_tariff               | Boolean        | true                              | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
 | currency                               | String         | "EUR"                             | Currency of the prices or fees                                                                          |
+| start_time                             | Integer        | 720"                              | Time of day in minutes when the charging session gets started.                                          |
 | charge_point_prices                    | Array[Object]  |                                   |                                                                                                         |
 | charge_point_prices.plug               | String         | "ac"                              | Name of plug at charge point                                                                            |
 | charge_point_prices.power              | Float          | 22                                | In kW                                                                                                   |
 | charge_point_prices.price              | Float          | 8.43                              | Cost of a single charge at the given connector, given the options of the request                        |
-| charge_point_prices.price_distribution | Hash           | { "session": 0.4, "minute": 0.6 } | Distribution of price in percentage of each dimension which applies (session, kwh and/or minute)           |
+| charge_point_prices.price_distribution | Hash           | { "session": 0.4, "minute": 0.6 } | Distribution of price in percentage of each dimension which applies (session, kwh and/or minute)        |
 
 
 The following table lists the `relationships`:
@@ -135,7 +137,8 @@ with `energy`, `duration` and `tariffs`.
       },
       "options":         {
         "energy":   30,
-        "duration": 30
+        "duration": 30,
+        "start_time": 720,
       },
       "charge_card_ids": [
         "274"
@@ -214,6 +217,7 @@ Body:
         "flat_rate": false,
         "direct_payment": false,
         "provider_customer_only": false,
+        "start_time": 720,
         "currency": "EUR",
         "charge_point_prices": [
           {
@@ -307,8 +311,8 @@ An unexpected error happened.
 {
   "errors": [
     {
-      "status": "403",
-      "title": "api_key missing"
+      "status": "500",
+      "title": "some error"
     }
   ]
 }

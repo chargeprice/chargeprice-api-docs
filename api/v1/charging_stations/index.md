@@ -11,6 +11,8 @@ This API follows the https://jsonapi.org specification.
 
 ## Request
 
+### Filters
+
 The following query filter parameters are available. They basically represent a bounding box in which the stations need to be.
 
 | **Name**                | **Type** | **Presence** | **Example** | **Description**                                                          |
@@ -146,8 +148,8 @@ An unexpected error happened.
 {
   "errors": [
     {
-      "status": "403",
-      "title": "api_key missing"
+      "status": "500",
+      "title": "some error"
     }
   ]
 }

@@ -15,7 +15,7 @@ The following fields are to be sent in the request body, in the `attributes` sec
 
 | **Name**                          | **Type**      | **Presence**                      | **Example**      | **Description**                                                                                                          |
 | --------------------------------- | ------------- | --------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| data_adapter                      | string        | mandatory                         | "going_electric" | The source of the station and charge_card_id data. Possible values: "going_electric", "chargeprice"                      |
+| data_adapter                      | string        | mandatory                         | "going_electric" | The source of the station and charge_card_id data. Possible values: "going_electric", "chargeprice", "open_charge_map"                      |
 | station                           | Object        | mandatory                         |                  | Station related request data                                                                                             |
 | station.longitude                 | Float         | mandatory                         | 43.123           | Longitude coordinate of the station                                                                                      |
 | station.latitude                  | Float         | mandatory                         | 123.456          | Latitude coordinate of the station                                                                                       |

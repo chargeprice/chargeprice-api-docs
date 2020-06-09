@@ -7,17 +7,28 @@
 Please contact contact@chargeprice.net and tell us about your application!
 We provide you with an API-Key then.
 
-### 2. Register + Integrate the Going Electric API
+### 2. Integrate the POI Provider of your choice
 
-At the moment the price calculation of the Chargeprice API depends on charging station data, that is provided by the Going Electric API: https://www.goingelectric.de/stromtankstellen/api/
+At the moment the following POI (Charging Station Providers) APIs are supported
+as data adapters for the Chargeprice API:
 
-In the future other providers of station data will be supported.
+* [GoingElectric.de](https://www.goingelectric.de/stromtankstellen/api/)
+* [OpenChargeMap.org](https://openchargemap.org/site/develop#api) (Beta)
 
-Once your application can get `chargelocations` details, you can move on to step 2:
+Chargeprice doesn't provide an API to fetch POIs (yet). You **need** to
+integrate one of the above data sources to use the Chargeprice API and fetch prices.
 
-### 3. Map Going Electric API with Chargeprice API
+Get familiar with your chosen API before you continue with the next step.
 
-Here you can find the interface documention of the [Charge Prices API](../api/v1/charge_prices/index.md) of Chargeprice.
+### 3. Map POI API with Chargeprice API
+
+Here you can find the interface documention of the [Charge Prices
+API](../api/v1/charge_prices/index.md) of Chargeprice.
+
+Since the API is designed to support multiple sources, the data of the chosen
+source now needs to be provided in the correct format.
+
+#### Going Electric
 
 You will need to map the data of Going Electric to the following attributes in Chargeprice:
 
@@ -29,3 +40,16 @@ You will need to map the data of Going Electric to the following attributes in C
 | coordinates.lat    | station.latitude            | -                  |
 | chargepoints.power | station.charge_points.power | -                  |
 | chargepoints.type  | station.charge_points.plug  | -                  |
+
+#### Open Charge Map (Beta)
+
+You will need to map the data of OpenChargeMap to the following attributes in Chargeprice:
+
+| **Open Charge Map**                                         | **Chargeprice**             | **Transformation**                                                                        |
+| ----------------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------- |
+| AddressInfo.Country.ISOCode                                 | station.country             | -                                                                                         |
+| OperatorID                                                  | station.network             | convert to string: 23 => `"23"`                                                             |
+| AddressInfo.Longitude                                       | station.longitude           | -                                                                                         |
+| AddressInfo.Latitude                                        | station.latitude            | -                                                                                         |
+| Connections.PowerKW                                         | station.charge_points.power | -                                                                                         |
+| Connections.ConnectionTypeID <br> Connections.CurrentTypeID | station.charge_points.plug  | "ConnectionTypeID,CurrentTypeID", e.g. ConnectionTypeID: 27, CurrentTypeID: 30 => `"27,30"` |

@@ -53,3 +53,7 @@ You will need to map the data of OpenChargeMap to the following attributes in Ch
 | AddressInfo.Latitude                                        | station.latitude            | -                                                                                         |
 | Connections.PowerKW                                         | station.charge_points.power | -                                                                                         |
 | Connections.ConnectionTypeID <br> Connections.CurrentTypeID | station.charge_points.plug  | "ConnectionTypeID,CurrentTypeID", e.g. ConnectionTypeID: 27, CurrentTypeID: 30 => `"27,30"` |
+
+Have a look at [this example API request from
+OpenChargeMap](https://api.openchargemap.io/v3/poi/?output=json&countrycode=US&maxresults=10)
+and find the above attributes.

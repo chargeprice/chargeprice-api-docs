@@ -34,7 +34,6 @@ The following fields are to be sent in the request body, in the `attributes` sec
 | options.start_time                | Integer       | optional (default: 12:00)         | 720 (=12:00)     | Time of day in minutes when the charging session gets started. Min value: 0 (00:00), max value: 1439 (23:59)             |
 | options.allow_unbalanced_load     | Boolean       | optional (default: false)         | false            | If true, it allows higher powers for uniphase charging vehicles. If false, power is restricted to 4.5 kW.                |
 | options.provider_customer_tariffs | Boolean       | optional (default: false)         | false            | Include prices of tariffs, that are only available for customers of a provider (e.g. electricity provider for the home). |
-| charge_card_ids                   | Array[Float]  | mandatory                         | ["30"]           | IDs of available charge cards. Only prices for the provided charge cards will be returned.                               |
 
 The following table lists the `relationships` section of a `charge_prices_request` object:
 
@@ -139,10 +138,7 @@ with `energy`, `duration` and `tariffs`.
         "energy":   30,
         "duration": 30,
         "start_time": 720,
-      },
-      "charge_card_ids": [
-        "274"
-      ]
+      }
     },
     "relationships": {
       "tariffs": {
@@ -180,10 +176,7 @@ with `vehicle` and `battery_range` given:
       },
       "options":         {
         "battery_range": [20.0,80.0]
-      },
-      "charge_card_ids": [
-        "274"
-      ]
+      }
     },
     "relationships": {
       "vehicle": {

@@ -40,7 +40,7 @@ The following table lists the `attributes` of these objects:
 | free_parking                  | Boolean or `null` | true                       | Parking at the station is free of charge (`null` = unknown)                                                      |
 | free_charging                 | Boolean or `null` | true                       | Charging at the station is free of charge (`null` = unknown)                                                     |
 | charge_points                 | Array             | -                          | Charge points at this station, grouped by power and plug type                                                    |
-| charge_points.plug            | String            | "ccs"                      | Type of plug (`ccs`, `chademo`, `type2`, `type1`, ``)                                                            |
+| charge_points.plug            | String            | "ccs"                      | Type of plug ((`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                                                            |
 | charge_points.power           | Float             | 50.0                       | Max. power                                                                                                       |
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                        |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown) |

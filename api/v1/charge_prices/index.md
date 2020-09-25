@@ -8,6 +8,7 @@ This API follows the https://jsonapi.org specification.
 
 * `API-Key: <your_api_key>` (contact@chargeprice.net to get access)
 * `Content-Type: application/json`
+* `Accept-Language: en`: [Valid Languages](/docs/api/enums.md). Used to localize the response, default language is `en`.
 
 ## Request
 
@@ -65,23 +66,27 @@ If both or no values are given, an error is raised.
 A response contains 0 to many `charge_price` objects, which define the prices per charge of a tariff per charge point.
 The following table lists the `attributes` of these objects:
 
-| **Name**                               | **Type**       | **Example**                       | **Description**                                                                                         |
-| -------------------------------------- | -------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| provider                               | String         | "Maingau Energie"                 | Name of the charge card provider                                                                        |
-| tariff_name                            | String or null | "EinfachStromLaden"               | Name of the tariff, if available                                                                        |
-| url                                    | String         | "http://my.tarif.at/prices"       | Link to tariff at the website of the provider                                                           |
-| monthly_min_sales                      | Float          | 12.49                             | Minimum charging costs per month                                                                        |
-| total_monthly_fee                      | Float          | 12.30                             | Any monthly fee + any yearly (service) fee (proportional)                                               |
-| flat_rate                              | Boolean        | true                              | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                  |
-| direct_payment                         | Boolean        | true                              | This tariff can be used without registration                                                            |
-| provider_customer_tariff               | Boolean        | true                              | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
-| currency                               | String         | "EUR"                             | Currency of the prices or fees                                                                          |
-| start_time                             | Integer        | 720"                              | Time of day in minutes when the charging session gets started.                                          |
-| charge_point_prices                    | Array[Object]  |                                   |                                                                                                         |
-| charge_point_prices.plug               | String         | "ac"                              | Name of plug at charge point                                                                            |
-| charge_point_prices.power              | Float          | 22                                | In kW                                                                                                   |
-| charge_point_prices.price              | Float          | 8.43                              | Cost of a single charge at the given connector, given the options of the request                        |
-| charge_point_prices.price_distribution | Hash           | { "session": 0.4, "minute": 0.6 } | Distribution of price in percentage of each dimension which applies (session, kwh and/or minute)        |
+| **Name**                               | **Type**       | **Example**                       | **Description**                                                                                                                                                   |
+| -------------------------------------- | -------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| provider                               | String         | "Maingau Energie"                 | Name of the charge card provider                                                                                                                                  |
+| tariff_name                            | String or null | "EinfachStromLaden"               | Name of the tariff, if available                                                                                                                                  |
+| url                                    | String         | "http://my.tarif.at/prices"       | Link to tariff at the website of the provider                                                                                                                     |
+| monthly_min_sales                      | Float          | 12.49                             | Minimum charging costs per month                                                                                                                                  |
+| total_monthly_fee                      | Float          | 12.30                             | Any monthly fee + any yearly (service) fee (proportional)                                                                                                         |
+| flat_rate                              | Boolean        | true                              | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                                                                            |
+| direct_payment                         | Boolean        | true                              | This tariff can be used without registration                                                                                                                      |
+| provider_customer_tariff               | Boolean        | true                              | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                           |
+| currency                               | String         | "EUR"                             | Currency of the prices or fees                                                                                                                                    |
+| tags                                   | Array          | -                                 | Tags that are shown next to the tariff. E.g. "New Prices since 01.09.", "Club Membership required"                                                                |
+| tags.kind                              | String         | "info"                            | Find all valid value [here](/docs/api/enums.md).                                                                                                                  |
+| tags.text                              | String         | "Hello"                           | The main text of the tag.                                                                                                                                         |
+| tags.url                               | String         | "http://xyz.com"                  | A URL where the tag links to. Might contain `{locale}` (e.g. `http://test.com/{locale}/post.html`), which should be replaced by the current locale by the client. |
+| start_time                             | Integer        | 720                               | Time of day in minutes when the charging session gets started.                                                                                                    |
+| charge_point_prices                    | Array[Object]  |                                   |                                                                                                                                                                   |
+| charge_point_prices.plug               | String         | "ac"                              | Name of plug at charge point                                                                                                                                      |
+| charge_point_prices.power              | Float          | 22                                | In kW                                                                                                                                                             |
+| charge_point_prices.price              | Float          | 8.43                              | Cost of a single charge at the given connector, given the options of the request                                                                                  |
+| charge_point_prices.price_distribution | Hash           | { "session": 0.4, "minute": 0.6 } | Distribution of price in percentage of each dimension which applies (session, kwh and/or minute)                                                                  |
 
 
 The following table lists the `relationships`:
@@ -110,6 +115,7 @@ The following table lists the `meta` data:
 POST http://example-base-url.com/v1/charge_prices
 Content-Type: application/json
 Api-Key: my-secret-key
+Accept-Language: de
 ```
 
 Body:
@@ -137,7 +143,7 @@ with `energy`, `duration` and `tariffs`.
       "options":         {
         "energy":   30,
         "duration": 30,
-        "start_time": 720,
+        "start_time": 720
       }
     },
     "relationships": {
@@ -223,7 +229,14 @@ Body:
               "session": 0.6
             }
           }
-        ]
+        ],
+        "tags": [
+          {
+            "kind": "alert",
+            "text": "Hallo Welt",
+            "url": "http://www.google.at"
+          }
+        ],
       },
       "relationships": {
         "tariff": {

@@ -1,6 +1,6 @@
-# GET /v1/charging_stations
+# GET /v1/charging_stations/:charging_station_id
 
-Find charging stations in a given area.
+Get a single charging stations.
 
 This API follows the https://jsonapi.org specification.
 
@@ -9,27 +9,10 @@ This API follows the https://jsonapi.org specification.
 * `API-Key: <your_api_key>` (contact contact@chargeprice.net to get access)
 * `Content-Type: application/json`
 
-## Request
-
-### Filters
-
-The following query filter parameters are available. They basically represent a bounding box in which the stations need to be.
-
-| **Name**                | **Type** | **Presence** | **Example**                          | **Description**                                                          |
-| ----------------------- | -------- | ------------ | ------------------------------------ | ------------------------------------------------------------------------ |
-| latitude.gte            | Float    | mandatory    | 12.345                               | Inclusive lower bound of the latitude location component of the station  |
-| latitude.lte            | Float    | mandatory    | 12.345                               | Inclusive upper bound of the latitude location component of the station  |
-| longitude.gte           | Float    | mandatory    | 12.345                               | Inclusive lower bound of the longitude location component of the station |
-| longitude.lte           | Float    | mandatory    | 12.345                               | Inclusive upper bound of the longitude location component of the station |
-| charge_points.plug.in   | CSV      | optional     | "ccs,type2"                          | Only return stations that support this plug                              |
-| charge_points.power.gte | Float    | optional     | 50                                   | Minimum power of a plug                                                  |
-| operator.id             | String   | optional     | ae62cd2d-f29d-4107-b087-6d4f75261cca | Only stations of this operator  |
-
-
 ## Response Body
 
-A response contains 0 to max. 400 `charging_station` objects.
-The following table lists the `attributes` of these objects:
+A response contains a `charging_station` object.
+The following table lists it's `attributes`:
 
 | **Name**                      | **Type**          | **Example**                | **Description**                                                                                                  |
 | ----------------------------- | ----------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -41,22 +24,17 @@ The following table lists the `attributes` of these objects:
 | free_parking                  | Boolean or `null` | true                       | Parking at the station is free of charge (`null` = unknown)                                                      |
 | free_charging                 | Boolean or `null` | true                       | Charging at the station is free of charge (`null` = unknown)                                                     |
 | charge_points                 | Array             | -                          | Charge points at this station, grouped by power and plug type                                                    |
-| charge_points.plug            | String            | "ccs"                      | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                                                            |
+| charge_points.plug            | String            | "ccs"                      | Type of plug (`ccs`, `chademo`, `type2`, `type1`, ``)                                                            |
 | charge_points.power           | Float             | 50.0                       | Max. power                                                                                                       |
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                        |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown) |
-
-# Meta
-- disabled_going_electric_countries: Countries where the Chargeprice Data has
-  likely better quality than the GoingElectric data and hence the GoingElectric
-  data shouldn't be shown at all
 
 ## Example
 
 ### Request
 
 ```http
-GET http://example-base-url.com/v1/charging_stations?filter[latitude.gte]=9.0&filter[latitude.lte]=11.0&filter[longitude.gte]=19.0&filter[longitude.lte]=21.0
+GET http://example-base-url.com/v1/charging_stations/20006f18-3ed4-4715-92b5-08e37e6dd18c
 Content-Type: application/json
 Api-Key: my-secret-key
 ```
@@ -68,37 +46,35 @@ Api-Key: my-secret-key
 Body:
 ```json
 {
-  "data": [
-    {
-      "id": "20006f18-3ed4-4715-92b5-08e37e6dd18c",
-      "type": "charging_station",
-      "attributes": {
-        "name": "Spar",
-        "latitude": 10.0,
-        "longitude": 20.0,
-        "country": "AT",
-        "address": "Stangersdorf-Gewerbegebiet 110 A, 8403 Lebring",
-        "free_parking": true,
-        "free_charging": false,
-        "charge_points": [
-          {
-            "plug": "ccs",
-            "power": 50.0,
-            "count": 2,
-            "available_count": 2
-          }
-        ]
-      },
-      "relationships": {
-        "operator": {
-          "data": {
-            "type": "company",
-            "id": "ae62cd2d-f29d-4107-b087-6d4f75261cca"
-          }
+  "data": {
+    "id": "20006f18-3ed4-4715-92b5-08e37e6dd18c",
+    "type": "charging_station",
+    "attributes": {
+      "name": "Spar",
+      "latitude": 10.0,
+      "longitude": 20.0,
+      "country": "AT",
+      "address": "Stangersdorf-Gewerbegebiet 110 A, 8403 Lebring",
+      "free_parking": true,
+      "free_charging": false,
+      "charge_points": [
+        {
+          "plug": "ccs",
+          "power": 50.0,
+          "count": 2,
+          "available_count": 2
+        }
+      ]
+    },
+    "relationships": {
+      "operator": {
+        "data": {
+          "type": "company",
+          "id": "ae62cd2d-f29d-4107-b087-6d4f75261cca"
         }
       }
     }
-  ],
+  },
   "included": [
     {
       "id": "ae62cd2d-f29d-4107-b087-6d4f75261cca",
@@ -107,21 +83,14 @@ Body:
         "name": "ELLA"
       }
     }
-  ],
-  "meta": {
-    "disabled_going_electric_countries": [
-      "Frankreich"
-    ]
-  }
+  ]
 }
-
-
 
 ```
 
 ##### 400 Bad Request
 
-Client provided invalid request body.
+Client provided invalid request.
 
 ```json
 {
@@ -146,6 +115,21 @@ Client provided invalid request body.
     {
       "status": "403",
       "title": "api_key missing"
+    }
+  ]
+}
+```
+
+##### 404 Not Found
+
+A station with the given ID couldn't be found.
+
+```json
+{
+  "errors": [
+    {
+      "status": "404",
+      "title": "charging station <id>"
     }
   ]
 }

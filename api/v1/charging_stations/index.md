@@ -23,7 +23,9 @@ The following query filter parameters are available. They basically represent a 
 | longitude.lte           | Float    | mandatory    | 12.345                               | Inclusive upper bound of the longitude location component of the station |
 | charge_points.plug.in   | CSV      | optional     | "ccs,type2"                          | Only return stations that support this plug                              |
 | charge_points.power.gte | Float    | optional     | 50                                   | Minimum power of a plug                                                  |
-| operator.id             | String   | optional     | ae62cd2d-f29d-4107-b087-6d4f75261cca | Only stations of this operator  |
+| operator.id             | String   | optional     | ae62cd2d-f29d-4107-b087-6d4f75261cca | Only stations of this operator                                           |
+| free_charging           | Boolean  | optional     | true                                 | Only stations with free charging                                         |
+| free_parking            | Boolean  | optional     | true                                 | Only stations with free parking                                          |
 
 
 ## Response Body
@@ -41,7 +43,7 @@ The following table lists the `attributes` of these objects:
 | free_parking                  | Boolean or `null` | true                       | Parking at the station is free of charge (`null` = unknown)                                                      |
 | free_charging                 | Boolean or `null` | true                       | Charging at the station is free of charge (`null` = unknown)                                                     |
 | charge_points                 | Array             | -                          | Charge points at this station, grouped by power and plug type                                                    |
-| charge_points.plug            | String            | "ccs"                      | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                                                            |
+| charge_points.plug            | String            | "ccs"                      | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                   |
 | charge_points.power           | Float             | 50.0                       | Max. power                                                                                                       |
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                        |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown) |

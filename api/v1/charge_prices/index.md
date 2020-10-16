@@ -38,10 +38,11 @@ The following fields are to be sent in the request body, in the `attributes` sec
 
 The following table lists the `relationships` section of a `charge_prices_request` object:
 
-| **Name** | **Type**               | **Presence**                                           | **Example**                             | **Description**                                                                                                   |
-| -------- | ---------------------- | ------------------------------------------------------ | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| tariffs  | Array of Relationships | optional (default: all available tariffs are returned) | `[{"id": "some-uuid", type:"tariff" }]` | Only return charge prices for the given tariffs. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
-| vehicle  | Relationship           | See **Duration and Energy Input**                      | `[{"id": "some-uuid", type:"car" }]`    | Vehicle at charge. See [GET v1/vehicles](../vehicles/index.md) for the valid options.                             |
+| **Name**       | **Type**               | **Presence**                                           | **Example**                             | **Description**                                                                                                                                                                                                                                                                        |
+| -------------- | ---------------------- | ------------------------------------------------------ | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| tariffs        | Array of Relationships | optional (default: all available tariffs are returned) | `[{"id": "some-uuid", type:"tariff" }]` | Only return charge prices for the given tariffs. See [GET v1/tariffs](../tariffs/index.md) for the valid options.                                                                                                                                                                      |
+| tariff.include | String                 | optional (default: `filter`)                           | `"filter"`                              | `filter`: Only the tariffs listed should be returned and other filters should apply as well. `always`: The listed tariffs should always be returned, even if another filter would remove them. `exclusive`: Always only include the listed tariffs, eve if a filter would remove them. |
+| vehicle        | Relationship           | See **Duration and Energy Input**                      | `[{"id": "some-uuid", type:"car" }]`    | Vehicle at charge. See [GET v1/vehicles](../vehicles/index.md) for the valid options.                                                                                                                                                                                                  |
 
 \* Relationships are represented as id+type pairs. E.g.
 ```json
@@ -66,28 +67,28 @@ If both or no values are given, an error is raised.
 A response contains 0 to many `charge_price` objects, which define the prices per charge of a tariff per charge point.
 The following table lists the `attributes` of these objects:
 
-| **Name**                               | **Type**       | **Example**                       | **Description**                                                                                                                                                   |
-| -------------------------------------- | -------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| provider                               | String         | "Maingau Energie"                 | Name of the charge card provider                                                                                                                                  |
-| tariff_name                            | String or null | "EinfachStromLaden"               | Name of the tariff, if available                                                                                                                                  |
-| url                                    | String         | "http://my.tarif.at/prices"       | Link to tariff at the website of the provider                                                                                                                     |
-| monthly_min_sales                      | Float          | 12.49                             | Minimum charging costs per month                                                                                                                                  |
-| total_monthly_fee                      | Float          | 12.30                             | Any monthly fee + any yearly (service) fee (proportional)                                                                                                         |
-| flat_rate                              | Boolean        | true                              | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                                                                            |
-| direct_payment                         | Boolean        | true                              | This tariff can be used without registration                                                                                                                      |
-| provider_customer_tariff               | Boolean        | true                              | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                           |
-| currency                               | String         | "EUR"                             | Currency of the prices or fees                                                                                                                                    |
-| tags                                   | Array          | -                                 | Tags that are shown next to the tariff. E.g. "New Prices since 01.09.", "Club Membership required"                                                                |
-| tags.kind                              | String         | "info"                            | Find all valid value [here](/docs/api/enums.md).                                                                                                                  |
-| tags.text                              | String         | "Hello"                           | The main text of the tag.                                                                                                                                         |
-| tags.url                               | String         | "http://xyz.com"                  | A URL where the tag links to. Might contain `{locale}` (e.g. `http://test.com/{locale}/post.html`), which should be replaced by the current locale by the client. |
-| start_time                             | Integer        | 720                               | Time of day in minutes when the charging session gets started.                                                                                                    |
-| charge_point_prices                    | Array[Object]  |                                   |                                                                                                                                                                   |
-| charge_point_prices.plug               | String         | "ac"                              | Name of plug at charge point                                                                                                                                      |
-| charge_point_prices.power              | Float          | 22                                | In kW                                                                                                                                                             |
-| charge_point_prices.price              | Float          | 8.43                              | Cost of a single charge at the given connector, given the options of the request                                                                                  |
-| charge_point_prices.price_distribution | Hash           | { "session": 0.4, "minute": 0.6 } | Distribution of price in percentage of each dimension which applies (session, kwh and/or minute)                                                                  |
-
+| **Name**                               | **Type**        | **Example**                       | **Description**                                                                                                                                                   |
+| -------------------------------------- | --------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| provider                               | String          | "Maingau Energie"                 | Name of the charge card provider                                                                                                                                  |
+| tariff_name                            | String or null  | "EinfachStromLaden"               | Name of the tariff, if available                                                                                                                                  |
+| url                                    | String          | "http://my.tarif.at/prices"       | Link to tariff at the website of the provider                                                                                                                     |
+| monthly_min_sales                      | Float           | 12.49                             | Minimum charging costs per month                                                                                                                                  |
+| total_monthly_fee                      | Float           | 12.30                             | Any monthly fee + any yearly (service) fee (proportional)                                                                                                         |
+| flat_rate                              | Boolean         | true                              | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                                                                            |
+| direct_payment                         | Boolean         | true                              | This tariff can be used without registration                                                                                                                      |
+| provider_customer_tariff               | Boolean         | true                              | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                           |
+| currency                               | String          | "EUR"                             | Currency of the prices or fees                                                                                                                                    |
+| tags                                   | Array           | -                                 | Tags that are shown next to the tariff. E.g. "New Prices since 01.09.", "Club Membership required"                                                                |
+| tags.kind                              | String          | "info"                            | Find all valid value [here](/docs/api/enums.md).                                                                                                                  |
+| tags.text                              | String          | "Hello"                           | The main text of the tag.                                                                                                                                         |
+| tags.url                               | String          | "http://xyz.com"                  | A URL where the tag links to. Might contain `{locale}` (e.g. `http://test.com/{locale}/post.html`), which should be replaced by the current locale by the client. |
+| start_time                             | Integer         | 720                               | Time of day in minutes when the charging session gets started.                                                                                                    |
+| charge_point_prices                    | Array[Object]   |                                   |                                                                                                                                                                   |
+| charge_point_prices.plug               | String          | "ac"                              | Name of plug at charge point                                                                                                                                      |
+| charge_point_prices.power              | Float           | 22                                | In kW                                                                                                                                                             |
+| charge_point_prices.price              | Float           | 8.43                              | Cost of a single charge at the given connector, given the options of the request                                                                                  |
+| charge_point_prices.price_distribution | Hash            | { "session": 0.4, "minute": 0.6 } | Distribution of price in percentage of each dimension which applies (session, kwh and/or minute)                                                                  |
+| charge_point_prices.blocking_fee_start | Integer or null | 240                               | If the tariffs includes a **blocking fee**, the attributes defines when it starts to count (in minutes from start of charge)                                      |
 
 The following table lists the `relationships`:
 
@@ -106,6 +107,14 @@ The following table lists the `meta` data:
 | charge_points.duration | Float         | 30.0        | Charging duration (minutes) based on the input data (duration or vehicle + percentage) |
 | charge_points.energy   | Float         | 11.0        | Energy to be charged (kWh) based on the input data (duration or vehicle + percentage)  |
 
+### Definitions
+
+What is a *blocking fee*?
+- There is a minute-based tariff component
+- Which starts *at some point* after the charging session started (= NOT right
+  from the start)
+- There is **NO** other minute-based tariff component, which starts to count
+  directly from the start
 
 ## Example
 
@@ -153,7 +162,10 @@ with `energy`, `duration` and `tariffs`.
             "id": "c6adf982-4e41-431b-833a-dfa89b484c75",
             "type": "tariff"
           }
-        ]
+        ],
+        "meta": {
+          "include": "filter"
+        }
       }
     }
   }

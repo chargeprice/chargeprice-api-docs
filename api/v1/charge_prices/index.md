@@ -8,7 +8,7 @@ This API follows the https://jsonapi.org specification.
 
 * `API-Key: <your_api_key>` (contact@chargeprice.net to get access)
 * `Content-Type: application/json`
-* `Accept-Language: en`: [Valid Languages](/docs/api/enums.md). Used to localize the response, default language is `en`.
+* `Accept-Language: en`: [Valid Languages](../../enums.md). Used to localize the response, default language is `en`.
 
 ## Request
 
@@ -79,7 +79,7 @@ The following table lists the `attributes` of these objects:
 | provider_customer_tariff               | Boolean         | true                              | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                           |
 | currency                               | String          | "EUR"                             | Currency of the prices or fees                                                                                                                                    |
 | tags                                   | Array           | -                                 | Tags that are shown next to the tariff. E.g. "New Prices since 01.09.", "Club Membership required"                                                                |
-| tags.kind                              | String          | "info"                            | Find all valid value [here](/docs/api/enums.md).                                                                                                                  |
+| tags.kind                              | String          | "info"                            | Find all valid value [here](../../enums.md).                                                                                                                  |
 | tags.text                              | String          | "Hello"                           | The main text of the tag.                                                                                                                                         |
 | tags.url                               | String          | "http://xyz.com"                  | A URL where the tag links to. Might contain `{locale}` (e.g. `http://test.com/{locale}/post.html`), which should be replaced by the current locale by the client. |
 | start_time                             | Integer         | 720                               | Time of day in minutes when the charging session gets started.                                                                                                    |

@@ -74,7 +74,8 @@ Body:
             "EnBW"
           ],
           "going_electric_charge_card_ids": null,
-          "google_sheet_names": null
+          "google_sheet_names": null,
+          "open_charge_map_operator_ids": null
         }
       },
       "relationships": {

@@ -12,7 +12,7 @@ This API follows the https://jsonapi.org specification.
 
 ## Request
 
-The following fields are to be sent in the request body, in the `attributes` section of a `charge_prices_request` object:
+The following fields are to be sent in the request body, in the `attributes` section of a `charge_price_request` object:
 
 | **Name**                          | **Type**      | **Presence**                      | **Example**      | **Description**                                                                                                          |
 | --------------------------------- | ------------- | --------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -26,8 +26,8 @@ The following fields are to be sent in the request body, in the `attributes` sec
 | station.charge_points.power       | Float         | mandatory                         | 22               | In kW                                                                                                                    |
 | station.charge_points.plug        | String        | mandatory                         | "CCS"            | Name of plug at charge point                                                                                             |
 | options                           | Object        | mandatory                         |                  | Charge related request data                                                                                              |
-| options.max_monthly_fees          | Float         | optional                          | 0                | Only returns tariffs with a monthly fee less or equal the given value                                                    |
-| options.energy                    | Float         | See **Duration and Energy Input** | 30               | Only returns tariffs, where `total_monthly_fee` + `monthly_min_sales` <= the given value.                                |
+| options.max_monthly_fees          | Float         | optional                          | 0                | Only returns tariffs, where `total_monthly_fee` + `monthly_min_sales` <= the given value.                                                    |
+| options.energy                    | Float         | See **Duration and Energy Input** | 30               | Total energy to be charged in kWh                                                                                        |
 | options.duration                  | Float         | See **Duration and Energy Input** | 45               | Duration of the charge in minutes                                                                                        |
 | options.battery_range             | Array[Float]  | See **Duration and Energy Input** | [20.0,80.0]      | Array with 2 values, that defines the battery start and end values for the charge in percentage.                         |
 | options.car_ac_phases             | Integer       | optional (default: 3)             | 3                | Number of AC phases the car can use to charge. Possible values: 1,3                                                      |

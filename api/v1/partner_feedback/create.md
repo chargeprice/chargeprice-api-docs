@@ -1,7 +1,5 @@
 # POST /v1/partner_feedback
 
-**[WORK IN PROGRESS]**
-
 Send different kinds of partner feedback to the Chargeprice Team.
 
 This API follows the https://jsonapi.org specification.
@@ -17,21 +15,20 @@ The following types of feedback can be sent:
 
 * `tariff_update`
 
-All of these types have the following generic and required attributes. In
-brackets the max. length of the string.
+All of these types have the following generic and required attributes. 
 
-* `content` (100,000): Free text about the change of the tariff
-* `language` (2): ISO-639-1 language code (e.g. en, de, nl, fr)
+* `content`: Free text about the change of the tariff
+* `language`: ISO-639-1 language code (e.g. en, de, nl, fr)
 
 ### Attributes per type
 
 All of them are of type `string` and are mandatory (but can have an empty
-value). In brackets the max. length of the string.
+value).
 
 * `tariff_update`:
-  * `tariff` (1000): Name of the user facing tariff, to which the update applies to
-  * `cpo` (10,000): Names of the CPOs (comma separated) to which this tariff applies to. If update applies to all CPOs or the CPOs are unknown, it can be left empty.
-  * `emp` (1000): Name of the EMP which ownes the tariff.
+  * `tariff`: Name of the user facing tariff, to which the update applies to
+  * `cpo`: Names of the CPOs (comma separated) to which this tariff applies to. If update applies to all CPOs or the CPOs are unknown, it can be left empty.
+  * `emp`: Name of the EMP which ownes the tariff.
 
 ## Example
 

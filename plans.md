@@ -7,7 +7,7 @@
 | Commercial Use                          | No      | Yes                   | Yes        |
 | Support                                 | Limited | Yes                   | Yes        |
 | Workshops                               | -       | Yes                   | Yes        |
-| Remove Branding (see below)             | -       | -                     | Yes        |
+| Remove Branding                         | -       | -                     | Yes        |
 | Remove Tracking                         | -       | -                     | Yes        |
 | Service Level Agreement                 | -       | -                     | Yes        |
 | **Included APIs**                       |         |                       |            |

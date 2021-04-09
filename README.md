@@ -2,6 +2,14 @@
 
 Documentation for 3rd party applications to communicate with the **Chargeprice API**.
 
+## Get Access!
+
+Please check out our [Plans](./plans.md) as well as the [Terms Of Use](./terms.md)
+
+Then contact contact@chargeprice.net and tell us about your application!
+
+We provide you with an API key then.
+
 ## API
 
 ### V1

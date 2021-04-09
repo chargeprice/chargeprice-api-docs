@@ -1,26 +1,19 @@
 # Integrate Charge Prices into your Application
 
-## Steps
-
-### 1. Contact Chargeprice
-
-Please contact contact@chargeprice.net and tell us about your application!
-We provide you with an API-Key then.
-
-### 2. Integrate the POI Provider of your choice
-
-At the moment the following POI (Charging Station Providers) APIs are supported
-as data adapters for the Chargeprice API:
+At the moment the following POI (Charging Station) Provider APIs are supported
+as data adapters for the Charge Prices API:
 
 * [GoingElectric.de](https://www.goingelectric.de/stromtankstellen/api/)
 * [OpenChargeMap.org](https://openchargemap.org/site/develop#api) (Beta)
+* [Chargeprice](/api/v1/charging_stations/index.md): At the moment only contains
+  data for the following countries: FR, NL, BE, LU, GB, ES, HR, SI. 
 
-Chargeprice doesn't provide an API to fetch POIs (yet). You **need** to
-integrate one of the above data sources to use the Chargeprice API and fetch prices.
+You **need** to integrate at least one of the above data sources to use the
+Chargeprice API and fetch prices.
 
-Get familiar with your chosen API before you continue with the next step.
+Get familiar with your chosen API(s) before you continue with the next step.
 
-### 3. Map POI API with Chargeprice API
+### Map POI API with Chargeprice API
 
 Here you can find the interface documention of the [Charge Prices
 API](../api/v1/charge_prices/index.md) of Chargeprice.
@@ -28,9 +21,25 @@ API](../api/v1/charge_prices/index.md) of Chargeprice.
 Since the API is designed to support multiple sources, the data of the chosen
 source now needs to be provided in the correct format.
 
+#### Chargeprice
+
+You will need to map the data from the Charging Stations API to the following
+attributes in the Charge Prices API:
+
+| **Chargeprice (Charging Stations)** | **Chargeprice (Charge Prices)** | **Transformation** |
+| ----------------------------------- | ------------------------------- | ------------------ |
+| country                             | station.country                 | -                  |
+| operator.id                         | station.network                 | -                  |
+| longitude                           | station.longitude               | -                  |
+| latitude                            | station.latitude                | -                  |
+| charge_points.power                 | station.charge_points.power     | -                  |
+| charge_points.plug                  | station.charge_points.plug      | -                  |
+
+
 #### Going Electric
 
-You will need to map the data of Going Electric to the following attributes in Chargeprice:
+You will need to map the data of Going Electric to the following attributes in
+Chargeprice:
 
 | **Going Electric** | **Chargeprice**             | **Transformation** |
 | ------------------ | --------------------------- | ------------------ |
@@ -43,15 +52,16 @@ You will need to map the data of Going Electric to the following attributes in C
 
 #### Open Charge Map (Beta)
 
-You will need to map the data of OpenChargeMap to the following attributes in Chargeprice:
+You will need to map the data of OpenChargeMap to the following attributes in
+Chargeprice:
 
-| **Open Charge Map**                                         | **Chargeprice**             | **Transformation**                                                                        |
-| ----------------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------- |
-| AddressInfo.Country.ISOCode                                 | station.country             | -                                                                                         |
+| **Open Charge Map**                                         | **Chargeprice**             | **Transformation**                                                                          |
+| ----------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------- |
+| AddressInfo.Country.ISOCode                                 | station.country             | -                                                                                           |
 | OperatorID                                                  | station.network             | convert to string: 23 => `"23"`                                                             |
-| AddressInfo.Longitude                                       | station.longitude           | -                                                                                         |
-| AddressInfo.Latitude                                        | station.latitude            | -                                                                                         |
-| Connections.PowerKW                                         | station.charge_points.power | -                                                                                         |
+| AddressInfo.Longitude                                       | station.longitude           | -                                                                                           |
+| AddressInfo.Latitude                                        | station.latitude            | -                                                                                           |
+| Connections.PowerKW                                         | station.charge_points.power | -                                                                                           |
 | Connections.ConnectionTypeID <br> Connections.CurrentTypeID | station.charge_points.plug  | "ConnectionTypeID,CurrentTypeID", e.g. ConnectionTypeID: 27, CurrentTypeID: 30 => `"27,30"` |
 
 Have a look at [this example API request from

@@ -1,16 +1,23 @@
 # Terms of Use
 
-By using the Chargeprice API, you are accepting the following terms.
+By using the Chargeprice API, you are accepting the entirety of the following
+terms. These terms are subject to change at any time without notice.
 
 ## Only use your personal API key
 
+Every API is given in association to an entity, being a company or a physical
+person. 
+
 It is not permitted to use any other API key than the one(s) provided by
 Chargeprice (it is not allowed to e.g. use the API key from
-www.chargeprice.app).
+https://www.chargeprice.app).
 
 Additionally the provided API key must only be used for the application that was
 agreed on with Chargeprice. Any use in a new application must be requested
 first.
+
+Using a non authorized API or misusing your personal API will result in a report
+to legal authorities. 
 
 ## Branding
 
@@ -22,7 +29,8 @@ Before launching the integration of the Chargeprice API, a screenshot or test
 account needs to be provided to Chargeprice and Chargeprice needs to approve the
 branding.
 
-Exceptions might be explicitly granted.
+Exceptions might be explicitly granted only by a legal representative of
+Chargeprice SAS. 
 
 ## Soft Limit & Current Usage
 
@@ -39,6 +47,11 @@ The API consumer will use the data provided by Chargeprice solely for the agreed
 application and is not allowed to share any information or data transferred by
 Chargeprice or via the Chargeprice platform without prior written consent from
 Chargeprice.
+
+Using a non authorized API or misusing your personal API key will result in a
+report to legal authorities. 
+
+This clause has been added after intended data abuse. 
 
 ## Caching
 

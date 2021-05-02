@@ -23,13 +23,14 @@ The following query filter parameters are available:
 A response contains 0 to many `tariff` objects.
 The following table lists the `attributes` of these objects:
 
-| **Name**                 | **Type** | **Example**         | **Description**                                                                                         |
-| ------------------------ | -------- | ------------------- | ------------------------------------------------------------------------------------------------------- |
-| provider                 | String   | "Maingau Energie"   | Name of the charge card provider                                                                        |
-| name                     | String   | "EinfachStromLaden" | Name of the tariff                                                                                      |
-| direct_payment           | Boolean  | true                | This tariff can be used without registration                                                            |
-| provider_customer_tariff | Boolean  | true                | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
-| charge_card_id           | String   | "201"               | GoingElectric charge card ID                                                                            |
+| **Name**                 | **Type**      | **Example**         | **Description**                                                                                         |
+| ------------------------ | ------------- | ------------------- | ------------------------------------------------------------------------------------------------------- |
+| provider                 | String        | "Maingau Energie"   | Name of the charge card provider                                                                        |
+| name                     | String        | "EinfachStromLaden" | Name of the tariff                                                                                      |
+| direct_payment           | Boolean       | true                | This tariff can be used without registration                                                            |
+| provider_customer_tariff | Boolean       | true                | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
+| supported_countries      | Array<String> | ["AT","DE"]         | List of countries where the tariff is mainly supported.                                                 |
+| charge_card_id           | String        | "201"               | GoingElectric charge card ID                                                                            |
 
 ## Example
 
@@ -57,6 +58,7 @@ Body:
         "name": "Energie Graz Direct",
         "provider_customer_only": false,
         "direct_payment": true,
+        "supported_countries": ["AT"],
         "charge_card_id": "208"
       }
     },
@@ -67,6 +69,7 @@ Body:
         "provider": "Plugsurfing",
         "provider_customer_only": false,
         "direct_payment": false,
+        "supported_countries": ["AT","DE"],
         "charge_card_id": "208"
       }
     }

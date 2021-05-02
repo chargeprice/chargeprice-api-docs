@@ -56,6 +56,7 @@ The following table lists the `attributes` of a `tariff` or `sub_tariff` (both h
 | prices.restrictions.countries                   | Array<String>       | ["AT","DE"]       | All countries that apply. `ISO 3166-1` values are valid                                                                                                                                               |
 | prices.restrictions.car_ac_phase                | Integer             | 3                 | Valid AC phases of the car                                                                                                                                                                            |
 | prices.restrictions.charge_point_power_is_range | Boolean             | true              | true: List of `charge_point_powers` needs to have two values, which define a range of valid values (first value needs to be <= second value). False: Only the specifc values are valid.               |
+| prices.restrictions.use_consumed_charging_power | Boolean             | true              | true: Use Average Consumed Power of Vehicle. False: Use Maximum Power of Station                                                                                                                      |
 | prices.decomposition                            | Hash                | -                 | Defines the price segment                                                                                                                                                                             |
 | prices.decomposition.dimension                  | String              | "minute"          | Either "minute", "kwh" or "session"                                                                                                                                                                   |
 | prices.decomposition.price                      | Float               | -                 | The price per dimension.                                                                                                                                                                              |
@@ -114,7 +115,8 @@ Body:
                   "DE"
                 ],
                 "car_ac_phase": 3,
-                "charge_point_power_is_range": false
+                "charge_point_power_is_range": false,
+                "use_consumed_charging_power": false
               }
             ],
             "decomposition": [

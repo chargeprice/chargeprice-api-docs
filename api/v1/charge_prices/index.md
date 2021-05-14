@@ -85,6 +85,9 @@ The following table lists the `attributes` of these objects:
 | tags.text                              | String          | "Hello"                           | The main text of the tag.                                                                                                                                                                                                                    |
 | tags.url                               | String          | "http://xyz.com"                  | A URL where the tag links to. Might contain `{locale}` (e.g. `http://test.com/{locale}/post.html`), which should be replaced by the current locale by the client.                                                                            |
 | start_time                             | Integer         | 720                               | Time of day in minutes when the charging session gets started.                                                                                                                                                                               |
+| branding                               | Hash or null    | -                                 | If branding for the tariff is not available, then `null`                                                                                                                                                                                     |
+| branding.background_color              | String          | "#ff0000"                         | Brand color to be used as background color to show the tariff.                                                                                                                                                                               |
+| branding.logo_url                      | String          | "https://logo.com/test.png"       | Brand logo to be displayed next to the price.                                                                                                                                                                                                |
 | charge_point_prices                    | Array[Object]   |                                   |                                                                                                                                                                                                                                              |
 | charge_point_prices.plug               | String          | "ac"                              | Name of plug at charge point                                                                                                                                                                                                                 |
 | charge_point_prices.power              | Float           | 22                                | In kW                                                                                                                                                                                                                                        |
@@ -233,6 +236,10 @@ Body:
         "provider_customer_only": false,
         "start_time": 720,
         "currency": "EUR",
+        "branding": {
+          "background_color": "#ff0000",
+          "logo_url": "http://www.cp.app/logo.png"
+        },
         "charge_point_prices": [
           {
             "power":  22,

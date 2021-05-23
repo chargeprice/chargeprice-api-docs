@@ -31,8 +31,8 @@ The following table lists the `attributes` of these objects:
 | provider_customer_tariff  | Boolean       | true                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
 | branding                  | Hash or null  | -                           | If branding for the tariff is not available, then `null`                                                |
 | branding.background_color | String        | "#ff0000"                   | Brand color to be used as background color to show the tariff.                                          |
-| branding.logo_url         | String        | "https://logo.com/test.png" | Brand logo to be displayed next to the tariff.                                                           |
-| supported_countries       | Array<String> | ["AT","DE"]                 | List of countries where the tariff is mainly supported.                                                 |
+| branding.logo_url         | String        | "https://logo.com/test.png" | Brand logo to be displayed next to the tariff.                                                          |
+| supported_countries       | Array<String> | ["AT","DE"]                 | List of countries where the tariff is mainly supported. If empty, it's supported in every country.      |
 | charge_card_id            | String        | "201"                       | GoingElectric charge card ID                                                                            |
 
 ## Example

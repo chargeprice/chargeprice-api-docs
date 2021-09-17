@@ -87,6 +87,7 @@ The following table lists the `attributes` of these objects:
 | start_time                             | Integer         | 720                               | Time of day in minutes when the charging session gets started.                                                                                                                                                                               |
 | branding                               | Hash or null    | -                                 | If branding for the tariff is not available, then `null`                                                                                                                                                                                     |
 | branding.background_color              | String          | "#ff0000"                         | Brand color to be used as background color to show the tariff.                                                                                                                                                                               |
+| branding.text_color                    | String          | "#000000"                         | Color to be used as text color to show the tariff.                                                                                                                                                                               |
 | branding.logo_url                      | String          | "https://logo.com/test.png"       | Brand logo to be displayed next to the price.                                                                                                                                                                                                |
 | charge_point_prices                    | Array[Object]   |                                   |                                                                                                                                                                                                                                              |
 | charge_point_prices.plug               | String          | "ac"                              | Name of plug at charge point                                                                                                                                                                                                                 |
@@ -238,6 +239,7 @@ Body:
         "currency": "EUR",
         "branding": {
           "background_color": "#ff0000",
+          "text_color": "#000000",
           "logo_url": "http://www.cp.app/logo.png"
         },
         "charge_point_prices": [

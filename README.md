@@ -53,4 +53,4 @@ We will provide you an API key once all questions are answered and we agreed on 
 ## Guides
 
 * [Integrate Charge Prices into your Application](./guides/integrate_charge_prices.md)
-* [Using the API for Market Analytics](./using_the_api_for_market_analytics.md)
+* [Using the API for Market Analytics](./guides/using_the_api_for_market_analytics.md)

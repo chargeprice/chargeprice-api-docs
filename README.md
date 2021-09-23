@@ -1,25 +1,56 @@
-# Chargeprice API Docs
+# Chargeprice API Documentation
 
-Documentation for 3rd party applications to communicate with the **Chargeprice API**.
+Documentation for 3rd party applications to access the **Chargeprice API**.
 
-## Get Access!
+The API offers data around the electric vehicle market including detailed charging tariffs, EMPs, CPOs, charging stations and electric vehicle specs.
 
-Please check out our [Plans](./plans.md) as well as the [Terms Of Use](./terms.md)
+**You want the data, but don't want to code?
+Check out our [data platform](./data_platform.md)!**
 
-Then contact contact@chargeprice.net and tell us about your application!
+## Getting Access
 
-We provide you with an API key then.
+Please check out our [Plans](./plans.md) as well as the [Terms Of Use](./terms.md).
 
-## API
+Then contact contact@chargeprice.net and tell us about your application:
+
+* What do you want to build?
+* Which data do you need?
+* Is it a commercial, non-commercial or academic use case?
+
+We will provide you an API key once all questions are answered and we agreed on the applied [plan](./plans.md).
+
+## Endpoints
 
 ### V1
 
-* [Charge Prices](./api/v1/charge_prices/index.md)
-* [Tariffs Overview](./api/v1/tariffs/index.md)
-* [Vehicles](./api/v1/vehicles/index.md)
-* [Charging Stations](./api/v1/charging_stations/index.md)
-* [User Feedback](./api/v1/user_feedback/create.md)
+* Charge Prices
+  * [Index](./api/v1/charge_prices/index.md)
+* Charging Stations
+  * [Index](./api/v1/charging_stations/index.md)
+  * [Show](./api/v1/charging_stations/show.md)
+* Companies
+  * [Delete](./api/v1/companies/delete.md)
+  * [Index](./api/v1/companies/index.md)
+  * [Upsert](./api/v1/companies/upsert.md)
+* Partner Feedback
+  * [Create](./api/v1/partner_feedback/create.md)
+* Tariff Details
+  * [Index](./api/v1/tariff_details/index.md)
+* Tariffs
+  * [Index](./api/v1/tariffs/index.md)
+* User Feedback
+  * [Create](./api/v1/user_feedback/create.md)
+* Vehicles
+  * [Index](./api/v1/vehicles/index.md)
+
+### V2
+
+* Tariffs
+  * [Delete](./api/v2/tariffs/delete.md)
+  * [Index](./api/v2/tariffs/index.md)
+  * [Upsert](./api/v2/tariffs/upsert.md)
 
 ## Guides
 
 * [Integrate Charge Prices into your Application](./guides/integrate_charge_prices.md)
+* [Using the API for Market Analytics](./using_the_api_for_market_analytics.md)

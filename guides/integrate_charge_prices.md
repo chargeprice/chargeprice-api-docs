@@ -15,8 +15,8 @@ Get familiar with your chosen API(s) before you continue with the next step.
 
 ### Map POI API with Chargeprice API
 
-Here you can find the interface documention of the [Charge Prices
-API](../api/v1/charge_prices/index.md) of Chargeprice.
+Here you can find the documention of the [ Prices
+endpoint](../api/v1/charge_prices/index.md) of the Chargeprice API.
 
 Since the API is designed to support multiple sources, the data of the chosen
 source now needs to be provided in the correct format.

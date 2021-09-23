@@ -9,6 +9,10 @@ Get details of multiple tariffs given a charge at...
 
 This API follows the https://jsonapi.org specification.
 
+## Authorization Group
+
+`ViewPriceBenchmark`
+
 ## Headers
 
 * `API-Key: <your_api_key>` (contact contact@chargeprice.net to get access)

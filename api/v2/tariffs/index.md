@@ -10,6 +10,10 @@ This API follows the https://jsonapi.org specification.
 * `API-Key: <your_api_key>` (contact contact@chargeprice.net to get access)
 * `Content-Type: application/json`
 
+## Authorization Group
+
+`ReadTariffs`
+
 ## Request
 
 The following query parameters are available.

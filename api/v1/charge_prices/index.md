@@ -10,6 +10,10 @@ This API follows the https://jsonapi.org specification.
 * `Content-Type: application/json`
 * `Accept-Language: en`: [Valid Languages](../../enums.md). Used to localize the response, default language is `en`.
 
+## Authorization Group
+
+`ReadCosts`
+
 ## Request
 
 The following fields are to be sent in the request body, in the `attributes` section of a `charge_price_request` object:

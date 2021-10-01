@@ -6,3 +6,4 @@ theme: jekyll-theme-gitbook
 relative_links:
   enabled: true
   collections: true
+theme: jekyll-theme-dinky

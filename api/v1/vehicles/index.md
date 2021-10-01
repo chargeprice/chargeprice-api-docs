@@ -1,6 +1,9 @@
 # GET /v1/vehicles
 
-Returns all supported electric vehicles. The data is based on the [Open EV data project](https://github.com/hoenic07/open-ev-data).
+Returns all supported electric vehicles.
+
+If you want to get all details of vehicles, please use
+[/v2/vehicles](../../v2/vehicles/index.md).
 
 This API follows the https://jsonapi.org specification.
 
@@ -19,8 +22,7 @@ No parameters.
 
 ## Response Body
 
-A response contains 0 to many vehicles. At the moment vehicles of type `car` are supported.
-The following table lists the `attributes` of a `car`:
+A response contains 0 to many vehicles. The following table lists the available `attributes`:
 
 | **Name**        | **Type**      | **Example**                 | **Description**                                                                                |
 | --------------- | ------------- | --------------------------- | ---------------------------------------------------------------------------------------------- |

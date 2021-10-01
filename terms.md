@@ -5,8 +5,8 @@ terms. These terms are subject to change at any time without notice.
 
 ## Only use your personal API key
 
-Every API is given in association to an entity, being a company or a physical
-person. 
+Every API key is given in association to an entity, being a company or a
+physical person. 
 
 It is not permitted to use any other API key than the one(s) provided by
 Chargeprice (it is not allowed to e.g. use the API key from

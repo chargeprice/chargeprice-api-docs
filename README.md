@@ -49,6 +49,10 @@ We will provide you an API key once all questions are answered and we agreed on 
   * [Delete](./api/v2/tariffs/delete.md)
   * [Index](./api/v2/tariffs/index.md)
   * [Upsert](./api/v2/tariffs/upsert.md)
+* Vehicles
+  * [Index](./api/v2/vehicles/index.md)
+* Vehicle Brands
+  * [Index](./api/v2/vehicle_brands/index.md)
 
 ## Guides
 

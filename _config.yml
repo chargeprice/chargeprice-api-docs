@@ -1,5 +1,6 @@
 plugins:
   - jekyll-relative-links
+title: Chargeprice API Documentation
 relative_links:
   enabled: true
   collections: true

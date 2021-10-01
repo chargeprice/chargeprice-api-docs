@@ -1,8 +1,6 @@
 plugins:
   - jekyll-relative-links
-  - jekyll-theme-gitbook
 title: Chargeprice API Documentation
-theme: jekyll-theme-gitbook
 relative_links:
   enabled: true
   collections: true

@@ -57,10 +57,11 @@ This clause has been added after intended data abuse.
 
 It is not permitted to cache any data received from the API for longer than 24
 hours on the client-side (e.g. mobile devices). Server-side caching is
-prohibited at all. Exceptions are data that are considered as settings, e.g.
-Storing the selected vehicle or ones selected tariffs in a local storage. It is
-explicitly prohibited to cache any price or charging station related data.
-Further exceptions need to be explicitly granted by Chargeprice. 
+prohibited at all. Exceptions are vehicles data in general and data that are
+considered as settings, e.g. Storing the selected vehicle or ones selected
+tariffs in a local storage. It is explicitly prohibited to cache any price or
+charging station related data. Further exceptions need to be explicitly granted
+by Chargeprice.
 
 ## Avoid unnecessary calls
 

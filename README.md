@@ -11,7 +11,7 @@ Check out our [data platform](./data_platform.md)!**
 
 Please check out our [Plans](./plans.md) as well as the [Terms Of Use](./terms.md).
 
-Then contact contact@chargeprice.net and tell us about your application:
+Then contact sales@chargeprice.net (yes, even for the free plan) and tell us about your application:
 
 * What do you want to build?
 * Which data do you need?

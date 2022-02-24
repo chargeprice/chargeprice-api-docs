@@ -2,22 +2,25 @@
 
 Documentation for 3rd party applications to access the **Chargeprice API**.
 
-The API offers data around the electric vehicle market including detailed charging tariffs, EMPs, CPOs, charging stations and electric vehicle specs.
+The API offers data around the electric vehicle market including detailed
+charging tariffs, EMPs, CPOs, charging stations and electric vehicle specs.
 
-**You want the data, but don't want to code?
-Check out our [data platform](./data_platform.md)!**
+**You want the data, but don't want to code? Check out our [data
+platform](./data_platform.md)!**
 
 ## Getting Access
 
-Please check out our [Plans](./plans.md) as well as the [Terms Of Use](./terms.md).
+Please check out our [Plans](./plans.md) as well as the [Terms Of
+Use](./terms.md).
 
-Then contact sales@chargeprice.net (yes, even for the free plan) and tell us about your application:
+Then contact sales@chargeprice.net and tell us about your application:
 
 * What do you want to build?
 * Which data do you need?
 * Is it a commercial, non-commercial or academic use case?
 
-We will provide you an API key once all questions are answered and we agreed on the applied [plan](./plans.md).
+We will provide you an API key once all questions are answered and we agreed on
+the applied [plan](./plans.md).
 
 ## Endpoints
 
@@ -56,5 +59,7 @@ We will provide you an API key once all questions are answered and we agreed on 
 
 ## Guides
 
-* [Integrate Charge Prices into your Application](./guides/integrate_charge_prices.md)
-* [Using the API for Market Analytics](./guides/using_the_api_for_market_analytics.md)
+* [Integrate Charge Prices into your
+  Application](./guides/integrate_charge_prices.md)
+* [Using the API for Market
+  Analytics](./guides/using_the_api_for_market_analytics.md)

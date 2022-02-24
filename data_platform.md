@@ -11,4 +11,4 @@ It is a web-based application that allows you to:
 
 If it doesn't provide what you need, we offer custom extensions.
 
-Interested? Reach out to us via contact@chargeprice.net.
+Interested? Reach out to us via sales@chargeprice.net.

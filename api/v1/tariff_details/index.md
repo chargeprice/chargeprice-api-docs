@@ -15,7 +15,7 @@ This API follows the https://jsonapi.org specification.
 
 ## Headers
 
-* `API-Key: <your_api_key>` (contact contact@chargeprice.net to get access)
+* `API-Key: <your_api_key>` (contact sales@chargeprice.net to get access)
 * `Content-Type: application/json`
 
 ## Request

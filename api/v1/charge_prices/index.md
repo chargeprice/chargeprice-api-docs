@@ -6,7 +6,7 @@ This API follows the https://jsonapi.org specification.
 
 ## Headers
 
-* `API-Key: <your_api_key>` (contact@chargeprice.net to get access)
+* `API-Key: <your_api_key>` (sales@chargeprice.net to get access)
 * `Content-Type: application/json`
 * `Accept-Language: en`: [Valid Languages](../../enums.md). Used to localize the response, default language is `en`.
 

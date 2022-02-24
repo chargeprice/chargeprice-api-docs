@@ -2,7 +2,7 @@
 
 |                                               |                        | Basic      | Business    | Enterprise                  |
 | --------------------------------------------- | ---------------------- | ---------- | ----------- | --------------------------- |
-| Cost                                          | -                      | 99€ / year | Contact Us  | Contact Us                  |
+| Cost                                          | -                      | 99€ / year excl. VAT | Contact Us  | Contact Us                  |
 | Included Monthly API calls (soft limit)       | -                      | 5,000      | From 15,000 | Unlimited                   |
 | Commercial Use                                | -                      | Yes        | Yes         | Yes                         |
 | Support                                       | -                      | Limited    | Yes         | Yes                         |

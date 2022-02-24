@@ -38,6 +38,7 @@ The following table lists the `attributes` of these objects:
 | branding.text_color       | String        | "#000000"           | Color to be used as text color to show the tariff.                                                      | branding.logo_url | String | "https://logo.com/test.png" | Brand logo to be displayed next to the tariff. |
 | supported_countries       | Array<String> | ["AT","DE"]         | List of countries where the tariff is mainly supported. If empty, it's supported in every country.      |
 | charge_card_id            | String        | "201"               | GoingElectric charge card ID                                                                            |
+| emp                       | Relationship  | -                   | Owner EMP of the tariff.                                                                                |
 
 ## Example
 
@@ -72,6 +73,14 @@ Body:
         },
         "supported_countries": ["AT"],
         "charge_card_id": "208"
+      },
+      "relationships": {
+        "emp": {
+          "data": {
+            "type": "company",
+            "id": "3be781a1-c16e-4af0-890a-b5f5943b6b75"
+          }
+        }
       }
     },
     {
@@ -84,6 +93,14 @@ Body:
         "branding": null,
         "supported_countries": ["AT","DE"],
         "charge_card_id": "208"
+      },
+      "relationships": {
+        "emp": {
+          "data": {
+            "type": "company",
+            "id": "2be781a1-c16e-4af0-890a-b5f5943b6b71"
+          }
+        }
       }
     }
   ]

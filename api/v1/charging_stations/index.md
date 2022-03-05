@@ -17,25 +17,48 @@ This API follows the https://jsonapi.org specification.
 
 ### Filters
 
-The following query filter parameters are available. They basically represent a bounding box in which the stations need to be.
+The following query filter parameters are available. They basically represent a
+bounding box in which the stations need to be.
 
-| **Name**                | **Type** | **Presence** | **Example**                          | **Description**                                                          |
-| ----------------------- | -------- | ------------ | ------------------------------------ | ------------------------------------------------------------------------ |
-| latitude.gte            | Float    | mandatory    | 12.345                               | Inclusive lower bound of the latitude location component of the station  |
-| latitude.lte            | Float    | mandatory    | 12.345                               | Inclusive upper bound of the latitude location component of the station  |
-| longitude.gte           | Float    | mandatory    | 12.345                               | Inclusive lower bound of the longitude location component of the station |
-| longitude.lte           | Float    | mandatory    | 12.345                               | Inclusive upper bound of the longitude location component of the station |
-| charge_points.plug.in   | CSV      | optional     | "ccs,type2"                          | Only return stations that support this plug                              |
-| charge_points.power.gte | Float    | optional     | 50                                   | Minimum power of a plug                                                  |
-| operator.id             | String   | optional     | ae62cd2d-f29d-4107-b087-6d4f75261cca | Only stations of this operator                                           |
-| free_charging           | Boolean  | optional     | true                                 | Only stations with free charging                                         |
-| free_parking            | Boolean  | optional     | true                                 | Only stations with free parking                                          |
+| **Name**                | **Type** | **Presence** | **Example**                                                               | **Description**                                                                                    |
+| ----------------------- | -------- | ------------ | ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| id                      | CSV      | optional*    | 20006f18-3ed4-4715-92b5-08e37e6dd18c,20006f18-3ed4-4715-92b5-08e37e6dd18c | A list of max. 50 Charging Station IDs that can be fetched                                         |
+| latitude.gte            | Float    | optional*    | 12.345                                                                    | Inclusive lower bound of the latitude location component of the station for a bounding box search  |
+| latitude.lte            | Float    | optional*    | 12.345                                                                    | Inclusive upper bound of the latitude location component of the station for a bounding box search  |
+| longitude.gte           | Float    | optional*    | 12.345                                                                    | Inclusive lower bound of the longitude location component of the station for a bounding box search |
+| longitude.lte           | Float    | optional*    | 12.345                                                                    | Inclusive upper bound of the longitude location component of the station for a bounding box search |
+| longitude               | Float    | optional*    | 12.345                                                                    | Longitude location component of the center of the radius search                                    |
+| latitude                | Float    | optional*    | 12.345                                                                    | Latitude location component of the center of the radius search                                     |
+| radius                  | Integer  | optional*    | 1000                                                                      | Radius (in meters) in which stations should be searched                                            |
+| charge_points.plug.in   | CSV      | optional     | "ccs,type2"                                                               | Only return stations that support this plug                                                        |
+| charge_points.power.gte | Float    | optional     | 50                                                                        | Minimum power of a plug                                                                            |
+| operator.id             | String   | optional     | ae62cd2d-f29d-4107-b087-6d4f75261cca                                      | Only stations of this operator                                                                     |
+| free_charging           | Boolean  | optional     | true                                                                      | Only stations with free charging                                                                   |
+| free_parking            | Boolean  | optional     | true                                                                      | Only stations with free parking                                                                    |
 
+#### Type of Search
+
+You always need to perform a specific type of charging station search. The
+following are supported and defined by the combination of filters:
+
+* Bounding Box: Search within a rectangle
+  * latitude.gte
+  * latitude.lte
+  * longitude.gte
+  * longitude.lte
+* Radius: Search in a radius, given a center
+  * latitude
+  * longitude
+  * radius
+* ID: Get all stations with the given ids
+  * id
+
+These searches can't be combined, they are mutually exclusive (XOR)! 
 
 ## Response Body
 
-A response contains 0 to max. 400 `charging_station` objects.
-The following table lists the `attributes` of these objects:
+A response contains 0 to max. 400 `charging_station` objects. The following
+table lists the `attributes` of these objects:
 
 | **Name**                      | **Type**          | **Example**                | **Description**                                                                                                  |
 | ----------------------------- | ----------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -59,10 +82,26 @@ The following table lists the `attributes` of these objects:
 
 ## Example
 
-### Request
+### Bounding Box Request
 
 ```http
 GET http://example-base-url.com/v1/charging_stations?filter[latitude.gte]=9.0&filter[latitude.lte]=11.0&filter[longitude.gte]=19.0&filter[longitude.lte]=21.0
+Content-Type: application/json
+Api-Key: my-secret-key
+```
+
+### Radius Request
+
+```http
+GET http://example-base-url.com/v1/charging_stations?filter[latitude]=9.0&filter[latitude]=11.0&filter[radius]=1000
+Content-Type: application/json
+Api-Key: my-secret-key
+```
+
+### ID Request
+
+```http
+GET http://example-base-url.com/v1/charging_stations?filter[id]=20006f18-3ed4-4715-92b5-08e37e6dd18c
 Content-Type: application/json
 Api-Key: my-secret-key
 ```

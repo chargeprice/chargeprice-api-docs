@@ -41,6 +41,10 @@ The following table lists the `relationships` section:
 | tariffs  | Array of Relationships | mandatory    | `[{"id": "some-uuid", type:"tariff" }]` | Details for the those tariffs should be returned.                                     |
 | vehicle  | Relationship           | mandatory    | `{"id": "some-uuid", type:"car" }`      | Vehicle at charge. See [GET v1/vehicles](../vehicles/index.md) for the valid options. |
 
+### Includes
+
+The `emp` and `tariff` relationship are included per default.
+See the response of the `included` section. 
 
 ## Response Body
 
@@ -63,13 +67,15 @@ The following table lists the `attributes` of these objects:
 | charge_point.energy_type   | String        | `ac`        | Either `ac` or `dc`.                                                                                                      |
 | country                    | String        | `AT`        | ISO 3166 country code of the location                                                                                     |
 
-The following table lists the `relationships` section:
+The following table lists the `relationships` and their values in the `included` section:
 
-| **Name** | **Type**     | **Presence** | **Example**                              | **Description**                                               |
-| -------- | ------------ | ------------ | ---------------------------------------- | ------------------------------------------------------------- |
-| tariff   | Relationship | mandatory    | `{"id": "some-uuid", type:"tariff" }`    | The tariff for which the details are given.                   |
-| emp      | Relationship | mandatory    | `{"id": "some-uuid", type:"company" }`   | The EMP (E-Mobility Service Provider) who offers the tariff.  |
-| cpo      | Relationship | mandatory    | `{"id": "some-uuid", type:"company" }` | The CPO (Charge Point Operator) to which this tariff applies. |
+| **Name**    | **Type**     | **Presence** | **Example**                            | **Description**                                               |
+| ----------- | ------------ | ------------ | -------------------------------------- | ------------------------------------------------------------- |
+| tariff      | Relationship | mandatory    | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                   |
+| tariff.name | String       | mandatory    | `easyFlex`                             | Name of the tariff                                            |
+| emp         | Relationship | mandatory    | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff.  |
+| emp.name    | String       | mandatory    | `Energie Steiermark`                   | Company name of the EMP                                       |
+| cpo         | Relationship | mandatory    | `{"id": "some-uuid", type:"company" }` | The CPO (Charge Point Operator) to which this tariff applies. |
 
 
 ## Example
@@ -180,6 +186,22 @@ Body:
             "id": "50006f18-3ed4-4715-92b5-08e37e6dd18c"
           }
         }
+      }
+    }
+  ],
+  "included": [
+    {
+      "id": "10006f18-3ed4-4715-92b5-08e37e6dd18c",
+      "type": "company",
+      "attributes": {
+        "name": "Energie Steiermark"
+      }
+    },
+    {
+      "id": "20006f18-3ed4-4715-92b5-08e37e6dd18c",
+      "type": "tariff",
+      "attributes": {
+        "name": "easyFlex"
       }
     }
   ]

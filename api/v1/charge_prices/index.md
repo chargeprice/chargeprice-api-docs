@@ -105,7 +105,7 @@ The following table lists the `relationships`:
 
 | **Name** | **Type**     | **Example**                             | **Description**                                                                                                     |
 | -------- | ------------ | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| tariff   | Relationship | `[{"id": "some-uuid", type:"tariff" }]` | The tariff that was applied for this charge price. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
+| tariff   | Relationship | `{"id": "some-uuid", type:"tariff" }` | The tariff that was applied for this charge price. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
 
 
 The following table lists the `meta` data:

@@ -12,7 +12,7 @@ This API follows the https://jsonapi.org specification.
 
 ## Authorization Group
 
-**TBD**
+`ReadWriteUserSettings`
 
 ## Response Body
 
@@ -94,6 +94,7 @@ Client provided invalid request.
   "errors": [
     {
       "status": "400",
+      "code": "BAD_REQUEST",
       "title": "..."
     }
   ]
@@ -113,6 +114,7 @@ Client provided invalid request.
   "errors": [
     {
       "status": "403",
+      "code": "FORBIDDEN",
       "title": "api_key missing"
     }
   ]
@@ -128,6 +130,7 @@ No settings have been found for this user.
   "errors": [
     {
       "status": "404",
+      "code": "NOT_FOUND",
       "title": "not found"
     }
   ]
@@ -143,6 +146,7 @@ An unexpected error happened.
   "errors": [
     {
       "status": "500",
+      "code": "INTERNAL_SERVER_ERROR",
       "title": "some error"
     }
   ]

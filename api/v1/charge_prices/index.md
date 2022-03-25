@@ -300,6 +300,7 @@ Client provided invalid request body.
   "errors": [
     {
       "status": "400",
+      "code": "BAD_REQUEST",
       "title": "..."
     }
   ]
@@ -317,6 +318,7 @@ Client provided invalid request body.
   "errors": [
     {
       "status": "403",
+      "code": "FORBIDDEN",
       "title": "api_key missing"
     }
   ]
@@ -332,6 +334,7 @@ e.g. The provided currency doesn't exist in the system.
   "errors": [
     {
       "status": "404",
+      "code": "NOT_FOUND",
       "title": "No currency with iso ATS"
     }
   ]
@@ -347,6 +350,7 @@ An unexpected error happened.
   "errors": [
     {
       "status": "500",
+      "code": "INTERNAL_SERVER_ERROR",
       "title": "some error"
     }
   ]

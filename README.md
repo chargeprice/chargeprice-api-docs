@@ -1,6 +1,6 @@
 # Chargeprice API Documentation
 
-Documentation for 3rd party applications to access the **Chargeprice API**.
+Documentation to access the **Chargeprice API**.
 
 The API offers data around the electric vehicle market including detailed
 charging tariffs, EMPs, CPOs, charging stations and electric vehicle specs.
@@ -10,17 +10,17 @@ platform](./data_platform.md)!**
 
 ## Getting Access
 
-Please check out our [Plans](./plans.md) as well as the [Terms Of
-Use](./terms.md).
-
-Then contact sales@chargeprice.net and tell us about your application:
+Get in touch via sales@chargeprice.net and tell us about your application:
 
 * What do you want to build?
 * Which data do you need?
-* Is it a commercial, non-commercial or academic use case?
 
-We will provide you an API key once all questions are answered and we agreed on
-the applied [plan](./plans.md).
+
+In the meantime feel free to test and play around with the [staging version of
+our API](./test_the_api.md).
+
+You might also be interested in our
+[pricing](https://www.chargeprice.net/pricing) and [terms of use](./terms.md).
 
 ## Endpoints
 

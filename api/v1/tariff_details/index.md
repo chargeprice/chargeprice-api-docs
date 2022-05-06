@@ -50,22 +50,22 @@ See the response of the `included` section.
 
 The following table lists the `attributes` of these objects:
 
-| **Name**                   | **Type**      | **Example** | **Description**                                                                                                           |
-| -------------------------- | ------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
-| segments                   | Array<Object> | -           |                                                                                                                           |
-| segments.dimension         | String        | `minute`    | Either "minute", "kwh" or "session"                                                                                       |
-| segments.price             | Float         | 0.39        | The price per dimension.                                                                                                  |
-| segments.range_gte         | Integer       | 60          | From which dimension value the price applies. e.g. from 60 minutes on.                                                    |
-| segments.range_lt          | Integer       | 120         | Until which dimension value the price applies.      e.g. until 120 minutes.                                               |
-| segments.billing_increment | Float         | 10          | e.g. if dimension is `minute` and billing increment is 10, the customer is charged in blocks of any started 10 minutes.   |
-| segments.currency          | String        | `EUR`       | The currency of this component. Overrules the `currency` of the tariff. If not set, the `currency` of the tariff applies. |
-| segments.time_of_day_start | Integer       | 720         | Time of day when this segment starts to count or gets active. In minutes.                                                 |
-| segments.time_of_day_end   | Integer       | 1200        | Time of day when this segment stops to count or be active. In minutes.                                                    |
-| charge_point               | Object        | -           |                                                                                                                           |
-| charge_point.plug          | String        | `ccs`       | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                            |
-| charge_point.power         | Float         | 22          | In kW                                                                                                                     |
-| charge_point.energy_type   | String        | `ac`        | Either `ac` or `dc`.                                                                                                      |
-| country                    | String        | `AT`        | ISO 3166 country code of the location                                                                                     |
+| **Name**                             | **Type**      | **Example** | **Description**                                                                                                                                                                         |
+| ------------------------------------ | ------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| segments                             | Array<Object> | -           |                                                                                                                                                                                         |
+| segments.dimension                   | String        | `minute`    | Either "minute", "kwh" or "session"                                                                                                                                                     |
+| segments.price                       | Float         | 0.39        | The price per dimension.                                                                                                                                                                |
+| segments.range_gte                   | Integer       | 60          | From which dimension value the price applies. e.g. from 60 minutes on.                                                                                                                  |
+| segments.range_lt                    | Integer       | 120         | Until which dimension value the price applies.      e.g. until 120 minutes.                                                                                                             |
+| segments.billing_increment           | Float         | 10          | e.g. if dimension is `minute` and billing increment is 10, the customer is charged in blocks of any started 10 minutes.                                                                 |
+| segments.currency                    | String        | `EUR`       | The currency of this component. Overrules the `currency` of the tariff.                                                                                                                 |
+| segments.time_of_day_start           | Integer       | 720         | Time of day when this segment starts to count or gets active. In minutes.                                                                                                               |
+| segments.time_of_day_end             | Integer       | 1200        | Time of day when this segment stops to count or be active. In minutes.                                                                                                                  |
+| segments.charge_point_powers         | Array<Float>  | [0.0,22.0]  | List of valid power values of the charge point                                                                                                                                          |
+| segments.charge_point_energy_type    | String        | `ac`        | Valid power/phase. Either "ac", "dc" or `null` if it applies for both.                                                                                                                  |
+| segments.car_ac_phase                | Integer       | 3           | Valid AC phases of the car.                                                                                                                                                             |
+| segments.charge_point_power_is_range | Boolean       | `true`      | true: List of `charge_point_powers` needs to have two values, which define a range of valid values (first value needs to be <= second value). False: Only the specifc values are valid. |
+| segments.use_consumed_charging_power | Boolean       | `false`     | if true: The consumed power of the car defines the price, instead of the maximum power of the station.                                                                                  |
 
 The following table lists the `relationships` and their values in the `included` section:
 
@@ -99,10 +99,7 @@ Body:
         "operator": {
           "id": "50006f18-3ed4-4715-92b5-08e37e6dd18c",
           "type": "company"
-        },
-        "charge_points": [
-          { "plug": "ccs", "power": 50 }
-        ]
+        }
       }
     },
     "relationships": {
@@ -138,34 +135,26 @@ Body:
       "id": "40006f18-3ed4-4715-92b5-08e37e6dd18c",
       "type": "station_tariff_details",
       "attributes": {
-        "segments": [
+        "restricted_segments": [
           {
             "dimension": "kwh",
             "price": 2.0,
             "range_gte": null,
             "range_lt": null,
             "billing_increment": 0.01,
-            "currency": null,
-            "time_of_day_start": null,
-            "time_of_day_end": null
-          },
-          {
-            "dimension": "minute",
-            "price": 0.5,
-            "range_gte": 60,
-            "range_lt": 120,
-            "billing_increment": 0.01,
             "currency": "EUR",
-            "time_of_day_start": 600,
-            "time_of_day_end": 1200
+            "time_of_day_start": null,
+            "time_of_day_end": null,
+            "charge_point_powers": [
+              0.0,
+              22.0
+            ],
+            "charge_point_energy_type": "ac",
+            "car_ac_phase": 2,
+            "charge_point_power_is_range": true,
+            "use_consumed_charging_power": false
           }
-        ],
-        "charge_point": {
-          "plug": "ccs",
-          "power": 50.0,
-          "energy_type": "dc"
-        },
-        "country": "AT"
+        ]
       },
       "relationships": {
         "emp": {

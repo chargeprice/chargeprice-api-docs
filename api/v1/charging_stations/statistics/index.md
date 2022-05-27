@@ -70,9 +70,9 @@ Body:
             "type": "charge_point_statistics",
             "attributes": {
                 "country": "FR",
-                "power": 22.0,
-                "plug": "type2",
-                "count": 7
+                "power": 350.0,
+                "plug": "ccs",
+                "count": 143
             },
             "relationships": {
                 "operator": {
@@ -88,10 +88,9 @@ Body:
 ```
 
 This means:
-There are 7 charge points in France operated by
+There are 143 charge points in France operated by
 `c6bc64ab-8ff8-4623-898b-4a20632e686a` (e.g. this could be IONITY) with a power
-level of 22 kW and plug Type
-2.
+level of 350 kW and plug type CCS.
 
 ##### 400 Bad Request
 

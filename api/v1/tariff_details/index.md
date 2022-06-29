@@ -22,24 +22,19 @@ This API follows the https://jsonapi.org specification.
 
 The following fields are to be sent in the request body, in the `attributes` section:
 
-| **Name**                    | **Type**       | **Presence** | **Example**                            | **Description**                                                                                     |
-| --------------------------- | -------------- | ------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| station                     | Object         | mandatory    |                                        | Station reference                                                                                   |
-| station.country             | String         | mandatory    | `AT`                                   | ISO 3166 country code of the location                                                               |
-| station.operator            | Object         | mandatory    |                                        | Operator of the station                                                                             |
-| station.operator.id         | String         | mandatory    | `20006f18-3ed4-4715-92b5-08e37e6dd18c` | ID of the operator company                                                                          |
-| station.operator.type       | String         | mandatory    | `company`                              | Type of the company (always `company` for now)                                                      |
-| station.charge_points       | Array[Object]  | mandatory    |                                        | All kinds of connectors where the tariff details should be returned                                 |
-| station.charge_points.power | Float          | mandatory    | 22                                     | In kW                                                                                               |
-| station.charge_points.plug  | String         | mandatory    | `ccs`                                  | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)      |
-| battery_range               | Array[Integer] | mandatory    | [20,80]                                | At which battery level the charge should start (first value) and end (second value). In percentage. |
+| **Name**              | **Type** | **Presence** | **Example**                            | **Description**                                |
+| --------------------- | -------- | ------------ | -------------------------------------- | ---------------------------------------------- |
+| station               | Object   | mandatory    |                                        | Station reference                              |
+| station.country       | String   | mandatory    | `AT`                                   | ISO 3166 country code of the location          |
+| station.operator      | Object   | mandatory    |                                        | Operator of the station                        |
+| station.operator.id   | String   | mandatory    | `20006f18-3ed4-4715-92b5-08e37e6dd18c` | ID of the operator company                     |
+| station.operator.type | String   | mandatory    | `company`                              | Type of the company (always `company` for now) |
 
 The following table lists the `relationships` section:
 
-| **Name** | **Type**               | **Presence** | **Example**                             | **Description**                                                                       |
-| -------- | ---------------------- | ------------ | --------------------------------------- | ------------------------------------------------------------------------------------- |
-| tariffs  | Array of Relationships | mandatory    | `[{"id": "some-uuid", type:"tariff" }]` | Details for the those tariffs should be returned.                                     |
-| vehicle  | Relationship           | mandatory    | `{"id": "some-uuid", type:"car" }`      | Vehicle at charge. See [GET v1/vehicles](../vehicles/index.md) for the valid options. |
+| **Name** | **Type**               | **Presence** | **Example**                             | **Description**                                   |
+| -------- | ---------------------- | ------------ | --------------------------------------- | ------------------------------------------------- |
+| tariffs  | Array of Relationships | mandatory    | `[{"id": "some-uuid", type:"tariff" }]` | Details for the those tariffs should be returned. |
 
 ### Includes
 
@@ -92,9 +87,8 @@ Body:
 ```json
 {
   "data": {
-    "attributes":    {
-      "battery_range": [20, 80],
-      "station":       {
+    "attributes": {
+      "station": {
         "country": "AT",
         "operator": {
           "id": "50006f18-3ed4-4715-92b5-08e37e6dd18c",
@@ -110,12 +104,6 @@ Body:
             "type": "tariff"
           }
         ]
-      },
-      "vehicle": {
-        "data": {
-          "id": "90006f18-3ed4-4715-92b5-08e37e6dd18c",
-          "type": "car"
-        }
       }
     }
   }

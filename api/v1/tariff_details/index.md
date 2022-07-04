@@ -34,7 +34,7 @@ The following table lists the `relationships` section:
 
 | **Name** | **Type**               | **Presence** | **Example**                             | **Description**                                   |
 | -------- | ---------------------- | ------------ | --------------------------------------- | ------------------------------------------------- |
-| tariffs  | Array of Relationships | mandatory    | `[{"id": "some-uuid", type:"tariff" }]` | Details for the those tariffs should be returned. |
+| tariffs  | Array of Relationships | optional    | `[{"id": "some-uuid", type:"tariff" }]` | Details for the those tariffs should be returned. |
 
 ### Includes
 

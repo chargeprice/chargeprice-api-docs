@@ -17,8 +17,7 @@ This API follows the https://jsonapi.org specification.
 
 ### Filters
 
-The following query filter parameters are available. They basically represent a
-bounding box in which the stations need to be.
+The following query filter parameters are available.
 
 | **Name**                   | **Type** | **Presence** | **Example**                                                               | **Description**                                                                                                 |
 | -------------------------- | -------- | ------------ | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
@@ -56,6 +55,14 @@ following are supported and defined by the combination of filters:
 
 These searches can't be combined, they are mutually exclusive (XOR)! 
 
+### Other Query Parameters
+
+The following query parameters are available additionally:
+
+| **Name**        | **Type** | **Presence** | **Example**           | **Description**                                                                                                    |
+| --------------- | -------- | ------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| fields[company] | CSV      | optional     | "name,supported_emps" | If set, only the given fields of a company are returned. Default: "name". Allowed Values: "name", "supported_emps" |
+
 ## Response Body
 
 A response contains 0 to max. 400 `charging_station` objects. The following
@@ -75,6 +82,16 @@ table lists the `attributes` of these objects:
 | charge_points.power           | Float             | 50.0                       | Max. power                                                                                                       |
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                        |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown) |
+
+### Included Section
+
+`company`
+
+| **Name**       | **Type** | **Example**      | **Description**                                                                                                                                                                                                                                                          |
+| -------------- | -------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| name           | String   | "McDonalds Graz" | Name of the charging station operator                                                                                                                                                                                                                                    |
+| supported_emps | Array    | -                | EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO). Attention: This is not a list of all supported EMPs, but only those who have been passed in the `operator.supported_emps.id` filter! |
+
 
 # Meta
 - disabled_going_electric_countries: Countries where the Chargeprice Data has
@@ -106,6 +123,17 @@ GET http://example-base-url.com/v1/charging_stations?filter[id]=20006f18-3ed4-47
 Content-Type: application/json
 Api-Key: my-secret-key
 ```
+
+### With Supported EMPS
+
+```http
+GET http://example-base-url.com/v1/charging_stations?filter[operator.supported_emps.id]=6e62cd2d-f29d-4107-b087-6d4f75261cce&fields[company]=name,supported_emps
+Content-Type: application/json
+Api-Key: my-secret-key
+```
+
+Note: Only the parameters relevant for the supported EMPs are listed in the
+above example.
 
 ### Response
 
@@ -151,6 +179,16 @@ Body:
       "type": "company",
       "attributes": {
         "name": "ELLA"
+      },
+      "relationships": {
+        "supported_emps": {
+          "data": [
+            {
+              "type": "company",
+              "id": "6e62cd2d-f29d-4107-b087-6d4f75261cce"
+            }
+          ]
+        }
       }
     }
   ],

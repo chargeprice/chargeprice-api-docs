@@ -206,6 +206,7 @@ Client provided invalid request body.
   "errors": [
     {
       "status": "400",
+      "code": "BAD_REQUEST",
       "title": "..."
     }
   ]
@@ -223,6 +224,7 @@ Client provided invalid request body.
   "errors": [
     {
       "status": "403",
+      "code": "FORBIDDEN",
       "title": "api_key missing"
     }
   ]
@@ -238,6 +240,7 @@ An unexpected error happened.
   "errors": [
     {
       "status": "500",
+      "code": "INTERNAL_SERVER_ERROR",
       "title": "some error"
     }
   ]

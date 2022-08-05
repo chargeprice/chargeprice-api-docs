@@ -18,15 +18,17 @@ This API follows the https://jsonapi.org specification.
 
 The following query parameters are available.
 
-| **Name**           | **Type**         | **Presence** | **Example**         | **Description**                                                           |
-| ------------------ | ---------------- | ------------ | ------------------- | ------------------------------------------------------------------------- |
-| filter[emp.id]     | String           | mandatory    | "123"               | Only the tariffs which belong to this EMP are returned                    |
-| filter[id]         | CSV              | optional     | "123,456"           | If set, only companies with the given ids are returned                    |
-| filter[type]       | CSV              | optional     | "tariff,sub_tariff" | If set, only tariffs with the given types are returned                    |
-| fields[tariff]     | CSV              | optional     | "name,url"          | If set, only the given fields of a tariff are returned                    |
-| fields[sub_tariff] | CSV              | optional     | "name,url"          | If set, only the given fields of a sub_tariff are returned                |
-| page[size]         | Positive Integer | optional     | 2                   | Max no. of elements in the current response. Default: 100, Max value: 100 |
-| page[number]       | Positive Integer | optional     | 10                  | Current page number. Default: 1                                           |
+| **Name**                 | **Type**         | **Presence** | **Example**         | **Description**                                                           |
+| ------------------------ | ---------------- | ------------ | ------------------- | ------------------------------------------------------------------------- |
+| filter[emp.id]           | String           | mandatory    | "123"               | Only the tariffs which belong to this EMP are returned                    |
+| filter[id]               | CSV              | optional     | "123,456"           | If set, only tariffs with the given ids are returned                      |
+| filter[cpo.id]           | CSV              | optional     | "123"               | If set, only tariffs with the given CPO are returned                      |
+| filter[super_tariffs.id] | CSV              | optional     | "123"               | If set, only tariffs with the given Super Tariff are returned             |
+| filter[type]             | CSV              | optional     | "tariff,sub_tariff" | If set, only tariffs with the given types are returned                    |
+| fields[tariff]           | CSV              | optional     | "name,url"          | If set, only the given fields of a tariff are returned                    |
+| fields[sub_tariff]       | CSV              | optional     | "name,url"          | If set, only the given fields of a sub_tariff are returned                |
+| page[size]               | Positive Integer | optional     | 2                   | Max no. of elements in the current response. Default: 100, Max value: 100 |
+| page[number]             | Positive Integer | optional     | 10                  | Current page number. Default: 1                                           |
 
 ## Response Body
 

@@ -45,33 +45,34 @@ See the response of the `included` section.
 
 The following table lists the `attributes` of these objects:
 
-| **Name**                             | **Type**      | **Example** | **Description**                                                                                                                                                                         |
-| ------------------------------------ | ------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| segments                             | Array<Object> | -           |                                                                                                                                                                                         |
-| segments.dimension                   | String        | `minute`    | Either "minute", "kwh" or "session"                                                                                                                                                     |
-| segments.price                       | Float         | 0.39        | The price per dimension.                                                                                                                                                                |
-| segments.range_gte                   | Integer       | 60          | From which dimension value the price applies. e.g. from 60 minutes on.                                                                                                                  |
-| segments.range_lt                    | Integer       | 120         | Until which dimension value the price applies.      e.g. until 120 minutes.                                                                                                             |
-| segments.billing_increment           | Float         | 10          | e.g. if dimension is `minute` and billing increment is 10, the customer is charged in blocks of any started 10 minutes.                                                                 |
-| segments.currency                    | String        | `EUR`       | The currency of this component. Overrules the `currency` of the tariff.                                                                                                                 |
-| segments.time_of_day_start           | Integer       | 720         | Time of day when this segment starts to count or gets active. In minutes.                                                                                                               |
-| segments.time_of_day_end             | Integer       | 1200        | Time of day when this segment stops to count or be active. In minutes.                                                                                                                  |
-| segments.charge_point_powers         | Array<Float>  | [0.0,22.0]  | List of valid power values of the charge point                                                                                                                                          |
-| segments.charge_point_energy_type    | String        | `ac`        | Valid power/phase. Either "ac", "dc" or `null` if it applies for both.                                                                                                                  |
-| segments.car_ac_phase                | Integer       | 3           | Valid AC phases of the car.                                                                                                                                                             |
-| segments.charge_point_power_is_range | Boolean       | `true`      | true: List of `charge_point_powers` needs to have two values, which define a range of valid values (first value needs to be <= second value). False: Only the specifc values are valid. |
-| segments.use_consumed_charging_power | Boolean       | `false`     | if true: The consumed power of the car defines the price, instead of the maximum power of the station.                                                                                  |
+| **Name**                                        | **Type**      | **Example**   | **Description**                                                                                                                                                                         |
+| ----------------------------------------------- | ------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| updated_at                                      | Timestamp     | 1664446527000 | Time when the tariff has been updated                                                                                                                                                   |
+| restricted_segments                             | Array<Object> | -             |                                                                                                                                                                                         |
+| restricted_segments.dimension                   | String        | `minute`      | Either "minute", "kwh" or "session"                                                                                                                                                     |
+| restricted_segments.price                       | Float         | 0.39          | The price per dimension.                                                                                                                                                                |
+| restricted_segments.range_gte                   | Integer       | 60            | From which dimension value the price applies. e.g. from 60 minutes on.                                                                                                                  |
+| restricted_segments.range_lt                    | Integer       | 120           | Until which dimension value the price applies.      e.g. until 120 minutes.                                                                                                             |
+| restricted_segments.billing_increment           | Float         | 10            | e.g. if dimension is `minute` and billing increment is 10, the customer is charged in blocks of any started 10 minutes.                                                                 |
+| restricted_segments.currency                    | String        | `EUR`         | The currency of this component. Overrules the `currency` of the tariff.                                                                                                                 |
+| restricted_segments.time_of_day_start           | Integer       | 720           | Time of day when this segment starts to count or gets active. In minutes.                                                                                                               |
+| restricted_segments.time_of_day_end             | Integer       | 1200          | Time of day when this segment stops to count or be active. In minutes.                                                                                                                  |
+| restricted_segments.charge_point_powers         | Array<Float>  | [0.0,22.0]    | List of valid power values of the charge point                                                                                                                                          |
+| restricted_segments.charge_point_energy_type    | String        | `ac`          | Valid power/phase. Either "ac", "dc" or `null` if it applies for both.                                                                                                                  |
+| restricted_segments.car_ac_phase                | Integer       | 3             | Valid AC phases of the car.                                                                                                                                                             |
+| restricted_segments.charge_point_power_is_range | Boolean       | `true`        | true: List of `charge_point_powers` needs to have two values, which define a range of valid values (first value needs to be <= second value). False: Only the specifc values are valid. |
+| restricted_segments.use_consumed_charging_power | Boolean       | `false`       | if true: The consumed power of the car defines the price, instead of the maximum power of the station.                                                                                  |
 
 The following table lists the `relationships` and their values in the `included` section:
 
-| **Name**          | **Type**     | **Presence** | **Example**                            | **Description**                                               |
-| ----------------- | ------------ | ------------ | -------------------------------------- | ------------------------------------------------------------- |
-| tariff            | Relationship | mandatory    | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                   |
-| tariff.name       | String       | mandatory    | `easyFlex`                             | Name of the tariff                                            |
-| tariff.updated_at | Timestamp    | mandatory    | 1664446527000                          | Time when the tariff has been updated                         |
-| emp               | Relationship | mandatory    | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff.  |
-| emp.name          | String       | mandatory    | `Energie Steiermark`                   | Company name of the EMP                                       |
-| cpo               | Relationship | mandatory    | `{"id": "some-uuid", type:"company" }` | The CPO (Charge Point Operator) to which this tariff applies. |
+| **Name**                 | **Type**     | **Example**                            | **Description**                                               |
+| ------------------------ | ------------ | -------------------------------------- | ------------------------------------------------------------- |
+| tariff                   | Relationship | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                   |
+| tariff.name              | String       | `easyFlex`                             | Name of the tariff                                            |
+| tariff.total_monthly_fee | Float        | 10.0                                   | Monthly fee incl. a 12th of any yearly fee.                   |
+| emp                      | Relationship | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff.  |
+| emp.name                 | String       | `Energie Steiermark`                   | Company name of the EMP                                       |
+| cpo                      | Relationship | `{"id": "some-uuid", type:"company" }` | The CPO (Charge Point Operator) to which this tariff applies. |
 
 Timestamp = Millis since 1.1.1970
 
@@ -125,6 +126,7 @@ Body:
       "id": "40006f18-3ed4-4715-92b5-08e37e6dd18c",
       "type": "station_tariff_details",
       "attributes": {
+        "updated_at": 1546300800000,
         "restricted_segments": [
           {
             "dimension": "kwh",
@@ -174,7 +176,6 @@ Body:
       "type": "company",
       "attributes": {
         "name": "Energie Steiermark",
-        "updated_at": 1664446527000
       }
     },
     {
@@ -182,7 +183,7 @@ Body:
       "type": "tariff",
       "attributes": {
         "name": "easyFlex",
-        "updated_at": 1664446527000
+        "total_monthly_fee": 5.0
       }
     }
   ]

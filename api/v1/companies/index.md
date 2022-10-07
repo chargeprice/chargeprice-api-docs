@@ -29,17 +29,18 @@ The following query parameters are available.
 A response contains 0 to many companies.
 The following table lists the `attributes` of a `company`:
 
-| **Name**                | **Type**  | **Example**          | **Description**                                                                                                                        |
-| ----------------------- | --------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| name                    | String    | "EnBW"               | Name of the company                                                                                                                    |
-| created_at              | Timestamp | 1546297200000        | Creation time of the resource                                                                                                          |
-| updated_at              | Timestamp | 1546297200000        | Last update of the resource                                                                                                            |
-| version                 | Integer   | 1                    | Current lock version                                                                                                                   |
-| url                     | String    | "http://www.enbw.de" | E-Mobility website of the company                                                                                                      |
-| is_cpo                  | Boolean   | true                 | True if the company is a charge point operator                                                                                         |
-| is_emp                  | Boolean   | true                 | True if the company is an e-mobility service provider                                                                                  |
-| external_source_mapping | Hash      | -                    | Names or IDs in external data sources                                                                                                  |
-| supported_emps          | Array     | -                    | All EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO) |
+| **Name**                                  | **Type**  | **Example**          | **Description**                                                                                                                        |
+| ----------------------------------------- | --------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| name                                      | String    | "EnBW"               | Name of the company                                                                                                                    |
+| created_at                                | Timestamp | 1546297200000        | Creation time of the resource                                                                                                          |
+| updated_at                                | Timestamp | 1546297200000        | Last update of the resource                                                                                                            |
+| version                                   | Integer   | 1                    | Current lock version                                                                                                                   |
+| url                                       | String    | "http://www.enbw.de" | E-Mobility website of the company                                                                                                      |
+| is_cpo                                    | Boolean   | true                 | True if the company is a charge point operator                                                                                         |
+| is_emp                                    | Boolean   | true                 | True if the company is an e-mobility service provider                                                                                  |
+| external_source_mapping                   | Hash      | -                    | Names or IDs in external data sources                                                                                                  |
+| external_source_mapping.evse_operator_ids | Array     | ["AT*ION]            | All eMI3 EVSE Operator (CPO) IDs of this company                                                                                                 |
+| supported_emps                            | Array     | -                    | All EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO) |
 
 Timestamp = Millis since 1.1.1970
 
@@ -79,7 +80,8 @@ Body:
           ],
           "going_electric_charge_card_ids": null,
           "google_sheet_names": null,
-          "open_charge_map_operator_ids": null
+          "open_charge_map_operator_ids": null,
+          "evse_operator_ids": ["AT*ION"]
         }
       },
       "relationships": {

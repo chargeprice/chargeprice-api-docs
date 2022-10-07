@@ -15,26 +15,43 @@ This API follows the https://jsonapi.org specification.
 
 ## Request
 
-### Filters
+### Query Parameters
 
-The following query filter parameters are available.
+The following query parameters are available.
 
-| **Name**                   | **Type** | **Presence** | **Example**                                                               | **Description**                                                                                                 |
-| -------------------------- | -------- | ------------ | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| id                         | CSV      | optional*    | 20006f18-3ed4-4715-92b5-08e37e6dd18c,20006f18-3ed4-4715-92b5-08e37e6dd18c | A list of max. 50 Charging Station IDs that can be fetched                                                      |
-| latitude.gte               | Float    | optional*    | 12.345                                                                    | Inclusive lower bound of the latitude location component of the station for a bounding box search               |
-| latitude.lte               | Float    | optional*    | 12.345                                                                    | Inclusive upper bound of the latitude location component of the station for a bounding box search               |
-| longitude.gte              | Float    | optional*    | 12.345                                                                    | Inclusive lower bound of the longitude location component of the station for a bounding box search              |
-| longitude.lte              | Float    | optional*    | 12.345                                                                    | Inclusive upper bound of the longitude location component of the station for a bounding box search              |
-| longitude                  | Float    | optional*    | 12.345                                                                    | Longitude location component of the center of the radius search                                                 |
-| latitude                   | Float    | optional*    | 12.345                                                                    | Latitude location component of the center of the radius search                                                  |
-| radius                     | Integer  | optional*    | 1000                                                                      | Radius (in meters) in which stations should be searched                                                         |
-| charge_points.plug.in      | CSV      | optional     | "ccs,type2"                                                               | Only return stations that support this plug                                                                     |
-| charge_points.power.gte    | Float    | optional     | 50                                                                        | Minimum power of a plug                                                                                         |
-| operator.id                | String   | optional     | ae62cd2d-f29d-4107-b087-6d4f75261cca                                      | Only stations of this operator                                                                                  |
-| operator.supported_emps.id | CSV      | optional     | ce12cd2d-f29d-3107-8087-6d4f75261cc0,4e12cd2d-d29d-3107-8087-6d4f75261cc7 | Only stations where these EMPs (NOT tariffs!) are supported. Extract the EMP ID of a tariff to use this filter! |
-| free_charging              | Boolean  | optional     | true                                                                      | Only stations with free charging                                                                                |
-| free_parking               | Boolean  | optional     | true                                                                      | Only stations with free parking                                                                                 |
+| **Name**                           | **Type**         | **Presence** | **Example**                                                               | **Description**                                                                                                    |
+| ---------------------------------- | ---------------- | ------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| filter[id]                         | CSV              | optional*    | 20006f18-3ed4-4715-92b5-08e37e6dd18c,20006f18-3ed4-4715-92b5-08e37e6dd18c | A list of max. 50 Charging Station IDs that can be fetched                                                         |
+| filter[latitude.gte]               | Float            | optional*    | 12.345                                                                    | Inclusive lower bound of the latitude location component of the station for a bounding box search                  |
+| filter[latitude.lte]               | Float            | optional*    | 12.345                                                                    | Inclusive upper bound of the latitude location component of the station for a bounding box search                  |
+| filter[longitude.gte]              | Float            | optional*    | 12.345                                                                    | Inclusive lower bound of the longitude location component of the station for a bounding box search                 |
+| filter[longitude.lte]              | Float            | optional*    | 12.345                                                                    | Inclusive upper bound of the longitude location component of the station for a bounding box search                 |
+| filter[longitude]                  | Float            | optional*    | 12.345                                                                    | Longitude location component of the center of the radius search                                                    |
+| filter[latitude]                   | Float            | optional*    | 12.345                                                                    | Latitude location component of the center of the radius search                                                     |
+| filter[radius]                     | Integer          | optional*    | 1000                                                                      | Radius (in meters) in which stations should be searched                                                            |
+| filter[charge_points.plug.in]      | CSV              | optional     | "ccs,type2"                                                               | Only return stations that support this plug                                                                        |
+| filter[charge_points.power.gte]    | Float            | optional     | 50                                                                        | Minimum power of a plug                                                                                            |
+| filter[operator.id]                | String           | optional     | ae62cd2d-f29d-4107-b087-6d4f75261cca                                      | Only stations of this operator                                                                                     |
+| filter[operator.supported_emps.id] | CSV              | optional     | ce12cd2d-f29d-3107-8087-6d4f75261cc0,4e12cd2d-d29d-3107-8087-6d4f75261cc7 | Only stations where these EMPs (NOT tariffs!) are supported. Extract the EMP ID of a tariff to use this filter!    |
+| filter[free_charging]              | Boolean          | optional     | true                                                                      | Only stations with free charging                                                                                   |
+| filter[free_parking]               | Boolean          | optional     | true                                                                      | Only stations with free parking                                                                                    |
+| fields[company]                    | CSV              | optional     | "name,supported_emps"                                                     | If set, only the given fields of a company are returned. Default: "name". Allowed Values: "name", "supported_emps" |
+| page[size]                         | Positive Integer | optional     | 2                                                                         | Max no. of stations in the current response. Default: 400, Max value: 400                                          |
+| page[number]                       | Positive Integer | optional     | 10                                                                        | Current page number. Default: 1                                                                                    |
+
+#### Pagination
+
+Pagination caps the number of items in the response. It is applied all the time.
+
+If no pagination parameters are provided, the default values are applied to the
+request. If the number of items exceeds the page size, `meta.more_available`
+will be `true` and you can get more results via a second request and so on.
+
+Example: First request `page[size]=400&page[number]=1` returns
+`meta.more_available=true`. To fetch more stations, the second page needs to get
+requested: `page[size]=400&page[number]=2`. If this then returns
+`meta.more_available=false` you know that you have all stations. Otherwise you
+can continue with page 3.
 
 #### Type of Search
 
@@ -54,15 +71,6 @@ following are supported and defined by the combination of filters:
   * id
 
 These searches can't be combined, they are mutually exclusive (XOR)! 
-
-### Other Query Parameters
-
-The following query parameters are available additionally:
-
-| **Name**        | **Type** | **Presence** | **Example**           | **Description**                                                                                                    |
-| --------------- | -------- | ------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| fields[company] | CSV      | optional     | "name,supported_emps" | If set, only the given fields of a company are returned. Default: "name". Allowed Values: "name", "supported_emps" |
-
 ## Response Body
 
 A response contains 0 to max. 400 `charging_station` objects. The following
@@ -94,6 +102,8 @@ table lists the `attributes` of these objects:
 
 
 # Meta
+- more_available: Indicates if there are more stations available on the
+  following page (see pagination).
 - disabled_going_electric_countries: Countries where the Chargeprice Data has
   likely better quality than the GoingElectric data and hence the GoingElectric
   data shouldn't be shown at all
@@ -193,6 +203,7 @@ Body:
     }
   ],
   "meta": {
+    "more_available": true,
     "disabled_going_electric_countries": [
       "Frankreich"
     ]

@@ -26,7 +26,7 @@ All of these types have the following generic and required attributes.
 
 ### Attributes per type
 
-All of them are of type `string` and are mandatory (but can have an empty
+All of them are of type `string` and are required (but can have an empty
 value).
 
 * `tariff_update`:

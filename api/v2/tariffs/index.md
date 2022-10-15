@@ -20,7 +20,7 @@ The following query parameters are available.
 
 | **Name**                 | **Type**         | **Presence** | **Example**         | **Description**                                                           |
 | ------------------------ | ---------------- | ------------ | ------------------- | ------------------------------------------------------------------------- |
-| filter[emp.id]           | String           | mandatory    | "123"               | Only the tariffs which belong to this EMP are returned                    |
+| filter[emp.id]           | String           | required     | "123"               | Only the tariffs which belong to this EMP are returned                    |
 | filter[id]               | CSV              | optional     | "123,456"           | If set, only tariffs with the given ids are returned                      |
 | filter[cpo.id]           | CSV              | optional     | "123"               | If set, only tariffs with the given CPO are returned                      |
 | filter[super_tariffs.id] | CSV              | optional     | "123"               | If set, only tariffs with the given Super Tariff are returned             |

@@ -1,11 +1,8 @@
 # GET /v1/tariff_details
 
 Get details of multiple tariffs given a charge at...
-* a specific type of station
 * operator
 * in a country
-* with a specific vehicle
-* and battery range 
 
 This API follows the https://jsonapi.org specification.
 
@@ -24,11 +21,11 @@ The following fields are to be sent in the request body, in the `attributes` sec
 
 | **Name**              | **Type** | **Presence** | **Example**                            | **Description**                                |
 | --------------------- | -------- | ------------ | -------------------------------------- | ---------------------------------------------- |
-| station               | Object   | mandatory    |                                        | Station reference                              |
-| station.country       | String   | mandatory    | `AT`                                   | ISO 3166 country code of the location          |
-| station.operator      | Object   | mandatory    |                                        | Operator of the station                        |
-| station.operator.id   | String   | mandatory    | `20006f18-3ed4-4715-92b5-08e37e6dd18c` | ID of the operator company                     |
-| station.operator.type | String   | mandatory    | `company`                              | Type of the company (always `company` for now) |
+| station               | Object   | required     |                                        | Station reference                              |
+| station.country       | String   | required     | `AT`                                   | ISO 3166 country code of the location          |
+| station.operator      | Object   | required     |                                        | Operator of the station                        |
+| station.operator.id   | String   | required     | `20006f18-3ed4-4715-92b5-08e37e6dd18c` | ID of the operator company                     |
+| station.operator.type | String   | required     | `company`                              | Type of the company (always `company` for now) |
 
 The following table lists the `relationships` section:
 

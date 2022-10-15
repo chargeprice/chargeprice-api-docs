@@ -35,7 +35,7 @@ brackets the max. length of the string.
 
 ### Attributes per type
 
-All of them are of type `string` and are mandatory (but can have an empty
+All of them are of type `string` and are required (but can have an empty
 value). In brackets the max. length of the string.
 
 * `other_feedback`: No extra attributes

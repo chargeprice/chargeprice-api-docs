@@ -20,16 +20,16 @@ The following fields are to be sent in the request body, in the `attributes` sec
 
 | **Name**                                  | **Type**      | **Presence**                      | **Example**      | **Description**                                                                                                                                             |
 | ----------------------------------------- | ------------- | --------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| data_adapter                              | string        | mandatory                         | "going_electric" | The source of the station and charge_card_id data. Possible values: "going_electric", "chargeprice", "open_charge_map"                                      |
-| station                                   | Object        | mandatory                         |                  | Station related request data                                                                                                                                |
-| station.longitude                         | Float         | mandatory                         | 43.123           | Longitude coordinate of the station                                                                                                                         |
-| station.latitude                          | Float         | mandatory                         | 123.456          | Latitude coordinate of the station                                                                                                                          |
-| station.country                           | String        | mandatory                         | "Deutschland"    | Country in which the station is located                                                                                                                     |
-| station.network                           | String        | mandatory                         | "Wien Energie"   | Network to which the station belongs to.                                                                                                                    |
-| station.charge_points                     | Array[Object] | mandatory                         |                  | All kinds of connectors that are available at a station.                                                                                                    |
-| station.charge_points.power               | Float         | mandatory                         | 22               | In kW                                                                                                                                                       |
-| station.charge_points.plug                | String        | mandatory                         | "CCS"            | Name of plug at charge point                                                                                                                                |
-| options                                   | Object        | mandatory                         |                  | Charge related request data                                                                                                                                 |
+| data_adapter                              | string        | required                          | "going_electric" | The source of the station and charge_card_id data. Possible values: "going_electric", "chargeprice", "open_charge_map"                                      |
+| station                                   | Object        | required                          |                  | Station related request data                                                                                                                                |
+| station.longitude                         | Float         | required                          | 43.123           | Longitude coordinate of the station                                                                                                                         |
+| station.latitude                          | Float         | required                          | 123.456          | Latitude coordinate of the station                                                                                                                          |
+| station.country                           | String        | required                          | "Deutschland"    | Country in which the station is located                                                                                                                     |
+| station.network                           | String        | required                          | "Wien Energie"   | Network to which the station belongs to.                                                                                                                    |
+| station.charge_points                     | Array[Object] | required                          |                  | All kinds of connectors that are available at a station.                                                                                                    |
+| station.charge_points.power               | Float         | required                          | 22               | In kW                                                                                                                                                       |
+| station.charge_points.plug                | String        | required                          | "CCS"            | Name of plug at charge point                                                                                                                                |
+| options                                   | Object        | required                          |                  | Charge related request data                                                                                                                                 |
 | options.max_monthly_fees                  | Float         | optional                          | 0                | Only returns tariffs, where `total_monthly_fee` + `monthly_min_sales` <= the given value.                                                                   |
 | options.energy                            | Float         | See **Duration and Energy Input** | 30               | Total energy to be charged in kWh                                                                                                                           |
 | options.duration                          | Float         | See **Duration and Energy Input** | 45               | Duration of the charge in minutes                                                                                                                           |
@@ -91,7 +91,7 @@ The following table lists the `attributes` of these objects:
 | start_time                             | Integer         | 720                               | Time of day in minutes when the charging session gets started.                                                                                                                                                                               |
 | branding                               | Hash or null    | -                                 | If branding for the tariff is not available, then `null`                                                                                                                                                                                     |
 | branding.background_color              | String          | "#ff0000"                         | Brand color to be used as background color to show the tariff.                                                                                                                                                                               |
-| branding.text_color                    | String          | "#000000"                         | Color to be used as text color to show the tariff.                                                                                                                                                                               |
+| branding.text_color                    | String          | "#000000"                         | Color to be used as text color to show the tariff.                                                                                                                                                                                           |
 | branding.logo_url                      | String          | "https://logo.com/test.png"       | Brand logo to be displayed next to the price.                                                                                                                                                                                                |
 | charge_point_prices                    | Array[Object]   |                                   |                                                                                                                                                                                                                                              |
 | charge_point_prices.plug               | String          | "ac"                              | Name of plug at charge point                                                                                                                                                                                                                 |
@@ -103,20 +103,20 @@ The following table lists the `attributes` of these objects:
 
 The following table lists the `relationships`:
 
-| **Name** | **Type**     | **Example**                             | **Description**                                                                                                     |
-| -------- | ------------ | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Name** | **Type**     | **Example**                           | **Description**                                                                                                     |
+| -------- | ------------ | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | tariff   | Relationship | `{"id": "some-uuid", type:"tariff" }` | The tariff that was applied for this charge price. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
 
 
 The following table lists the `meta` data:
 
-| **Name**               | **Type**      | **Example** | **Description**                                                                        |
-| ---------------------- | ------------- | ----------- | -------------------------------------------------------------------------------------- |
-| charge_points          | Array[Object] |             |                                                                                        |
-| charge_points.plug     | String        | "ac"        | Name of plug at charge point                                                           |
-| charge_points.power    | Float         | 22          | In kW                                                                                  |
-| charge_points.duration | Float         | 30.0        | Charging duration (minutes) based on the input data (duration or vehicle + percentage) |
-| charge_points.energy   | Float         | 11.0        | Energy to be charged (kWh) based on the input data (duration or vehicle + percentage)  |
+| **Name**               | **Type**      | **Example** | **Description**                                                                           |
+| ---------------------- | ------------- | ----------- | ----------------------------------------------------------------------------------------- |
+| charge_points          | Array[Object] |             |                                                                                           |
+| charge_points.plug     | String        | "ac"        | Name of plug at charge point                                                              |
+| charge_points.power    | Float         | 22          | In kW                                                                                     |
+| charge_points.duration | Float         | 30.0        | Charging duration (minutes) based on the input data (duration or vehicle + battery range) |
+| charge_points.energy   | Float         | 11.0        | Energy to be charged (kWh) based on the input data (duration or vehicle + battery range)  |
 
 ### Definitions
 

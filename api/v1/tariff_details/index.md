@@ -62,14 +62,15 @@ The following table lists the `attributes` of these objects:
 
 The following table lists the `relationships` and their values in the `included` section:
 
-| **Name**                 | **Type**     | **Example**                            | **Description**                                               |
-| ------------------------ | ------------ | -------------------------------------- | ------------------------------------------------------------- |
-| tariff                   | Relationship | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                   |
-| tariff.name              | String       | `easyFlex`                             | Name of the tariff                                            |
-| tariff.total_monthly_fee | Float        | 10.0                                   | Monthly fee incl. a 12th of any yearly fee.                   |
-| emp                      | Relationship | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff.  |
-| emp.name                 | String       | `Energie Steiermark`                   | Company name of the EMP                                       |
-| cpo                      | Relationship | `{"id": "some-uuid", type:"company" }` | The CPO (Charge Point Operator) to which this tariff applies. |
+| **Name**                 | **Type**     | **Example**                            | **Description**                                                                                               |
+| ------------------------ | ------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| tariff                   | Relationship | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                                                                   |
+| tariff.name              | String       | `easyFlex`                             | Name of the tariff                                                                                            |
+| tariff.total_monthly_fee | Float        | 10.0                                   | Monthly fee incl. a 12th of any yearly fee.                                                                   |
+| tariff.currency          | String       | `EUR`                                  | Main currency of the tariff. Applies to e.g. the monthly fee. Currency of prices can vary country by country. |
+| emp                      | Relationship | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff.                                                  |
+| emp.name                 | String       | `Energie Steiermark`                   | Company name of the EMP                                                                                       |
+| cpo                      | Relationship | `{"id": "some-uuid", type:"company" }` | The CPO (Charge Point Operator) to which this tariff applies.                                                 |
 
 Timestamp = Millis since 1.1.1970
 
@@ -180,7 +181,8 @@ Body:
       "type": "tariff",
       "attributes": {
         "name": "easyFlex",
-        "total_monthly_fee": 5.0
+        "total_monthly_fee": 5.0,
+        "currency": "EUR"
       }
     }
   ]

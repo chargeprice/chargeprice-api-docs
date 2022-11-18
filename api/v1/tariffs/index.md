@@ -32,6 +32,7 @@ The following table lists the `attributes` of these objects:
 | provider                  | String        | "Maingau Energie"           | Name of the charge card provider                                                                        |
 | name                      | String        | "EinfachStromLaden"         | Name of the tariff                                                                                      |
 | total_monthly_fee         | Float         | 10.0                        | Monthly fee incl. a 12th of any yearly fee.                                                             |
+| currency                  | String        | "EUR"                       | Main currency of the tariff. Applies to e.g. the monthly fee.                                           |
 | direct_payment            | Boolean       | true                        | This tariff can be used without registration                                                            |
 | provider_customer_tariff  | Boolean       | true                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
 | branding                  | Hash or null  | -                           | If branding for the tariff is not available, then `null`                                                |
@@ -71,6 +72,7 @@ Body:
         "provider_customer_only": false,
         "direct_payment": true,
         "total_monthly_fee": 0.0,
+        "currency": "EUR",
         "branding": {
           "background_color": "#ff0000",
           "text_color": "#000000",
@@ -98,6 +100,7 @@ Body:
         "branding": null,
         "supported_countries": ["AT","DE"],
         "total_monthly_fee": 10.0,
+        "currency": "EUR",
         "charge_card_id": "208"
       },
       "relationships": {

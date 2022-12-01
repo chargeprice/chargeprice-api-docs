@@ -18,20 +18,21 @@ This API follows the https://jsonapi.org specification.
 A response contains a `charging_station` object.
 The following table lists it's `attributes`:
 
-| **Name**                      | **Type**          | **Example**                | **Description**                                                                                                  |
-| ----------------------------- | ----------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| name                          | String            | "McDonalds Graz"           | Name of the charging station                                                                                     |
-| latitude                      | Float             | 43.345                     | Latitude component of the location                                                                               |
-| longitude                     | Float             | 12.443                     | Longitude component of the location                                                                              |
-| country                       | String            | "AT"                       | ISO 3166 country code of the location                                                                            |
-| address                       | String            | "Teslastraße 1, 8010 Graz" | Address of the station                                                                                           |
-| free_parking                  | Boolean or `null` | true                       | Parking at the station is free of charge (`null` = unknown)                                                      |
-| free_charging                 | Boolean or `null` | true                       | Charging at the station is free of charge (`null` = unknown)                                                     |
-| charge_points                 | Array             | -                          | Charge points at this station, grouped by power and plug type                                                    |
-| charge_points.plug            | String            | "ccs"                      | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                                                            |
-| charge_points.power           | Float             | 50.0                       | Max. power                                                                                                       |
-| charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                        |
-| charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown) |
+| **Name**                      | **Type**          | **Example**                | **Description**                                                                                                                         |
+| ----------------------------- | ----------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| name                          | String            | "McDonalds Graz"           | Name of the charging station                                                                                                            |
+| latitude                      | Float             | 43.345                     | Latitude component of the location                                                                                                      |
+| longitude                     | Float             | 12.443                     | Longitude component of the location                                                                                                     |
+| country                       | String            | "AT"                       | ISO 3166 country code of the location                                                                                                   |
+| address                       | String            | "Teslastraße 1, 8010 Graz" | Address of the station                                                                                                                  |
+| free_parking                  | Boolean or `null` | true                       | Parking at the station is free of charge (`null` = unknown)                                                                             |
+| free_charging                 | Boolean or `null` | true                       | Charging at the station is free of charge (`null` = unknown)                                                                            |
+| evse_ids                      | Array             | ["AT\*ION\*E1234"]         | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this location. |
+| charge_points                 | Array             | -                          | Charge points at this station, grouped by power and plug type                                                                           |
+| charge_points.plug            | String            | "ccs"                      | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                                          |
+| charge_points.power           | Float             | 50.0                       | Max. power                                                                                                                              |
+| charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
+| charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
 
 ## Example
 
@@ -61,6 +62,7 @@ Body:
       "address": "Stangersdorf-Gewerbegebiet 110 A, 8403 Lebring",
       "free_parking": true,
       "free_charging": false,
+      "evse_ids": ["AT*ION*E1234"],
       "charge_points": [
         {
           "plug": "ccs",

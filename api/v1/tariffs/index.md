@@ -17,10 +17,11 @@ This API follows the https://jsonapi.org specification.
 
 The following query filter parameters are available: 
 
-| **Name**               | **Type** | **Presence** | **Example** | **Description**                                                                                         |
-| ---------------------- | -------- | ------------ | ----------- | ------------------------------------------------------------------------------------------------------- |
-| provider_customer_only | Boolean  | optional     | true        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
-| direct_payment         | Boolean  | optional     | true        | This tariff can be used without registration                                                            |
+| **Name**               | **Type**   | **Presence** | **Example**                                                                 | **Description**                                                                                         |
+| ---------------------- | ---------- | ------------ | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| provider_customer_only | Boolean    | optional     | true                                                                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
+| direct_payment         | Boolean    | optional     | true                                                                        | This tariff can be used without registration                                                            |
+| id                     | CSV of IDs | optional     | `cbe781a1-c16e-4af0-890a-b5f5943b6b77,1be781a1-c16e-4af0-890a-b5f5943b6b7a` | Only return tariffs with these IDs                                                                      |
 
 ## Response Body
 

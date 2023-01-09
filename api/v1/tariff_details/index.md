@@ -1,4 +1,4 @@
-# GET /v1/tariff_details
+# POST /v1/tariff_details
 
 Get details of multiple tariffs given a charge at...
 * operator

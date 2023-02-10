@@ -17,13 +17,14 @@ This API follows the https://jsonapi.org specification.
 
 The following query parameters are available.
 
-| **Name**                         | **Type**         | **Presence** | **Example**     | **Description**                                                           |
-| -------------------------------- | ---------------- | ------------ | --------------- | ------------------------------------------------------------------------- |
-| filter[id]                       | CSV              | optional     | "123,456"       | Only vehicles with the given ids are returned                             |
-| filter[manufacturer.id]          | CSV              | optional     | "123,456"       | Only the vehicles which belong to these manufacturers are returned        |
-| fields[car] or fields[motorbike] | CSV              | optional     | "model,variant" | Only the given fields of a vehicle are returned                           |
-| page[size]                       | Positive Integer | optional     | 2               | Max no. of elements in the current response. Default: 100, Max value: 100 |
-| page[number]                     | Positive Integer | optional     | 10              | Current page number. Default: 1                                           |
+| **Name**                         | **Type**         | **Presence** | **Example**     | **Description**                                                                                                        |
+| -------------------------------- | ---------------- | ------------ | --------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| filter[id]                       | CSV              | optional     | "123,456"       | Only vehicles with the given ids are returned                                                                          |
+| filter[manufacturer.id]          | CSV              | optional     | "123,456"       | Only the vehicles which belong to these manufacturers are returned                                                     |
+| fields[car] or fields[motorbike] | CSV              | optional     | "model,variant" | Only the given fields of a vehicle are returned                                                                        |
+| page[size]                       | Positive Integer | optional     | 2               | Max no. of elements in the current response. Default: 100, Max value: 100                                              |
+| page[number]                     | Positive Integer | optional     | 10              | Current page number. Default: 1                                                                                        |
+| q                                | String           | optional     | "VW ID3"        | Fuzzy search for `brand`, `model` and `variant`. Can't be combined with any other filter and it gives max. 25 results. |
 
 ### Pagination
 

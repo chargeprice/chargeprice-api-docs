@@ -19,13 +19,16 @@ This API follows the https://jsonapi.org specification.
 
 The following fields are to be sent in the request body, in the `attributes` section:
 
-| **Name**              | **Type** | **Presence** | **Example**                            | **Description**                                |
-| --------------------- | -------- | ------------ | -------------------------------------- | ---------------------------------------------- |
-| station               | Object   | required     |                                        | Station reference                              |
-| station.country       | String   | required     | `AT`                                   | ISO 3166 country code of the location          |
-| station.operator      | Object   | required     |                                        | Operator of the station                        |
-| station.operator.id   | String   | required     | `20006f18-3ed4-4715-92b5-08e37e6dd18c` | ID of the operator company                     |
-| station.operator.type | String   | required     | `company`                              | Type of the company (always `company` for now) |
+| **Name**                         | **Type** | **Presence** | **Example**                            | **Description**                                                         |
+| -------------------------------- | -------- | ------------ | -------------------------------------- | ----------------------------------------------------------------------- |
+| station                          | Object   | required     |                                        | Station reference                                                       |
+| station.country                  | String   | required     | `AT`                                   | ISO 3166 country code of the location                                   |
+| station.operator                 | Object   | required     |                                        | Operator of the station                                                 |
+| station.operator.id              | String   | required     | `20006f18-3ed4-4715-92b5-08e37e6dd18c` | ID of the operator company                                              |
+| station.operator.type            | String   | required     | `company`                              | Type of the company (always `company` for now)                          |
+| filter.brand_restricted_tariffs  | Boolean  | optional     | `true`                                 | Include tariffs restricted to specific vehicle brands. Default: `true`. |
+| filter.foreign_tariffs           | Boolean  | optional     | `true`                                 | Include tariffs restricted to specific countries. Default: `true`.      |
+| filter.provider_customer_tariffs | Boolean  | optional     | `true`                                 | Include tariffs restricted to provider customers. Default: `false`.     |
 
 The following table lists the `relationships` section:
 
@@ -68,6 +71,7 @@ The following table lists the `relationships` and their values in the `included`
 | tariff.name              | String       | `easyFlex`                             | Name of the tariff                                                                                            |
 | tariff.total_monthly_fee | Float        | 10.0                                   | Monthly fee incl. a 12th of any yearly fee.                                                                   |
 | tariff.currency          | String       | `EUR`                                  | Main currency of the tariff. Applies to e.g. the monthly fee. Currency of prices can vary country by country. |
+| tariff.url               | String       | `http://www.google.at`                 | Website of the tariff.                                                                                        |
 | emp                      | Relationship | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff.                                                  |
 | emp.name                 | String       | `Energie Steiermark`                   | Company name of the EMP                                                                                       |
 | cpo                      | Relationship | `{"id": "some-uuid", type:"company" }` | The CPO (Charge Point Operator) to which this tariff applies.                                                 |
@@ -95,6 +99,11 @@ Body:
           "id": "50006f18-3ed4-4715-92b5-08e37e6dd18c",
           "type": "company"
         }
+      },
+      "filter": {
+        "brand_restricted_tariffs": true,
+        "foreign_tariffs": true,
+        "provider_customer_tariffs": true,
       }
     },
     "relationships": {
@@ -182,7 +191,8 @@ Body:
       "attributes": {
         "name": "easyFlex",
         "total_monthly_fee": 5.0,
-        "currency": "EUR"
+        "currency": "EUR",
+        "url": "http://www.google.at"
       }
     }
   ]

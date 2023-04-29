@@ -20,7 +20,7 @@ In the meantime feel free to test and play around with the [staging version of
 our API](./test_the_api.md).
 
 You might also be interested in our
-[pricing](https://www.chargeprice.net/pricing) and [terms of use](./terms.md).
+[pricing](https://www.chargeprice.net) and [terms of use](./terms.md).
 
 ## Endpoints
 

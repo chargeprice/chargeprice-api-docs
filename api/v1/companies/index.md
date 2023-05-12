@@ -25,7 +25,7 @@ The following query parameters are available.
 | fields[company] | CSV              | optional     | "name,url"  | If set, only the given fields of a company are returned                                        |
 | page[size]      | Positive Integer | optional     | 2           | Max no. of elements in the current response. Default: 100, Max value: 100                      |
 | page[number]    | Positive Integer | optional     | 10          | Current page number. Default: 1                                                                |
-| q               | String           | optional     | "IONITY"    | Fuzzy search for `name`. Can't be combined with any other filter and it gives max. 10 results. |
+| q               | String           | optional     | "IONITY"    | Search for `name`. Can't be combined with any other filter and it gives max. 10 results. |
 
 ## Response Body
 

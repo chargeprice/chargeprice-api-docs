@@ -22,7 +22,7 @@ This API follows the https://jsonapi.org specification.
 ### Request
 
 ```http
-DELETE http://example-base-url.com/v2/charging_stations/2e49b853-36fc-47ed-9826-97828b5b2fdd
+DELETE http://example-base-url.com/v1/charging_stations/2e49b853-36fc-47ed-9826-97828b5b2fdd
 Content-Type: application/json
 Api-Key: my-secret-key
 ```

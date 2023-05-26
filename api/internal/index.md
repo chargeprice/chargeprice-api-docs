@@ -98,6 +98,9 @@ table lists the `attributes` of these objects:
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                                                           |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                                    |
 | charge_points.evse_ids        | Array             | ["AT\*ION\*E1234"]         | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this type of charge point. |
+| created_at                    | Timestamp         | 1546297200000              | Creation time of the resource                                                                                                                       |
+| updated_at                    | Timestamp         | 1546297200000              | Last update of the resource                                                                                                                         |
+| version                       | Integer           | 1                          | Current lock version                                                                                                                                |
 
 ### Included Section
 
@@ -166,6 +169,9 @@ Body:
       "type": "charging_station",
       "attributes": {
         "name": "Spar",
+        "created_at": 1546297200000,
+        "updated_at": 1546297200000,
+        "version": 1,
         "latitude": 10.0,
         "longitude": 20.0,
         "country": "AT",

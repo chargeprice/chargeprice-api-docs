@@ -1,6 +1,6 @@
 # GET /v1/charging_stations/:charging_station_id
 
-Get a single charging stations.
+Get a single charging station.
 
 This API follows the https://jsonapi.org specification.
 
@@ -56,6 +56,7 @@ Body:
     "type": "charging_station",
     "attributes": {
       "name": "Spar",
+      "version": 1,
       "latitude": 10.0,
       "longitude": 20.0,
       "country": "AT",

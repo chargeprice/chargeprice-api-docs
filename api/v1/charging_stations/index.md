@@ -91,6 +91,7 @@ table lists the `attributes` of these objects:
 | charge_points.power           | Float             | 50.0                       | Max. power                                                                                                                              |
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
+| version                       | Integer           | 1                          | Current lock version                                                                                                                    |
 
 ### Included Section
 
@@ -159,6 +160,7 @@ Body:
       "type": "charging_station",
       "attributes": {
         "name": "Spar",
+        "version": 1,
         "latitude": 10.0,
         "longitude": 20.0,
         "country": "AT",

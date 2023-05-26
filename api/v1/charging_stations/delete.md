@@ -1,0 +1,82 @@
+# DELETE /v1/charging_stations/:charging_station_id
+
+Delete a tariff.
+
+This API follows the https://jsonapi.org specification.
+
+## Headers
+
+* `API-Key: <your_api_key>` (contact sales@chargeprice.net to get access)
+* `Content-Type: application/json`
+
+## Authorization Group
+
+`WriteAllStations`
+
+# Request Parameters
+
+**charging_station_id** Id of station that should be deleted.
+
+## Example
+
+### Request
+
+```http
+DELETE http://example-base-url.com/v2/charging_stations/2e49b853-36fc-47ed-9826-97828b5b2fdd
+Content-Type: application/json
+Api-Key: my-secret-key
+```
+
+### Response
+
+#### 204 No Content
+
+##### 400 Bad Request
+
+Client provided invalid request.
+
+```json
+{
+  "errors": [
+    {
+      "status": "400",
+      "code": "BAD_REQUEST",
+      "title": "..."
+    }
+  ]
+}
+```
+
+##### 403 Forbidden
+
+* API-Key is missing
+* API-Key is invalid
+* API-Key not authorized to perform action
+
+```json
+{
+  "errors": [
+    {
+      "status": "403",
+      "code": "FORBIDDEN",
+      "title": "api_key missing"
+    }
+  ]
+}
+```
+
+##### 500 Internal Server Error
+
+An unexpected error happened.
+
+```json
+{
+  "errors": [
+    {
+      "status": "500",
+      "code": "INTERNAL_SERVER_ERROR",
+      "title": "some error"
+    }
+  ]
+}
+```

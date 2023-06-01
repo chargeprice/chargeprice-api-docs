@@ -33,6 +33,16 @@ The following table lists it's `attributes`:
 | charge_points.power           | Float             | 50.0                       | Max. power                                                                                                                              |
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
+| operator                      | Relationship      | -                          | Reference of the operator (CPO)                                                                                                         |
+
+### Included Section
+
+`company`
+
+| **Name** | **Type** | **Example**      | **Description**                       |
+| -------- | -------- | ---------------- | ------------------------------------- |
+| name     | String   | "McDonalds Graz" | Name of the charging station operator |
+
 
 ## Example
 

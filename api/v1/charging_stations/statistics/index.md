@@ -55,7 +55,7 @@ The example below also describes the response in this way.
 ## Example
 
 ```http
-GET http://example-base-url.com/v1/charging_stations?filter[country]=FR&include=operator
+GET http://example-base-url.com/v1/charging_stations/statistics?filter[country]=FR&include=operator
 Content-Type: application/json
 Api-Key: my-secret-key
 ```

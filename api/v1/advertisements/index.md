@@ -14,6 +14,14 @@ This API follows the https://jsonapi.org specification.
 * `Content-Type: application/json`
 * `Accept-Language: en`: [Valid Languages](../../enums.md). Used to localize the response, default language is `en`.
 
+## Request
+
+The following query parameters are available.
+
+| **Name**        | **Type** | **Presence** | **Example** | **Description**                    |
+| --------------- | -------- | ------------ | ----------- | ---------------------------------- |
+| filter[country] | String   | required     | "AT"        | ISO 3166 country code of the user. |
+
 ## Response Body
 
 The API might return different types of advertisements in the future. Right now only the type `banner_advertisement` is available!
@@ -31,7 +39,7 @@ The following table lists the `attributes` of these objects:
 ### Request
 
 ```http
-GET http://example-base-url.com/v1/advertisements
+GET http://example-base-url.com/v1/advertisements?filter[country]=AT
 Content-Type: application/json
 Api-Key: my-secret-key
 ```

@@ -108,6 +108,12 @@ The following table lists the `relationships`:
 | -------- | ------------ | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | tariff   | Relationship | `{"id": "some-uuid", type:"tariff" }` | The tariff that was applied for this charge price. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
 
+The following table lists the `links`. This section is optional and only available if at least one link is present.
+
+| **Name**            | **Type** | **Example**                 | **Description**                                                                                                                |
+| ------------------- | -------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| open_app_at_station | String   | `https://something.com/123` | An HTTP link that should deeplink into the application of the provider at the current charging station. This link is optional. |
+
 
 The following table lists the `meta` data:
 
@@ -275,6 +281,9 @@ Body:
             "type": "tariff"
           }
         } 
+      },
+      "links": {
+        "open_app_at_station": "https://something.com/123"
       }
     }
   ],

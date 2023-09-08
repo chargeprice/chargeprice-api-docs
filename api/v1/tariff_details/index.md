@@ -1,10 +1,11 @@
 # POST /v1/tariff_details
 
 Get details of multiple tariffs given a charge at...
+
 * operator
 * in a country
 
-This API follows the https://jsonapi.org specification.
+This API follows the <https://jsonapi.org> specification.
 
 ## Authorization Group
 
@@ -12,7 +13,7 @@ This API follows the https://jsonapi.org specification.
 
 ## Headers
 
-* `API-Key: <your_api_key>` (contact sales@chargeprice.net to get access)
+* `API-Key: <your_api_key>` (contact <sales@chargeprice.net> to get access)
 * `Content-Type: application/json`
 
 ## Request
@@ -39,29 +40,30 @@ The following table lists the `relationships` section:
 ### Includes
 
 The `emp` and `tariff` relationship are included per default.
-See the response of the `included` section. 
+See the response of the `included` section.
 
 ## Response Body
 
 The following table lists the `attributes` of these objects:
 
-| **Name**                                        | **Type**      | **Example**   | **Description**                                                                                                                                                                         |
-| ----------------------------------------------- | ------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| updated_at                                      | Timestamp     | 1664446527000 | Time when the tariff has been updated                                                                                                                                                   |
-| restricted_segments                             | Array<Object> | -             |                                                                                                                                                                                         |
-| restricted_segments.dimension                   | String        | `minute`      | Either "minute", "kwh" or "session"                                                                                                                                                     |
-| restricted_segments.price                       | Float         | 0.39          | The price per dimension.                                                                                                                                                                |
-| restricted_segments.range_gte                   | Integer       | 60            | From which dimension value the price applies. e.g. from 60 minutes on.                                                                                                                  |
-| restricted_segments.range_lt                    | Integer       | 120           | Until which dimension value the price applies.      e.g. until 120 minutes.                                                                                                             |
-| restricted_segments.billing_increment           | Float         | 10            | e.g. if dimension is `minute` and billing increment is 10, the customer is charged in blocks of any started 10 minutes.                                                                 |
-| restricted_segments.currency                    | String        | `EUR`         | The currency of this component. Overrules the `currency` of the tariff.                                                                                                                 |
-| restricted_segments.time_of_day_start           | Integer       | 720           | Time of day when this segment starts to match. In minutes.                                                                                                               |
-| restricted_segments.time_of_day_end             | Integer       | 1200          | Time of day when this segment stops to match. In minutes.                                                                                                                  |
-| restricted_segments.charge_point_powers         | Array<Float>  | [0.0,22.0]    | List of power value restrictions of a charge point. If empty, all power values match. Also see `charge_point_power_is_range` on how to use this field.                                                                                                                                          |
-| restricted_segments.charge_point_energy_type    | String        | `ac`          | Matching power/phase. Either "ac", "dc" or `null` if it applies for both.                                                                                                                  |
-| restricted_segments.car_ac_phase                | Integer       | 3             | Matching AC phases of the car (legacy attribute, practically not used anymore by EMSPs).                                                                                                                                                             |
+| **Name**                                        | **Type**      | **Example**   | **Description**                                                                                                                                                                                                                                                              |
+| ----------------------------------------------- | ------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| updated_at                                      | Timestamp     | 1664446527000 | Time when the tariff has been updated                                                                                                                                                                                                                                        |
+| tariff_level                                    | String        | `cpo`         | At which level this tariff applies: `country`: the default tariff for all CPOs in this country, `cpo`: tariff applies to all EVSEs of this CPO, `evse` (not implemented yet): tariff applies only to a specific EVSE.                                                        |
+| restricted_segments                             | Array<Object> | -             |                                                                                                                                                                                                                                                                              |
+| restricted_segments.dimension                   | String        | `minute`      | Either "minute", "kwh" or "session"                                                                                                                                                                                                                                          |
+| restricted_segments.price                       | Float         | 0.39          | The price per dimension.                                                                                                                                                                                                                                                     |
+| restricted_segments.range_gte                   | Integer       | 60            | From which dimension value the price applies. e.g. from 60 minutes on.                                                                                                                                                                                                       |
+| restricted_segments.range_lt                    | Integer       | 120           | Until which dimension value the price applies.      e.g. until 120 minutes.                                                                                                                                                                                                  |
+| restricted_segments.billing_increment           | Float         | 10            | e.g. if dimension is `minute` and billing increment is 10, the customer is charged in blocks of any started 10 minutes.                                                                                                                                                      |
+| restricted_segments.currency                    | String        | `EUR`         | The currency of this component. Overrules the `currency` of the tariff.                                                                                                                                                                                                      |
+| restricted_segments.time_of_day_start           | Integer       | 720           | Time of day when this segment starts to match. In minutes.                                                                                                                                                                                                                   |
+| restricted_segments.time_of_day_end             | Integer       | 1200          | Time of day when this segment stops to match. In minutes.                                                                                                                                                                                                                    |
+| restricted_segments.charge_point_powers         | Array<Float>  | [0.0,22.0]    | List of power value restrictions of a charge point. If empty, all power values match. Also see `charge_point_power_is_range` on how to use this field.                                                                                                                       |
+| restricted_segments.charge_point_energy_type    | String        | `ac`          | Matching power/phase. Either "ac", "dc" or `null` if it applies for both.                                                                                                                                                                                                    |
+| restricted_segments.car_ac_phase                | Integer       | 3             | Matching AC phases of the car (legacy attribute, practically not used anymore by EMSPs).                                                                                                                                                                                     |
 | restricted_segments.charge_point_power_is_range | Boolean       | `true`        | `true`: List of `charge_point_powers` has two values, which define a range of matching power values (Example: [11,22] => 11, 15 and 22 kW charge points match). `false`: Only specifc values are matching (Example: [11,22] => 11 and 22 kW charge points match, 15 kw not). |
-| restricted_segments.use_consumed_charging_power | Boolean       | `false`       | if `true`: The consumed power of the car defines the price, instead of the maximum power of the station. `false`: Maximum power of the station defines the price.                                                                                  |
+| restricted_segments.use_consumed_charging_power | Boolean       | `false`       | if `true`: The consumed power of the car defines the price, instead of the maximum power of the station. `false`: Maximum power of the station defines the price.                                                                                                            |
 
 The following table lists the `relationships` and their values in the `included` section:
 
@@ -85,11 +87,12 @@ The `restricted_segments` array contains a list of all unit prices that define a
 In order to get the unit prices for a specifc charge point (e.g. 22 kW AC) you need to filter the `restricted_segments` and only use those array items, that are matching the charging station configuration. Note that one segment can be used by multiple charging station configurations. e.g. there could be a session fee, which applies to all power levels and it might only listed once in the `restricted_segments`.
 
 To find all matching segments you need to filter using the following attributes:
-- charge_point_energy_type
-- charge_point_powers
-- charge_point_power_is_range
-- use_consumed_charging_power
-- car_ac_phase
+
+* charge_point_energy_type
+* charge_point_powers
+* charge_point_power_is_range
+* use_consumed_charging_power
+* car_ac_phase
 
 ## Example
 
@@ -102,6 +105,7 @@ Api-Key: my-secret-key
 ```
 
 Body:
+
 ```json
 {
   "data": {
@@ -133,12 +137,12 @@ Body:
 }
 ```
 
-
 ### Response
 
 #### 200 Ok
 
 Body:
+
 ```json
 {
   "data": [
@@ -147,6 +151,7 @@ Body:
       "type": "station_tariff_details",
       "attributes": {
         "updated_at": 1546300800000,
+        "tariff_level": "country",
         "restricted_segments": [
           {
             "dimension": "kwh",

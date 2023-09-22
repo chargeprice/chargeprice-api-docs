@@ -123,5 +123,5 @@ attributes in APIs:
 | Time of Day End         | restricted_segments.time_of_day_end          |                                                     |
 
 \* The EVSE Operator IDs in the Historical Export are already filtered by
-country (using the first to characters of the party ID), while the ones in the
+country (using the first two characters of the party ID e.g. AT*ION => AT, or the first ID of the list if no country is matching), while the ones in the
 Charging Station Statistics API are not filtered yet!

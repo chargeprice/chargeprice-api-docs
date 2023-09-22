@@ -24,7 +24,7 @@ This API follows the https://jsonapi.org specification.
 The following query parameters are available:
 
 | **Name**        | **Type** | **Presence** | **Example** | **Description**                                                 |
-| --------------- | -------- | ------------ | ----------- | --------------------------------------------------------------- |
+|-----------------|----------|--------------|-------------|-----------------------------------------------------------------|
 | filter[country] | CSV      | optional     | `AT,DE`     | A list of countries for which the statistics should be fetched. |
 | include         | CSV      | optional     | `operator`  | Data to include in the response. Possible values: `operator`    |
 
@@ -35,14 +35,15 @@ A response contains `charge_point_statistics` items. There is no pagination, all
 results will be returned. The following table lists the `attributes` and
 `relationships` of these objects:
 
-| **Name**      | **Type**     | **Example**                        | **Description**                                                                                |
-| ------------- | ------------ | ---------------------------------- | ---------------------------------------------------------------------------------------------- |
-| country       | String       | "AT"                               | ISO 3166 country code                                                                          |
-| power         | Float        | 50.0                               | Power level                                                                                    |
-| plug          | Float        | 12.443                             | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`) |
-| count         | Integer      | 5                                  | Number of charge points with these parameters.                                                 |
-| operator      | Relationship | `{"id": "123", "type": "company"}` | CPO (Charge Point Operator)                                                                    |
-| operator.name | String       | `IONITY`                           | CPO Name                                                                                       |
+| **Name**                                           | **Type**      | **Example**                        | **Description**                                                                                       |  |
+|----------------------------------------------------|---------------|------------------------------------|-------------------------------------------------------------------------------------------------------|--|
+| country                                            | String        | "AT"                               | ISO 3166 country code                                                                                 |  |
+| power                                              | Float         | 50.0                               | Power level                                                                                           |  |
+| plug                                               | Float         | 12.443                             | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)        |  |
+| count                                              | Integer       | 5                                  | Number of charge points with these parameters.                                                        |  |
+| operator                                           | Relationship  | `{"id": "123", "type": "company"}` | CPO (Charge Point Operator)                                                                           |  |
+| operator.name                                      | String        | `IONITY`                           | CPO Name                                                                                              |  |
+| operator.external_source_mapping.evse_operator_ids | Array<String> | ["AT*ION","DE*ION"]                | A list of all EVSE Operator (Party) IDs of this company of any country (not only the ones requested). |  |
 
 You can read this as: There are `<count>` number of charge points in `<country>`
 operated by `<operator>` with a power level of `<power>` and plug type `<plug>`.
@@ -92,7 +93,12 @@ Body:
         "type": "company",
         "id": "c6bc64ab-8ff8-4623-898b-4a20632e686a",
         "attributes": {
-          "name": "IONITY"
+          "name": "IONITY",
+          "external_source_mapping": {
+            "evse_operator_ids": [
+              "AT*ION","DE*ION"
+            ]
+          }
         }
       }
     ]

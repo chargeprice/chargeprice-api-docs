@@ -21,9 +21,9 @@ This API follows the <https://jsonapi.org> specification.
 The following fields are to be sent in the request body, in the `attributes` section:
 
 | **Name**                         | **Type** | **Presence** | **Example**                            | **Description**                                                         |
-| -------------------------------- | -------- | ------------ | -------------------------------------- | ----------------------------------------------------------------------- |
+|----------------------------------|----------|--------------|----------------------------------------|-------------------------------------------------------------------------|
 | station                          | Object   | required     |                                        | Station reference                                                       |
-| station.country                  | String   | required     | `AT`                                   | ISO 3166 country code of the location                                   |
+| station.country                  | String   | required     | `AT`                                   | ISO 3166 code of the country where the prices should be fetched         |
 | station.operator                 | Object   | required     |                                        | Operator of the station                                                 |
 | station.operator.id              | String   | required     | `20006f18-3ed4-4715-92b5-08e37e6dd18c` | ID of the operator company                                              |
 | station.operator.type            | String   | required     | `company`                              | Type of the company (always `company` for now)                          |
@@ -34,7 +34,7 @@ The following fields are to be sent in the request body, in the `attributes` sec
 The following table lists the `relationships` section:
 
 | **Name** | **Type**               | **Presence** | **Example**                             | **Description**                                   |
-| -------- | ---------------------- | ------------ | --------------------------------------- | ------------------------------------------------- |
+|----------|------------------------|--------------|-----------------------------------------|---------------------------------------------------|
 | tariffs  | Array of Relationships | optional     | `[{"id": "some-uuid", type:"tariff" }]` | Details for the those tariffs should be returned. |
 
 ### Includes
@@ -47,7 +47,8 @@ See the response of the `included` section.
 The following table lists the `attributes` of these objects:
 
 | **Name**                                        | **Type**      | **Example**   | **Description**                                                                                                                                                                                                                                                              |
-| ----------------------------------------------- | ------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------------------------|---------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| country                                         | String        | `AT`          | ISO 3166 code of the country for which the prices are defined.                                                                                                                                                                                                                                                |
 | updated_at                                      | Timestamp     | 1664446527000 | Time when the tariff has been updated                                                                                                                                                                                                                                        |
 | tariff_level                                    | String        | `cpo`         | At which level this tariff applies: `country`: the default tariff for all CPOs in this country, `cpo`: tariff applies to all EVSEs of this CPO, `evse` (not implemented yet): tariff applies only to a specific EVSE.                                                        |
 | restricted_segments                             | Array<Object> | -             |                                                                                                                                                                                                                                                                              |
@@ -68,7 +69,7 @@ The following table lists the `attributes` of these objects:
 The following table lists the `relationships` and their values in the `included` section:
 
 | **Name**                 | **Type**     | **Example**                            | **Description**                                                                                               |
-| ------------------------ | ------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+|--------------------------|--------------|----------------------------------------|---------------------------------------------------------------------------------------------------------------|
 | tariff                   | Relationship | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                                                                   |
 | tariff.name              | String       | `easyFlex`                             | Name of the tariff                                                                                            |
 | tariff.total_monthly_fee | Float        | 10.0                                   | Monthly fee incl. a 12th of any yearly fee.                                                                   |

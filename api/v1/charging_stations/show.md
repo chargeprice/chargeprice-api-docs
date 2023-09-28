@@ -13,6 +13,10 @@ This API follows the https://jsonapi.org specification.
 
 `ReadStations`
 
+# Request Parameters
+
+**charging_station_id** ID or EVSE ID of station that should be deleted.
+
 ## Response Body
 
 A response contains a `charging_station` object.

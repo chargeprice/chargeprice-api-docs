@@ -1,5 +1,7 @@
 # GET /v1/vehicles
 
+***Deprecated! Please use [/v2/vehicles](/api/v2/vehicles/index.md) instead.***
+
 Returns all supported electric vehicles.
 
 If you want to get all details of vehicles, please use

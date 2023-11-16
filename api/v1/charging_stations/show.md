@@ -8,6 +8,7 @@ This API follows the https://jsonapi.org specification.
 
 * `API-Key: <your_api_key>` (contact sales@chargeprice.net to get access)
 * `Content-Type: application/json`
+* `Accept-Language: en`: [Valid Languages](../../enums.md). Used to localize the response, default language is `en`.
 
 ## Authorization Group
 
@@ -15,7 +16,7 @@ This API follows the https://jsonapi.org specification.
 
 # Request Parameters
 
-**charging_station_id** ID or EVSE ID of station that should be deleted.
+**charging_station_id** ID or EVSE ID of station that should be fetched.
 
 ## Response Body
 
@@ -23,7 +24,7 @@ A response contains a `charging_station` object.
 The following table lists it's `attributes`:
 
 | **Name**                      | **Type**          | **Example**                | **Description**                                                                                                                         |
-| ----------------------------- | ----------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------|-------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | name                          | String            | "McDonalds Graz"           | Name of the charging station                                                                                                            |
 | latitude                      | Float             | 43.345                     | Latitude component of the location                                                                                                      |
 | longitude                     | Float             | 12.443                     | Longitude component of the location                                                                                                     |
@@ -37,6 +38,7 @@ The following table lists it's `attributes`:
 | charge_points.power           | Float             | 50.0                       | Max. power                                                                                                                              |
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
+| parking_description           | String or `null`  | "0.5€/h"                   | Describes the parking situation with costs, times etc. in the provided language. Not available for all stations.                        |
 | operator                      | Relationship      | -                          | Reference of the operator (CPO)                                                                                                         |
 
 ### Included Section
@@ -44,7 +46,7 @@ The following table lists it's `attributes`:
 `company`
 
 | **Name** | **Type** | **Example**      | **Description**                       |
-| -------- | -------- | ---------------- | ------------------------------------- |
+|----------|----------|------------------|---------------------------------------|
 | name     | String   | "McDonalds Graz" | Name of the charging station operator |
 
 
@@ -85,7 +87,8 @@ Body:
           "count": 2,
           "available_count": 2
         }
-      ]
+      ],
+      "parking_description": "0.5€/h"
     },
     "relationships": {
       "operator": {

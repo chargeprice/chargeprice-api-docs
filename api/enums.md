@@ -15,3 +15,4 @@ Pleas expect that new Tag Kinds might be added at any time!
 - de
 - fr
 - nl
+- da

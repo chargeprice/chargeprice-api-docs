@@ -25,7 +25,7 @@ The EMSP needs to provide an API with the following structure:
 - Update frequency: Chargeprice will per default call the API once per week. The
   frequency is configurable.
 
-## Authorization
+## Authentication
 
 The API can optionally be protected by HTTP request headers that the EMSP can
 provide to Chargeprice. There is no restriction on which headers need to be
@@ -34,7 +34,6 @@ used. One possibility is basic authentication:
 ```http
 Authorization: Basic <credentials>
 ```
-
 
 ## Response Attributes
 
@@ -93,3 +92,8 @@ Authorization: Basic <credentials>
 |---------------|--------------|----------|------|-------|-------------|-----------|-----------------|---------------|-----------|
 | FR\*FR1\*E002 | FR           | EUR      | TIME | 6     |             | 900       |                 |               | 900       |
 | FR\*FR1\*E002 | FR           | EUR      | TIME | 18    | 900         |           |                 |               |           |
+
+### Checklist of what the EMSP need to provide to Chargeprice
+
+* URL of the API
+* Headers for Authentiation

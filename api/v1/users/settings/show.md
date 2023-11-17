@@ -19,14 +19,15 @@ This API follows the https://jsonapi.org specification.
 A response contains a `user_settings` object.
 The following table lists it's `attributes` and `relationships`:
 
-| **Name**   | **Type**     | **Example**                             | **Description**                                              |
-| ---------- | ------------ | --------------------------------------- | ------------------------------------------------------------ |
-| created_at | Timestamp    | 1546297200000                           | Creation time of the resource                                |
-| updated_at | Timestamp    | 1546297200000                           | Last update of the resource                                  |
-| version    | Integer      | 1                                       | Current lock version                                         |
-| owner      | Relationship | `{"id": "some-uuid", type:"user" }`     | The user that belongs to these settings                      |
-| tariffs    | Relationship | `[{"id": "some-uuid", type:"tariff" }]` | A list of tariffs that the user "owns" or has subscribed to. |
-| vehicle    | Relationship | `[{"id": "some-uuid", type:"car" }]`    | The current selected vehicle of the user                     |
+| **Name**      | **Type**     | **Example**                             | **Description**                                                                         |
+|---------------|--------------|-----------------------------------------|-----------------------------------------------------------------------------------------|
+| created_at    | Timestamp    | 1546297200000                           | Creation time of the resource                                                           |
+| updated_at    | Timestamp    | 1546297200000                           | Last update of the resource                                                             |
+| version       | Integer      | 1                                       | Current lock version                                                                    |
+| owner         | Relationship | `{"id": "some-uuid", type:"user" }`     | The user that belongs to these settings                                                 |
+| tariffs       | Relationship | `[{"id": "some-uuid", type:"tariff" }]` | A list of tariffs that the user "owns" or has subscribed to.                            |
+| vehicle       | Relationship | `[{"id": "some-uuid", type:"car" }]`    | The current selected vehicle of the user                                                |
+| meta.products | Array        | `["mobile_premium"]`                    | List of products available to the user.<br>Possible values: `mobile_premium`, `web_pro` |
 
 ## Example
 
@@ -80,6 +81,12 @@ Body:
         ]
       }
     }
+  },
+  "meta": {
+      "products": [
+          "web_pro",
+          "mobile_premium"
+      ]
   }
 }
 

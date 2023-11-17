@@ -5,8 +5,7 @@ as data adapters for the Charge Prices API:
 
 * [GoingElectric.de](https://www.goingelectric.de/stromtankstellen/api/)
 * [OpenChargeMap.org](https://openchargemap.org/site/develop#api) (Beta)
-* [Chargeprice](/api/v1/charging_stations/index.md): At the moment only contains
-  data for the following countries: FR, NL, BE, LU, GB, ES, HR, SI. 
+* [Chargeprice](/api/v1/charging_stations/index.md)
 
 You **need** to integrate at least one of the above data sources to use the
 Chargeprice API and fetch prices.
@@ -35,6 +34,7 @@ attributes in the Charge Prices API:
 | charge_points.power                 | station.charge_points.power     | -                  |
 | charge_points.plug                  | station.charge_points.plug      | -                  |
 
+Set the `data_adapter` attribute also to `"chargeprice"`.
 
 #### Going Electric
 
@@ -50,6 +50,8 @@ Chargeprice:
 | chargepoints.power | station.charge_points.power | -                  |
 | chargepoints.type  | station.charge_points.plug  | -                  |
 
+Set the `data_adapter` attribute also to `"going_electric"`.
+
 #### Open Charge Map (Beta)
 
 You will need to map the data of OpenChargeMap to the following attributes in
@@ -63,6 +65,8 @@ Chargeprice:
 | AddressInfo.Latitude                                        | station.latitude            | -                                                                                           |
 | Connections.PowerKW                                         | station.charge_points.power | -                                                                                           |
 | Connections.ConnectionTypeID <br> Connections.CurrentTypeID | station.charge_points.plug  | "ConnectionTypeID,CurrentTypeID", e.g. ConnectionTypeID: 27, CurrentTypeID: 30 => `"27,30"` |
+
+Set the `data_adapter` attribute also to `"open_charge_map"`.
 
 Have a look at [this example API request from
 OpenChargeMap](https://api.openchargemap.io/v3/poi/?output=json&countrycode=US&maxresults=10)

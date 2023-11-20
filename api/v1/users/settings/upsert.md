@@ -20,29 +20,31 @@ This API follows the https://jsonapi.org specification.
 
 The body can have the following attributes and relationships:
 
-| **Name**           | **Type**           | **Presence** | **Example**                             | **Description**                                                                         |
-|--------------------|--------------------|--------------|-----------------------------------------|-----------------------------------------------------------------------------------------|
-| id                 | UUID               | required     | "1e49b853-36fc-47ed-9826-97828b5b2fdd"  | Create: Client-side generated UUIDv4, Update: Existing Resource ID                      |
-| type               | String             | required     | "tariff"                                | Type of the resource. Needs to be `user_settings`.                                      |
-| version            | Integer            | required     | 1                                       | Lock version. Needs to be 1 on create and for update 1 higher than the current version. |
-| vehicle            | Relationship       | required     | `{"id": "some-uuid", type:"car" }`      | The current selected vehicle of the user.                                               |
-| available_vehicles | Relationship       | required     | `[{"id": "some-uuid", type:"car" }]`    | All vehicles that the user has added to their profile. Max number: 20.                  |
-| tariffs            | Relationship Array | required     | `[{"id": "some-uuid", type:"tariff" }]` | A list of tariffs that the user "owns" or has subscribed to. Max number of tariffs: 200 |
+| **Name**           | **Type**           | **Presence** | **Example**                                       | **Description**                                                                                                                                                                                                                            |
+|--------------------|--------------------|--------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                 | UUID               | required     | "1e49b853-36fc-47ed-9826-97828b5b2fdd"            | Create: Client-side generated UUIDv4, Update: Existing Resource ID                                                                                                                                                                         |
+| type               | String             | required     | "tariff"                                          | Type of the resource. Needs to be `user_settings`.                                                                                                                                                                                         |
+| version            | Integer            | required     | 1                                                 | Lock version. Needs to be 1 on create and for update 1 higher than the current version.                                                                                                                                                    |
+| vehicle            | Relationship       | required     | `{"id": "some-uuid", type:"car" }`                | The current selected vehicle of the user.                                                                                                                                                                                                  |
+| available_vehicles | Relationship       | required     | `[{"id": "some-uuid", type:"car" }]`              | All vehicles that the user has added to their profile. Max number: 20.                                                                                                                                                                     |
+| tariffs            | Relationship Array | required     | `[{"id": "some-uuid", type:"tariff" }]`           | A list of tariffs that the user "owns" or has subscribed to. Max number of tariffs: 200                                                                                                                                                    |
+| favourite_stations | Relationship Array | required     | `[{"id": "some-uuid", type:"charging_station" }]` | Stations that the user has added to their favourites. The type defines the source of the station: "charging_station" => Chargeprice Station DB, "going_electric_charging_station" => Going Electric Station DB. Max number of tariffs: 100 |
 
 ## Response Body
 
 A response contains a `user_settings` object.
 The following table lists it's `attributes` and `relationships`:
 
-| **Name**           | **Type**     | **Example**                             | **Description**                                              |
-|--------------------|--------------|-----------------------------------------|--------------------------------------------------------------|
-| created_at         | Timestamp    | 1546297200000                           | Creation time of the resource                                |
-| updated_at         | Timestamp    | 1546297200000                           | Last update of the resource                                  |
-| version            | Integer      | 1                                       | Current lock version                                         |
-| owner              | Relationship | `{"id": "some-uuid", type:"user" }`     | The user that belongs to these settings                      |
-| tariffs            | Relationship | `[{"id": "some-uuid", type:"tariff" }]` | A list of tariffs that the user "owns" or has subscribed to. |
-| vehicle            | Relationship | `{"id": "some-uuid", type:"car" }`      | The current selected vehicle of the user                     |
-| available_vehicles | Relationship | `[{"id": "some-uuid", type:"car" }]`    | All vehicles that the user has added to their profile.       |
+| **Name**           | **Type**     | **Example**                                       | **Description**                                                                                                                                                                                                 |
+|--------------------|--------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| created_at         | Timestamp    | 1546297200000                                     | Creation time of the resource                                                                                                                                                                                   |
+| updated_at         | Timestamp    | 1546297200000                                     | Last update of the resource                                                                                                                                                                                     |
+| version            | Integer      | 1                                                 | Current lock version                                                                                                                                                                                            |
+| owner              | Relationship | `{"id": "some-uuid", type:"user" }`               | The user that belongs to these settings                                                                                                                                                                         |
+| tariffs            | Relationship | `[{"id": "some-uuid", type:"tariff" }]`           | A list of tariffs that the user "owns" or has subscribed to.                                                                                                                                                    |
+| vehicle            | Relationship | `{"id": "some-uuid", type:"car" }`                | The current selected vehicle of the user                                                                                                                                                                        |
+| available_vehicles | Relationship | `[{"id": "some-uuid", type:"car" }]`              | All vehicles that the user has added to their profile.                                                                                                                                                          |
+| favourite_stations | Relationship | `[{"id": "some-uuid", type:"charging_station" }]` | Stations that the user has added to their favourites. The type defines the source of the station: "charging_station" => Chargeprice Station DB, "going_electric_charging_station" => Going Electric Station DB. |
 
 ## Example
 
@@ -88,6 +90,14 @@ Body:
           {
             "type": "tariff",
             "id": "022cd2d-f29d-4107-b087-6d4f75261ccf"
+          }
+        ]
+      },
+      "favourite_stations": {
+        "data": [
+          {
+            "type": "charging_station",
+            "id": "987cd2d-f29d-4107-b087-6d4f75261123"
           }
         ]
       }
@@ -142,6 +152,14 @@ Body:
           {
             "type": "tariff",
             "id": "022cd2d-f29d-4107-b087-6d4f75261ccf"
+          }
+        ]
+      },
+      "favourite_stations": {
+        "data": [
+          {
+            "type": "charging_station",
+            "id": "987cd2d-f29d-4107-b087-6d4f75261123"
           }
         ]
       }

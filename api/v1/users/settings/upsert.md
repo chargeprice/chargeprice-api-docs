@@ -164,6 +164,12 @@ Body:
         ]
       }
     }
+  },
+  "meta": {
+      "products": [
+          "web_pro",
+          "mobile_premium"
+      ]
   }
 }
 

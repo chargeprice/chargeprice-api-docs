@@ -18,7 +18,7 @@ This API follows the https://jsonapi.org specification.
 The body can have the following attributes:
 
 | **Name**                                        | **Type**            | **Presence** | **Example**                            | **Description**                                                                                                                                                                                                       |
-| ----------------------------------------------- | ------------------- | ------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------------------------|---------------------|--------------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                                              | UUID                | required     | "1e49b853-36fc-47ed-9826-97828b5b2fdd" | Create: Client-side generated UUID, Update: Existing Resource ID                                                                                                                                                      |
 | type                                            | String              | required     | "tariff"                               | Type of the resource. Needs to be `company`.                                                                                                                                                                          |
 | name                                            | String              |              | "Mobility+"                            | Name of the tariff. Needs to be `null` for a `sub_tariff`                                                                                                                                                             |
@@ -41,6 +41,8 @@ The body can have the following attributes:
 | tags.kind                                       | String              | required     | "info"                                 | Find all valid value [here](/docs/api/enums.md).                                                                                                                                                                      |
 | tags.localized_text                             | Hash                | required     | { "en": "Hello" }                      | Key-value pairs of localized text. Find all valid languages [here](/docs/api/enums.md).                                                                                                                               |
 | tags.url                                        | String              |              | "http://xyz.com"                       | A URL where the tag links to. Might contain `{locale}` (e.g. `http://test.com/{locale}/post.html`), which should be replaced by the current locale by the client.                                                     |
+| tags.show_until                                 | Timestamp           |              | 1704357860000                          | If set, the tag is only returned in the /v1/charge_prices API until the specificied date.                                                                                                                             |
+| tags.hide_for_owners                            | Boolean             |              | true                                   | If true, the tag is not returned in the /v1/charge_prices API, if the tariff is provided in the request (=which means the user has added it to "my tariffs"). If false, it's always returned.                         |
 | prices                                          | Array               |              | -                                      | One ore more price components (restriction + price)                                                                                                                                                                   |
 | prices.restrictions                             | Hash                |              | -                                      | Restrictions of the current price component                                                                                                                                                                           |
 | prices.restrictions.allowance                   | String              |              | "allow"                                | "allow": All restriction values need to pass, to fulfill the restriction. "deny": All restriction values need to be false, to fulfill the restriction                                                                 |
@@ -69,7 +71,7 @@ The body can have the following attributes:
 The following table lists the `attributes` of a `tariff` or `sub_tariff` (both have the same fields):
 
 | **Name**                                        | **Type**            | **Example**            | **Description**                                                                                                                                                                                                       |
-| ----------------------------------------------- | ------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------------------------|---------------------|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name                                            | String              | "Mobility+"            | Name of the tariff                                                                                                                                                                                                    |
 | created_at                                      | Timestamp           | 1546297200000          | Creation time of the resource                                                                                                                                                                                         |
 | updated_at                                      | Timestamp           | 1546297200000          | Last update of the resource                                                                                                                                                                                           |
@@ -92,6 +94,8 @@ The following table lists the `attributes` of a `tariff` or `sub_tariff` (both h
 | tags.kind                                       | String              | "info"                 | Find all valid value [here](/docs/api/enums.md).                                                                                                                                                                      |
 | tags.localized_text                             | Hash                | { "en": "Hello" }      | Key-value pairs of localized text. Find all valid languages [here](/docs/api/enums.md).                                                                                                                               |
 | tags.url                                        | String              | "http://xyz.com"       | A URL where the tag links to. Might contain `{locale}` (e.g. `http://test.com/{locale}/post.html`), which should be replaced by the current locale by the client.                                                     |
+| tags.show_until                                 | Timestamp           | 1704357860000          | If set, the tag is only returned in the /v1/charge_prices API until the specificied date.                                                                                                                             |
+| tags.hide_for_owners                            | Boolean             | true                   | If true, the tag is not returned in the /v1/charge_prices API, if the tariff is provided in the request (=which means the user has added it to "my tariffs"). If false, it's always returned.                         |
 | prices                                          | Array               | -                      | One ore more price components (restriction + price)                                                                                                                                                                   |
 | prices.restrictions                             | Hash                | -                      | Restrictions of the current price component                                                                                                                                                                           |
 | prices.restrictions.allowance                   | String              | "allow"                | "allow": All restriction values need to pass, to fulfill the restriction. "deny": All restriction values need to be false, to fulfill the restriction                                                                 |
@@ -180,7 +184,9 @@ Api-Key: my-secret-key
             "en": "Hello World",
             "de": "Hallo Welt"
           },
-          "url": "http://www.google.at"
+          "url": "http://www.google.at",
+          "show_until": 1704357860000,
+          "hide_for_owners": true
         }
       ],
       "url": "http://www.google.at",
@@ -280,7 +286,9 @@ Body:
             "en": "Hello World",
             "de": "Hallo Welt"
           },
-          "url": "http://www.google.at"
+          "url": "http://www.google.at",
+          "show_until": 1704357860000,
+          "hide_for_owners": true
         }
       ],
       "url": "http://www.google.at",

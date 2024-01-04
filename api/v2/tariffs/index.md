@@ -19,7 +19,7 @@ This API follows the https://jsonapi.org specification.
 The following query parameters are available.
 
 | **Name**                 | **Type**         | **Presence** | **Example**         | **Description**                                                           |
-| ------------------------ | ---------------- | ------------ | ------------------- | ------------------------------------------------------------------------- |
+|--------------------------|------------------|--------------|---------------------|---------------------------------------------------------------------------|
 | filter[emp.id]           | String           | required     | "123"               | Only the tariffs which belong to this EMP are returned                    |
 | filter[id]               | CSV              | optional     | "123,456"           | If set, only tariffs with the given ids are returned                      |
 | filter[cpo.id]           | CSV              | optional     | "123"               | If set, only tariffs with the given CPO are returned                      |
@@ -36,7 +36,7 @@ A response contains 0 to many tariffs.
 The following table lists the `attributes` of a `tariff` or `sub_tariff` (both have the same fields):
 
 | **Name**                                        | **Type**            | **Example**            | **Description**                                                                                                                                                                                                       |
-| ----------------------------------------------- | ------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------------------------|---------------------|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name                                            | String              | "Mobility+"            | Name of the tariff                                                                                                                                                                                                    |
 | created_at                                      | Timestamp           | 1546297200000          | Creation time of the resource                                                                                                                                                                                         |
 | updated_at                                      | Timestamp           | 1546297200000          | Last update of the resource                                                                                                                                                                                           |
@@ -47,7 +47,7 @@ The following table lists the `attributes` of a `tariff` or `sub_tariff` (both h
 | is_flat_rate                                    | Boolean             | true                   | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                                                                                                                                |
 | is_direct_payment                               | Boolean             | true                   | This tariff can be used without registration                                                                                                                                                                          |
 | provider_customer_only                          | Boolean             | true                   | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                                                                               |
-| existing_customer_only                          | Boolean             | true                   | If true, tariff is only available for existing customers and a registration for new customers is not possible anymore.                                                                                                               |
+| existing_customer_only                          | Boolean             | true                   | If true, tariff is only available for existing customers and a registration for new customers is not possible anymore.                                                                                                |
 | currency                                        | String              | "EUR"                  | Currency in which any price of the tariff is defined.                                                                                                                                                                 |
 | notes                                           | String              | "Very special tariff"  | Any other information about the tariff. Free text.                                                                                                                                                                    |
 | url                                             | String              | "http://www.google.at" | In case the tariff has a specific url (other than the general EMP url)                                                                                                                                                |
@@ -59,6 +59,8 @@ The following table lists the `attributes` of a `tariff` or `sub_tariff` (both h
 | tags.kind                                       | String              | "info"                 | Find all valid value [here](/docs/api/enums.md).                                                                                                                                                                      |
 | tags.localized_text                             | Hash                | { "en": "Hello" }      | Key-value pairs of localized text. Find all valid languages [here](/docs/api/enums.md).                                                                                                                               |
 | tags.url                                        | String              | "http://xyz.com"       | A URL where the tag links to. Might contain `{locale}` (e.g. `http://test.com/{locale}/post.html`), which should be replaced by the current locale by the client.                                                     |
+| tags.show_until                                 | Timestamp           | 1704357860000          | If set, the tag is only returned in the /v1/charge_prices API until the specificied date.                                                                                                                             |
+| tags.hide_for_owners                            | Boolean             | true                   | If true, the tag is not returned in the /v1/charge_prices API, if the tariff is provided in the request (=which means the user has added it to "my tariffs"). If false, it's always returned.                         |
 | prices                                          | Array               | -                      | One ore more price components (restriction + price)                                                                                                                                                                   |
 | prices.restrictions                             | Hash                | -                      | Restrictions of the current price component                                                                                                                                                                           |
 | prices.restrictions.allowance                   | String              | "allow"                | "allow": All restriction values need to pass, to fulfill the restriction. "deny": All restriction values need to be false, to fulfill the restriction                                                                 |
@@ -163,7 +165,9 @@ Body:
               "en": "Hello World",
               "de": "Hallo Welt"
             },
-            "url": "http://www.google.at"
+            "url": "http://www.google.at",
+            "show_until": 1704357860000,
+            "hide_for_owners": true
           }
         ],
         "apply_prices_to_sub_tariff": false

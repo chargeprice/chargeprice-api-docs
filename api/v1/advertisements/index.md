@@ -1,6 +1,6 @@
 # GET /v1/advertisements
 
-Get a list of advertisements. 
+Get a list of advertisements that can be displayed together with other ad providers (e.g. AdMob)
 
 This API follows the https://jsonapi.org specification.
 
@@ -18,9 +18,10 @@ This API follows the https://jsonapi.org specification.
 
 The following query parameters are available.
 
-| **Name**        | **Type** | **Presence** | **Example** | **Description**                    |
-| --------------- | -------- | ------------ | ----------- | ---------------------------------- |
-| filter[country] | String   | required     | "AT"        | ISO 3166 country code of the user. |
+| **Name**              | **Type** | **Presence** | **Example** | **Description**                                                                                                                                        |
+|-----------------------|----------|--------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| filter[country]       | String   | required     | "AT"        | ISO 3166 country code of the user.                                                                                                                     |
+| exclusive_ad_provider | Boolean  | optional     | true        | true: There is no other ad provider (e.g. AdMob). In this case more ads are served. false: Used in combination with other ad providers. Default: false |
 
 ## Response Body
 
@@ -29,7 +30,7 @@ The API might return different types of advertisements in the future. Right now 
 The following table lists the `attributes` of these objects:
 
 | **Name**           | **Type** | **Example**                                   | **Description**                                                                                                           |
-| ------------------ | -------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+|--------------------|----------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
 | cta_url            | String   | "https://test.com"                            | Link that should be opened when clicking on the ad                                                                        |
 | banner_image_url   | String   | "https://www.chargeprice.app/images/test.png" | URL of Banner Image (=the Ad) that should be displayed.                                                                   |
 | placement_location | String   | "map"                                         | Defines where in the app this ad should be displayed. Possible values: "map", "price_list1", "price_list2", "price_list3" |

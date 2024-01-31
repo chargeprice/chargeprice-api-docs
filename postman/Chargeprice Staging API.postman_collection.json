@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "39d3b15c-9646-4b30-a1f7-c7792909b6ca",
+		"name": "Chargeprice Staging API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29732245"
+	},
+	"item": [
+		{
+			"name": "Find Charging Stations in a specific area",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "20c0d68918c9dc96c564784b711a6570",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://staging-api.chargeprice.app/v1/charging_stations?filter[latitude]=49.4873085&filter[longitude]=0.1290686&filter[radius]=100",
+					"protocol": "https",
+					"host": [
+						"staging-api",
+						"chargeprice",
+						"app"
+					],
+					"path": [
+						"v1",
+						"charging_stations"
+					],
+					"query": [
+						{
+							"key": "filter[latitude]",
+							"value": "49.4873085"
+						},
+						{
+							"key": "filter[longitude]",
+							"value": "0.1290686"
+						},
+						{
+							"key": "filter[radius]",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Unit Prices for EMP Tariffs at a CPO",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "20c0d68918c9dc96c564784b711a6570",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"station\": {\n        \"country\": \"FR\",\n        \"operator\": {\n          \"id\": \"1e595cc2-7bc9-418d-8c97-9aa7045430ea\",\n          \"type\": \"company\"\n        }\n      }\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://staging-api.chargeprice.app/v1/tariff_details",
+					"protocol": "https",
+					"host": [
+						"staging-api",
+						"chargeprice",
+						"app"
+					],
+					"path": [
+						"v1",
+						"tariff_details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Calculated Prices for EMP Tariffs at a CPO",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "20c0d68918c9dc96c564784b711a6570",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"type\": \"charge_price_request\",\n    \"attributes\": {\n      \"data_adapter\": \"chargeprice\",\n      \"station\": {\n        \"longitude\": 0.1290686,\n        \"latitude\": 49.4873085,\n        \"country\": \"FR\",\n        \"network\": \"1e595cc2-7bc9-418d-8c97-9aa7045430ea\",\n        \"charge_points\": [{\"power\":60.0,\"plug\":\"ccs\"}]\n      },\n      \"options\": {\n        \"start_time\": 720,\n        \"duration\": 60,\n        \"energy\": 60,\n        \"currency\": \"EUR\",\n        \"show_all_brand_restricted_tariffs\": true\n      }\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://staging-api.chargeprice.app/v1/charge_prices",
+					"protocol": "https",
+					"host": [
+						"staging-api",
+						"chargeprice",
+						"app"
+					],
+					"path": [
+						"v1",
+						"charge_prices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Overview of all available EMP Tariffs",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "20c0d68918c9dc96c564784b711a6570",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://staging-api.chargeprice.app/v1/tariffs",
+					"protocol": "https",
+					"host": [
+						"staging-api",
+						"chargeprice",
+						"app"
+					],
+					"path": [
+						"v1",
+						"tariffs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Vehicles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-Key",
+						"value": "20c0d68918c9dc96c564784b711a6570",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://staging-api.chargeprice.app/v2/vehicles",
+					"protocol": "https",
+					"host": [
+						"staging-api",
+						"chargeprice",
+						"app"
+					],
+					"path": [
+						"v2",
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

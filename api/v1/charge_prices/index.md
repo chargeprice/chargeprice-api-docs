@@ -18,35 +18,35 @@ This API follows the https://jsonapi.org specification.
 
 The following fields are to be sent in the request body, in the `attributes` section of a `charge_price_request` object:
 
-| **Name**                                  | **Type**      | **Presence**                      | **Example**      | **Description**                                                                                                                                             |
-| ----------------------------------------- | ------------- | --------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| data_adapter                              | string        | required                          | "going_electric" | The source of the station and charge_card_id data. Possible values: "going_electric", "chargeprice", "open_charge_map"                                      |
-| station                                   | Object        | required                          |                  | Station related request data                                                                                                                                |
-| station.longitude                         | Float         | required                          | 43.123           | Longitude coordinate of the station                                                                                                                         |
-| station.latitude                          | Float         | required                          | 123.456          | Latitude coordinate of the station                                                                                                                          |
-| station.country                           | String        | required                          | "Deutschland"    | Country in which the station is located                                                                                                                     |
-| station.network                           | String        | required                          | "Wien Energie"   | Network to which the station belongs to.                                                                                                                    |
-| station.charge_points                     | Array[Object] | required                          |                  | All kinds of connectors that are available at a station.                                                                                                    |
-| station.charge_points.power               | Float         | required                          | 22               | In kW                                                                                                                                                       |
-| station.charge_points.plug                | String        | required                          | "CCS"            | Name of plug at charge point                                                                                                                                |
-| options                                   | Object        | required                          |                  | Charge related request data                                                                                                                                 |
-| options.max_monthly_fees                  | Float         | optional                          | 0                | Only returns tariffs, where `total_monthly_fee` + `monthly_min_sales` <= the given value.                                                                   |
-| options.energy                            | Float         | See **Duration and Energy Input** | 30               | Total energy to be charged in kWh                                                                                                                           |
-| options.duration                          | Float         | See **Duration and Energy Input** | 45               | Duration of the charge in minutes                                                                                                                           |
-| options.battery_range                     | Array[Float]  | See **Duration and Energy Input** | [20.0,80.0]      | Array with 2 values, that defines the battery start and end values for the charge in percentage.                                                            |
-| options.car_ac_phases                     | Integer       | optional (default: 3)             | 3                | Number of AC phases the car can use to charge. Possible values: 1,3                                                                                         |
-| options.currency                          | String        | optional (default: "EUR")         | "EUR"            | Currency in which the prices should be returned. Possible values are listed at the [eurofxref]                                                              |
-| options.start_time                        | Integer       | optional (default: 12:00)         | 720 (=12:00)     | Time of day in minutes when the charging session gets started. Min value: 0 (00:00), max value: 1439 (23:59)                                                |
-| options.allow_unbalanced_load             | Boolean       | optional (default: false)         | false            | If true, it allows higher powers for uniphase charging vehicles. If false, power is restricted to 4.5 kW.                                                   |
-| options.provider_customer_tariffs         | Boolean       | optional (default: false)         | false            | Include prices of tariffs, that are only available for customers of a provider (e.g. electricity provider for the home).                                    |
-| options.foreign_tariffs                   | Boolean       | optional (default: true)          | false            | Include prices of tariffs that are supposed to be used in other countries or by people from other countries.                                                |
-| options.show_price_unavailable            | Boolean       | optional (default: false)         | false            | Include tariffs, which are available at the provided CPO, but no price information is availble.                                                             |
-| options.show_all_brand_restricted_tariffs | Boolean       | optional (default: false)         | false            | `false`: Include vehicle brand restricted tariffs only if the requested vehicle matches the brand. `true`: Include vehicle brand restricted tariffs always. |
+| **Name**                                  | **Type**      | **Presence**                      | **Example**                            | **Description**                                                                                                                                               |
+|-------------------------------------------|---------------|-----------------------------------|----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| data_adapter                              | string        | required                          | "chargeprice"                          | The source of the charging station data. In most cases "chargeprice". Other supported values: "going_electric", "open_charge_map"                             |
+| station                                   | Object        | required                          |                                        | Station related request data                                                                                                                                  |
+| station.longitude                         | Float         | required                          | 43.123                                 | Longitude coordinate of the station                                                                                                                           |
+| station.latitude                          | Float         | required                          | 123.456                                | Latitude coordinate of the station                                                                                                                            |
+| station.country                           | String        | required                          | "DE"                                   | Country in which the station is located. For data adapter "chargeprice": ISO 3166 country code.                                                               |
+| station.network                           | String        | required                          | "6e62cd2d-f29d-4107-b087-6d4f75261cce" | Network/CPO to which the station belongs to. For data adapter "chargeprice": The CPO/Operator ID.                                                             |
+| station.charge_points                     | Array[Object] | required                          |                                        | All kinds of connectors that are available at a station.                                                                                                      |
+| station.charge_points.power               | Float         | required                          | 22                                     | In kW                                                                                                                                                         |
+| station.charge_points.plug                | String        | required                          | "ccs"                                  | Type of plug at charge point. Possible values for data adapter "chargeprice": `ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc` |
+| options                                   | Object        | required                          |                                        | Charge related request data                                                                                                                                   |
+| options.max_monthly_fees                  | Float         | optional                          | 0                                      | Only returns tariffs, where `total_monthly_fee` + `monthly_min_sales` <= the given value.                                                                     |
+| options.energy                            | Float         | See **Duration and Energy Input** | 30                                     | Total energy to be charged in kWh                                                                                                                             |
+| options.duration                          | Float         | See **Duration and Energy Input** | 45                                     | Duration of the charge in minutes                                                                                                                             |
+| options.battery_range                     | Array[Float]  | See **Duration and Energy Input** | [20.0,80.0]                            | Array with 2 values, that defines the battery start and end values for the charge in percentage.                                                              |
+| options.car_ac_phases                     | Integer       | optional (default: 3)             | 3                                      | Number of AC phases the car can use to charge. Possible values: 1,3                                                                                           |
+| options.currency                          | String        | optional (default: "EUR")         | "EUR"                                  | Currency in which the prices should be returned. Possible values are listed at the [eurofxref]                                                                |
+| options.start_time                        | Integer       | optional (default: 12:00)         | 720 (=12:00)                           | Time of day in minutes when the charging session gets started. Min value: 0 (00:00), max value: 1439 (23:59)                                                  |
+| options.allow_unbalanced_load             | Boolean       | optional (default: false)         | false                                  | If true, it allows higher powers for uniphase charging vehicles. If false, power is restricted to 4.5 kW.                                                     |
+| options.provider_customer_tariffs         | Boolean       | optional (default: false)         | false                                  | Include prices of tariffs, that are only available for customers of a provider (e.g. electricity provider for the home).                                      |
+| options.foreign_tariffs                   | Boolean       | optional (default: true)          | false                                  | Include prices of tariffs that are supposed to be used in other countries or by people from other countries.                                                  |
+| options.show_price_unavailable            | Boolean       | optional (default: false)         | false                                  | Include tariffs, which are available at the provided CPO, but no price information is availble.                                                               |
+| options.show_all_brand_restricted_tariffs | Boolean       | optional (default: false)         | false                                  | `false`: Include vehicle brand restricted tariffs only if the requested vehicle matches the brand. `true`: Include vehicle brand restricted tariffs always.   |
 
 The following table lists the `relationships` section of a `charge_prices_request` object:
 
 | **Name**       | **Type**               | **Presence**                                           | **Example**                             | **Description**                                                                                                                                                                                                                                                                        |
-| -------------- | ---------------------- | ------------------------------------------------------ | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------|------------------------|--------------------------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | tariffs        | Array of Relationships | optional (default: all available tariffs are returned) | `[{"id": "some-uuid", type:"tariff" }]` | Only return charge prices for the given tariffs. See [GET v1/tariffs](../tariffs/index.md) for the valid options.                                                                                                                                                                      |
 | tariff.include | String                 | optional (default: `filter`)                           | `"filter"`                              | `filter`: Only the tariffs listed should be returned and other filters should apply as well. `always`: The listed tariffs should always be returned, even if another filter would remove them. `exclusive`: Always only include the listed tariffs, eve if a filter would remove them. |
 | vehicle        | Relationship           | See **Duration and Energy Input**                      | `{"id": "some-uuid", type:"car" }`      | Vehicle at charge. See [GET v1/vehicles](../vehicles/index.md) for the valid options.                                                                                                                                                                                                  |
@@ -75,7 +75,7 @@ A response contains 0 to many `charge_price` objects, which define the prices pe
 The following table lists the `attributes` of these objects:
 
 | **Name**                               | **Type**        | **Example**                       | **Description**                                                                                                                                                                                                                              |
-| -------------------------------------- | --------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------------------------|-----------------|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | provider                               | String          | "Maingau Energie"                 | Name of the charge card provider                                                                                                                                                                                                             |
 | tariff_name                            | String or null  | "EinfachStromLaden"               | Name of the tariff, if available                                                                                                                                                                                                             |
 | url                                    | String          | "http://my.tarif.at/prices"       | Link to tariff at the website of the provider                                                                                                                                                                                                |
@@ -105,22 +105,22 @@ The following table lists the `attributes` of these objects:
 The following table lists the `relationships`:
 
 | **Name** | **Type**     | **Example**                           | **Description**                                                                                                     |
-| -------- | ------------ | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+|----------|--------------|---------------------------------------|---------------------------------------------------------------------------------------------------------------------|
 | tariff   | Relationship | `{"id": "some-uuid", type:"tariff" }` | The tariff that was applied for this charge price. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
 
 The following table lists the `links`. This section is optional and only available if at least one link is present.
 
 | **Name**            | **Type** | **Example**                 | **Description**                                                                                                                |
-| ------------------- | -------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+|---------------------|----------|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | open_app_at_station | String   | `https://something.com/123` | An HTTP link that should deeplink into the application of the provider at the current charging station. This link is optional. |
 
 
 The following table lists the `meta` data:
 
 | **Name**               | **Type**      | **Example** | **Description**                                                                           |
-| ---------------------- | ------------- | ----------- | ----------------------------------------------------------------------------------------- |
+|------------------------|---------------|-------------|-------------------------------------------------------------------------------------------|
 | charge_points          | Array[Object] |             |                                                                                           |
-| charge_points.plug     | String        | "ac"        | Name of plug at charge point                                                              |
+| charge_points.plug     | String        | "ac"        | Type of plug at charge point (as provided in the request)                                 |
 | charge_points.power    | Float         | 22          | In kW                                                                                     |
 | charge_points.duration | Float         | 30.0        | Charging duration (minutes) based on the input data (duration or vehicle + battery range) |
 | charge_points.energy   | Float         | 11.0        | Energy to be charged (kWh) based on the input data (duration or vehicle + battery range)  |
@@ -148,22 +148,23 @@ Accept-Language: de
 Body:
 
 with `energy`, `duration` and `tariffs`.
+using "chargeprice" data adapter.
 
 ```json
 {
   "data": {
     "type":       "charge_price_request",
     "attributes": {
-      "data_adapter": "going_electric",
+      "data_adapter": "chargeprice",
       "station":         {
         "longitude":  14.13117,
         "latitude":   48.289453,
-        "country":    "Österreich",
-        "network":    "Wien Energie",
+        "country":    "AT",
+        "network":    "6e62cd2d-f29d-4107-b087-6d4f75261cce",
         "charge_points": [
           {
             "power":  22,
-            "plug":   "CCS"
+            "plug":   "ccs"
           }
         ]
       },
@@ -191,6 +192,7 @@ with `energy`, `duration` and `tariffs`.
 ```
 
 with `vehicle` and `battery_range` given:
+using "going_electric" data adapter.
 
 ```json
 {
@@ -256,7 +258,7 @@ Body:
         "charge_point_prices": [
           {
             "power":  22,
-            "plug":   "CCS",
+            "plug":   "ccs",
             "price":  12,
             "price_distribution": {
               "kwh": 0.3,
@@ -291,7 +293,7 @@ Body:
     "charge_points": [
       {
         "power": 22,
-        "plug": "CCS",
+        "plug": "ccs",
         "duration": 30.0,
         "energy": 12.0
       }

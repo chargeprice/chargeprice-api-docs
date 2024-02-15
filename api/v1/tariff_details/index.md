@@ -48,7 +48,7 @@ The following table lists the `attributes` of these objects:
 
 | **Name**                                        | **Type**      | **Example**   | **Description**                                                                                                                                                                                                                                                              |
 |-------------------------------------------------|---------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| country                                         | String        | `AT`          | ISO 3166 code of the country for which the prices are defined.                                                                                                                                                                                                                                                |
+| country                                         | String        | `AT`          | ISO 3166 code of the country for which the prices are defined.                                                                                                                                                                                                               |
 | updated_at                                      | Timestamp     | 1664446527000 | Time when the tariff has been updated                                                                                                                                                                                                                                        |
 | tariff_level                                    | String        | `cpo`         | At which level this tariff applies: `country`: the default tariff for all CPOs in this country, `cpo`: tariff applies to all EVSEs of this CPO, `evse` (not implemented yet): tariff applies only to a specific EVSE.                                                        |
 | restricted_segments                             | Array<Object> | -             |                                                                                                                                                                                                                                                                              |
@@ -68,16 +68,19 @@ The following table lists the `attributes` of these objects:
 
 The following table lists the `relationships` and their values in the `included` section:
 
-| **Name**                 | **Type**     | **Example**                            | **Description**                                                                                               |
-|--------------------------|--------------|----------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| tariff                   | Relationship | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                                                                   |
-| tariff.name              | String       | `easyFlex`                             | Name of the tariff                                                                                            |
-| tariff.total_monthly_fee | Float        | 10.0                                   | Monthly fee incl. a 12th of any yearly fee.                                                                   |
-| tariff.currency          | String       | `EUR`                                  | Main currency of the tariff. Applies to e.g. the monthly fee. Currency of prices can vary country by country. |
-| tariff.url               | String       | `http://www.google.at`                 | Website of the tariff.                                                                                        |
-| emp                      | Relationship | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff.                                                  |
-| emp.name                 | String       | `Energie Steiermark`                   | Company name of the EMP                                                                                       |
-| cpo                      | Relationship | `{"id": "some-uuid", type:"company" }` | The CPO (Charge Point Operator) to which this tariff applies.                                                 |
+| **Name**                      | **Type**           | **Example**                            | **Description**                                                                                               |
+|-------------------------------|--------------------|----------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| tariff                        | Relationship       | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                                                                   |
+| tariff.name                   | String             | `easyFlex`                             | Name of the tariff                                                                                            |
+| tariff.total_monthly_fee      | Float              | 10.0                                   | Monthly fee incl. a 12th of any yearly fee.                                                                   |
+| tariff.is_direct_payment      | Boolean            | `true`                                 | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).       |
+| tariff.provider_customer_only | Boolean            | `true`                                 | This tariff can be used without registration                                                                  |
+| tariff.currency               | String             | `EUR`                                  | Main currency of the tariff. Applies to e.g. the monthly fee. Currency of prices can vary country by country. |
+| tariff.url                    | String             | `http://www.google.at`                 | Website of the tariff.                                                                                        |
+| tariff.vehicle_brands         | Relationship Array | -                                      | Only owners of these vehicle brands are allowed to subscribe to this tariff.                                  |
+| emp                           | Relationship       | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff.                                                  |
+| emp.name                      | String             | `Energie Steiermark`                   | Company name of the EMP                                                                                       |
+| cpo                           | Relationship       | `{"id": "some-uuid", type:"company" }` | The CPO (Charge Point Operator) to which this tariff applies.                                                 |
 
 Timestamp = Millis since 1.1.1970
 
@@ -210,8 +213,20 @@ Body:
       "attributes": {
         "name": "easyFlex",
         "total_monthly_fee": 5.0,
+        "is_direct_payment": false,
+        "provider_customer_only": false,
         "currency": "EUR",
         "url": "http://www.google.at"
+      },
+      "relationships": {
+        "vehicle_brands": {
+          "data": [
+            {
+              "id": "50006f11-3ed4-4715-92b5-08e37e6dd185",
+              "type": "brand"
+            }
+          ]
+        }
       }
     }
   ]

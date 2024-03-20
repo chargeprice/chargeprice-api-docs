@@ -40,6 +40,7 @@ The following table lists it's `attributes`:
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
 | parking_description           | String or `null`  | "0.5€/h"                   | Describes the parking situation with costs, times etc. in the provided language. Not available for all stations.                        |
 | operator                      | Relationship      | -                          | Reference of the operator (CPO)                                                                                                         |
+| meta.promoted                 | Bool              | 1                          | Stations with an active promotion campaign.                                                                                             |
 
 ### Included Section
 
@@ -97,6 +98,9 @@ Body:
           "id": "ae62cd2d-f29d-4107-b087-6d4f75261cca"
         }
       }
+    },
+    "meta": {
+      "promoted": true
     }
   },
   "included": [

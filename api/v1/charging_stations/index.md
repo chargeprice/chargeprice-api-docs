@@ -20,7 +20,7 @@ This API follows the https://jsonapi.org specification.
 The following query parameters are available.
 
 | **Name**                           | **Type**         | **Presence** | **Example**                                                               | **Description**                                                                                                    |
-| ---------------------------------- | ---------------- | ------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+|------------------------------------|------------------|--------------|---------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
 | filter[id]                         | CSV              | optional*    | 20006f18-3ed4-4715-92b5-08e37e6dd18c,20006f18-3ed4-4715-92b5-08e37e6dd18c | A list of max. 50 Charging Station IDs that can be fetched                                                         |
 | filter[latitude.gte]               | Float            | optional*    | 12.345                                                                    | Inclusive lower bound of the latitude location component of the station for a bounding box search                  |
 | filter[latitude.lte]               | Float            | optional*    | 12.345                                                                    | Inclusive upper bound of the latitude location component of the station for a bounding box search                  |
@@ -78,7 +78,7 @@ A response contains 0 to max. 400 `charging_station` objects. The following
 table lists the `attributes` of these objects:
 
 | **Name**                      | **Type**          | **Example**                | **Description**                                                                                                                         |
-| ----------------------------- | ----------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------|-------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | name                          | String            | "McDonalds Graz"           | Name of the charging station                                                                                                            |
 | latitude                      | Float             | 43.345                     | Latitude component of the location                                                                                                      |
 | longitude                     | Float             | 12.443                     | Longitude component of the location                                                                                                     |
@@ -93,13 +93,14 @@ table lists the `attributes` of these objects:
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
 | version                       | Integer           | 1                          | Current lock version                                                                                                                    |
+| meta.promoted                 | Bool              | 1                          | Stations with an active promotion campaign.                                                                                             |
 
 ### Included Section
 
 `company`
 
 | **Name**       | **Type** | **Example**      | **Description**                                                                                                                                                                                                                                                          |
-| -------------- | -------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|----------------|----------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name           | String   | "McDonalds Graz" | Name of the charging station operator                                                                                                                                                                                                                                    |
 | supported_emps | Array    | -                | EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO). Attention: This is not a list of all supported EMPs, but only those who have been passed in the `operator.supported_emps.id` filter! |
 
@@ -185,6 +186,9 @@ Body:
             "id": "ae62cd2d-f29d-4107-b087-6d4f75261cca"
           }
         }
+      },
+      "meta": {
+        "promoted": true
       }
     }
   ],

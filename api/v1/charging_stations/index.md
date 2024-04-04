@@ -77,23 +77,24 @@ These searches can't be combined, they are mutually exclusive (XOR)!
 A response contains 0 to max. 400 `charging_station` objects. The following
 table lists the `attributes` of these objects:
 
-| **Name**                      | **Type**          | **Example**                | **Description**                                                                                                                         |
-|-------------------------------|-------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| name                          | String            | "McDonalds Graz"           | Name of the charging station                                                                                                            |
-| latitude                      | Float             | 43.345                     | Latitude component of the location                                                                                                      |
-| longitude                     | Float             | 12.443                     | Longitude component of the location                                                                                                     |
-| country                       | String            | "AT"                       | ISO 3166 country code of the location                                                                                                   |
-| address                       | String            | "Teslastraße 1, 8010 Graz" | Address of the station                                                                                                                  |
-| free_parking                  | Boolean or `null` | true                       | Parking at the station is free of charge (`null` = unknown)                                                                             |
-| free_charging                 | Boolean or `null` | true                       | Charging at the station is free of charge (`null` = unknown)                                                                            |
-| evse_ids                      | Array             | ["AT\*ION\*E1234"]         | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this location. |
-| charge_points                 | Array             | -                          | Charge points at this station, grouped by power and plug type                                                                           |
-| charge_points.plug            | String            | "ccs"                      | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                                          |
-| charge_points.power           | Float             | 50.0                       | Max. power                                                                                                                              |
-| charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
-| charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
-| version                       | Integer           | 1                          | Current lock version                                                                                                                    |
-| meta.promoted                 | Bool              | 1                          | Stations with an active promotion campaign.                                                                                             |
+| **Name**                        | **Type**          | **Example**                | **Description**                                                                                                                         |
+|---------------------------------|-------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| name                            | String            | "McDonalds Graz"           | Name of the charging station                                                                                                            |
+| latitude                        | Float             | 43.345                     | Latitude component of the location                                                                                                      |
+| longitude                       | Float             | 12.443                     | Longitude component of the location                                                                                                     |
+| country                         | String            | "AT"                       | ISO 3166 country code of the location                                                                                                   |
+| address                         | String            | "Teslastraße 1, 8010 Graz" | Address of the station                                                                                                                  |
+| free_parking                    | Boolean or `null` | true                       | Parking at the station is free of charge (`null` = unknown)                                                                             |
+| free_charging                   | Boolean or `null` | true                       | Charging at the station is free of charge (`null` = unknown)                                                                            |
+| evse_ids                        | Array             | ["AT\*ION\*E1234"]         | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this location. |
+| charge_points                   | Array             | -                          | Charge points at this station, grouped by power and plug type                                                                           |
+| charge_points.plug              | String            | "ccs"                      | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                                          |
+| charge_points.power             | Float             | 50.0                       | Max. power                                                                                                                              |
+| charge_points.count             | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
+| charge_points.available_count   | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
+| version                         | Integer           | 1                          | Current lock version                                                                                                                    |
+| meta.promotion                  | Hash              | See below                  | Stations with an active promotion campaign.                                                                                             |
+| meta.promotion.map_pin_icon_url | String            | http://cp.com/logo.png     | URL to the map pin icon.                                                                                                                |
 
 ### Included Section
 
@@ -188,7 +189,9 @@ Body:
         }
       },
       "meta": {
-        "promoted": true
+        "promotion": {
+          "map_pin_icon_url": "http://cp.com/logo.png"
+        }
       }
     }
   ],

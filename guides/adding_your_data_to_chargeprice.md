@@ -12,8 +12,7 @@ prices) into the Chargeprice system.
 The easiert and quickest way to integrate your POIs into Chargeprice is via the
 industry-standard [OCPI](https://evroaming.org/ocpi-background/). This requires
 the CPO to provide an OCPI-compliant API, where Chargeprice connects to  the
-Locations module. The current supported version is [OCPI
-2.1.1](https://github.com/ocpi/ocpi/tree/2.1.1-d2).
+Locations module. The current supported versions are [2.2.1](https://github.com/ocpi/ocpi/tree/2.2.1) and [2.1.1](https://github.com/ocpi/ocpi/tree/2.1.1).
 
 This is right now also the only option to integrate live status (availability of
 a POI) into Chargeprice.

@@ -1,4 +1,4 @@
-# POST /v1/charge_prices/bulk_preview
+# POST /v1/charge_prices/bulk
 
 Calculates the best price at a list of stations, given a list of tariffs, a
 vehicle and battery range.

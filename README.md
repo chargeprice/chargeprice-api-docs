@@ -28,6 +28,7 @@ You might also be interested in our
 
 * Charge Prices
   * [Index](./api/v1/charge_prices/index.md)
+  * [Bulk Index](./api/v1/charge_prices/bulk/index.md)
 * Charging Stations
   * [Index](./api/v1/charging_stations/index.md)
   * [Show](./api/v1/charging_stations/show.md)

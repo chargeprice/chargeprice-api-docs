@@ -12,7 +12,7 @@ This API follows the https://jsonapi.org specification.
 
 ## Authorization Group
 
-`ReadStations`
+`ReadStations` or `ReadStationsWithAvailability`
 
 # Request Parameters
 
@@ -22,9 +22,9 @@ This API follows the https://jsonapi.org specification.
 
 The following query parameters are available:
 
-| **Name**                 | **Type** | **Presence** | **Example**                   | **Description**                         |
-|--------------------------|----------|--------------|-------------------------------|-----------------------------------------|
-| fields[charging_station] | CSV      | *optional*    | charge_points.available_count | Defines if the availability is returned |
+| **Name**     | **Type** | **Presence** | **Example** | **Description**                                                          |
+|--------------|----------|--------------|-------------|--------------------------------------------------------------------------|
+| availability | Boolean  | *optional*   | true        | Defines if the charge_points.available_count is returned. Default: false |
 
 ## Response Body
 
@@ -65,7 +65,7 @@ The following table lists it's `attributes`:
 ### Request
 
 ```http
-GET http://example-base-url.com/v1/charging_stations/20006f18-3ed4-4715-92b5-08e37e6dd18c
+GET http://example-base-url.com/v1/charging_stations/20006f18-3ed4-4715-92b5-08e37e6dd18c?availability=true
 Content-Type: application/json
 Api-Key: my-secret-key
 ```

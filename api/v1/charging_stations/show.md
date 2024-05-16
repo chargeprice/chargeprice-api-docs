@@ -18,6 +18,14 @@ This API follows the https://jsonapi.org specification.
 
 **charging_station_id** ID or EVSE ID of station that should be fetched.
 
+### Query Parameters
+
+The following query parameters are available:
+
+| **Name**                 | **Type** | **Presence** | **Example**                   | **Description**                         |
+|--------------------------|----------|--------------|-------------------------------|-----------------------------------------|
+| fields[charging_station] | CSV      | *optional*    | charge_points.available_count | Defines if the availability is returned |
+
 ## Response Body
 
 A response contains a `charging_station` object.

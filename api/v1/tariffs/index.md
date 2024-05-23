@@ -18,7 +18,7 @@ This API follows the https://jsonapi.org specification.
 The following query filter parameters are available: 
 
 | **Name**               | **Type**   | **Presence** | **Example**                                                                 | **Description**                                                                                         |
-| ---------------------- | ---------- | ------------ | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+|------------------------|------------|--------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | provider_customer_only | Boolean    | optional     | true                                                                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
 | direct_payment         | Boolean    | optional     | true                                                                        | This tariff can be used without registration                                                            |
 | id                     | CSV of IDs | optional     | `cbe781a1-c16e-4af0-890a-b5f5943b6b77,1be781a1-c16e-4af0-890a-b5f5943b6b7a` | Only return tariffs with these IDs                                                                      |
@@ -29,12 +29,13 @@ A response contains 0 to many `tariff` objects.
 The following table lists the `attributes` of these objects:
 
 | **Name**                  | **Type**      | **Example**                 | **Description**                                                                                         |
-| ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------------------------------------- |
+|---------------------------|---------------|-----------------------------|---------------------------------------------------------------------------------------------------------|
 | provider                  | String        | "Maingau Energie"           | Name of the charge card provider                                                                        |
 | name                      | String        | "EinfachStromLaden"         | Name of the tariff                                                                                      |
 | total_monthly_fee         | Float         | 10.0                        | Monthly fee incl. a 12th of any yearly fee.                                                             |
 | currency                  | String        | "EUR"                       | Main currency of the tariff. Applies to e.g. the monthly fee.                                           |
-| direct_payment            | Boolean       | true                        | This tariff can be used without registration                                                            |
+| is_direct_payment         | Boolean       | true                        | This tariff can be used without registration                                                            |
+| is_card_payment           | Boolean       | true                        | This tariff applies to card payments at stations with a terminal                                                            |
 | provider_customer_tariff  | Boolean       | true                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
 | branding                  | Hash or null  | -                           | If branding for the tariff is not available, then `null`                                                |
 | branding.background_color | String        | "#ff0000"                   | Brand color to be used as background color to show the tariff.                                          |
@@ -71,7 +72,8 @@ Body:
         "provider": "Energie Graz",
         "name": "Energie Graz Direct",
         "provider_customer_only": false,
-        "direct_payment": true,
+        "is_direct_payment": true,
+        "is_card_payment": true,
         "total_monthly_fee": 0.0,
         "currency": "EUR",
         "branding": {
@@ -97,7 +99,8 @@ Body:
       "attributes": {
         "provider": "Plugsurfing",
         "provider_customer_only": false,
-        "direct_payment": false,
+        "is_direct_payment": false,
+        "is_card_payment": false,
         "branding": null,
         "supported_countries": ["AT","DE"],
         "total_monthly_fee": 10.0,

@@ -73,8 +73,9 @@ The following table lists the `relationships` and their values in the `included`
 | tariff                        | Relationship       | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                                                                   |
 | tariff.name                   | String             | `easyFlex`                             | Name of the tariff                                                                                            |
 | tariff.total_monthly_fee      | Float              | 10.0                                   | Monthly fee incl. a 12th of any yearly fee.                                                                   |
-| tariff.is_direct_payment      | Boolean            | `true`                                 | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).       |
-| tariff.provider_customer_only | Boolean            | `true`                                 | This tariff can be used without registration                                                                  |
+| tariff.is_direct_payment      | Boolean            | `true`                                 | This tariff can be used without registration                                                                  |
+| tariff.is_card_payment        | Boolean            | `true`                                 | This tariff applies to card payments at stations with a terminal                                                          |
+| tariff.provider_customer_only | Boolean            | `true`                                 | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).       |
 | tariff.currency               | String             | `EUR`                                  | Main currency of the tariff. Applies to e.g. the monthly fee. Currency of prices can vary country by country. |
 | tariff.url                    | String             | `http://www.google.at`                 | Website of the tariff.                                                                                        |
 | tariff.vehicle_brands         | Relationship Array | -                                      | Only owners of these vehicle brands are allowed to subscribe to this tariff.                                  |
@@ -214,6 +215,7 @@ Body:
         "name": "easyFlex",
         "total_monthly_fee": 5.0,
         "is_direct_payment": false,
+        "is_card_payment": false,
         "provider_customer_only": false,
         "currency": "EUR",
         "url": "http://www.google.at"

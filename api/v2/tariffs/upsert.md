@@ -28,6 +28,7 @@ The body can have the following attributes:
 | yearly_service_fee                              | Float               |              | 20.0                                   | Any additionaly fee to be paid per year                                                                                                                                                                               |
 | is_flat_rate                                    | Boolean             |              | true                                   | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                                                                                                                                |
 | is_direct_payment                               | Boolean             |              | true                                   | This tariff can be used without registration                                                                                                                                                                          |
+| is_card_payment                                 | Boolean             |              | true                                   | This tariff applies to card payments at stations with a terminal                                                                                                                                                                                               |
 | provider_customer_only                          | Boolean             |              | true                                   | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                                                                               |
 | existing_customer_only                          | Boolean             |              | true                                   | If true, tariff is only available for existing customers and a registration for new customers is not possible anymore.                                                                                                |
 | currency                                        | String              |              | "EUR"                                  | Currency in which any price of the tariff is defined.                                                                                                                                                                 |
@@ -81,6 +82,7 @@ The following table lists the `attributes` of a `tariff` or `sub_tariff` (both h
 | yearly_service_fee                              | Float               | 20.0                   | Any additionaly fee to be paid per year                                                                                                                                                                               |
 | is_flat_rate                                    | Boolean             | true                   | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                                                                                                                                |
 | is_direct_payment                               | Boolean             | true                   | This tariff can be used without registration                                                                                                                                                                          |
+| is_card_payment                                 | Boolean             | true                   | This tariff applies to card payments at stations with a terminal                                                                                                                                                                                               |
 | provider_customer_only                          | Boolean             | true                   | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                                                                               |
 | existing_customer_only                          | Boolean             | true                   | If true, tariff is only available for existing customers and a registration for new customers is not possible anymore.                                                                                                |
 | currency                                        | String              | "EUR"                  | Currency in which any price of the tariff is defined.                                                                                                                                                                 |
@@ -175,6 +177,7 @@ Api-Key: my-secret-key
       "yearly_service_fee": 0.0,
       "is_flat_rate": false,
       "is_direct_payment": false,
+      "is_card_payment": false,
       "provider_customer_only": false,
       "currency": "EUR",
       "tags": [
@@ -277,6 +280,7 @@ Body:
       "yearly_service_fee": 0.0,
       "is_flat_rate": false,
       "is_direct_payment": false,
+      "is_card_payment": false,
       "provider_customer_only": false,
       "currency": "EUR",
       "tags": [

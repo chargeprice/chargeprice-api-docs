@@ -36,8 +36,6 @@ You might also be interested in our
   * [Delete](./api/v1/companies/delete.md)
   * [Index](./api/v1/companies/index.md)
   * [Upsert](./api/v1/companies/upsert.md)
-* Partner Feedback
-  * [Create](./api/v1/partner_feedback/create.md)
 * Tariff Details
   * [Index](./api/v1/tariff_details/index.md)
 * Tariffs

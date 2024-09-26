@@ -1,14 +1,16 @@
 # Integrate Charge Prices into your Application
 
-At the moment the following POI (Charging Station) Provider APIs are supported
+At the moment the following POI (Charging Station) data sources are supported
 as data adapters for the Charge Prices API:
 
+* [Chargeprice](/api/v1/charging_stations/index.md) (Recommended)
 * [GoingElectric.de](https://www.goingelectric.de/stromtankstellen/api/)
 * [OpenChargeMap.org](https://openchargemap.org/site/develop#api) (Beta)
-* [Chargeprice](/api/v1/charging_stations/index.md)
 
 You **need** to integrate at least one of the above data sources to use the
-Chargeprice API and fetch prices.
+Chargeprice API and fetch prices. 
+
+We recommend the Chargeprice POI source, because it has the highest coverage and data quality.
 
 Get familiar with your chosen API(s) before you continue with the next step.
 

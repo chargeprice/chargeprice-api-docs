@@ -115,9 +115,7 @@ table lists the `attributes` of these objects:
 # Meta
 - more_available: Indicates if there are more stations available on the
   following page (see pagination).
-- disabled_going_electric_countries: Countries where the Chargeprice Data has
-  likely better quality than the GoingElectric data and hence the GoingElectric
-  data shouldn't be shown at all
+- disabled_going_electric_countries: Countries where GoingElectric charging stations shouldn't be displayed anymore. (Might soon be deprecated, due to moving away from GoingElectric completely.)
 
 ## Example
 

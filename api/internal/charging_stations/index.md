@@ -5,6 +5,8 @@ Find charging stations in a given area.
 In contrast to v1, it also returns stations which are not operational and extra
 attributes.
 
+**This API is NOT available to 3rd parties!**
+
 This API follows the https://jsonapi.org specification.
 
 ## Headers
@@ -23,7 +25,7 @@ This API follows the https://jsonapi.org specification.
 The following query parameters are available.
 
 | **Name**                           | **Type**         | **Presence** | **Example**                                                               | **Description**                                                                                                    |
-| ---------------------------------- | ---------------- | ------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+|------------------------------------|------------------|--------------|---------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
 | filter[id]                         | CSV              | optional*    | 20006f18-3ed4-4715-92b5-08e37e6dd18c,20006f18-3ed4-4715-92b5-08e37e6dd18c | A list of max. 50 Charging Station IDs that can be fetched                                                         |
 | filter[latitude.gte]               | Float            | optional*    | 12.345                                                                    | Inclusive lower bound of the latitude location component of the station for a bounding box search                  |
 | filter[latitude.lte]               | Float            | optional*    | 12.345                                                                    | Inclusive upper bound of the latitude location component of the station for a bounding box search                  |
@@ -38,6 +40,8 @@ The following query parameters are available.
 | filter[operator.supported_emps.id] | CSV              | optional     | ce12cd2d-f29d-3107-8087-6d4f75261cc0,4e12cd2d-d29d-3107-8087-6d4f75261cc7 | Only stations where these EMPs (NOT tariffs!) are supported. Extract the EMP ID of a tariff to use this filter!    |
 | filter[free_charging]              | Boolean          | optional     | true                                                                      | Only stations with free charging                                                                                   |
 | filter[free_parking]               | Boolean          | optional     | true                                                                      | Only stations with free parking                                                                                    |
+| filter[facilities]                 | CSV              | optional     | "hotel,restaurant"                                                        | Only stations that have at least one of these facilities close nearby. [See supported values](../../enums.md#facilities) |
+| filter[parking_type]               | CSV              | optional     | "parking_garage,along_motorway"                                           | Only stations that have one of these parking types. [See supported values](../../enums.md#parking-type)                  |
 | fields[company]                    | CSV              | optional     | "name,supported_emps"                                                     | If set, only the given fields of a company are returned. Default: "name". Allowed Values: "name", "supported_emps" |
 | page[size]                         | Positive Integer | optional     | 2                                                                         | Max no. of stations in the current response. Default: 400, Max value: 400                                          |
 | page[number]                       | Positive Integer | optional     | 10                                                                        | Current page number. Default: 1                                                                                    |
@@ -80,7 +84,7 @@ A response contains 0 to max. 400 `charging_station` objects. The following
 table lists the `attributes` of these objects:
 
 | **Name**                      | **Type**          | **Example**                | **Description**                                                                                                                                     |
-| ----------------------------- | ----------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------|-------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | name                          | String            | "McDonalds Graz"           | Name of the charging station                                                                                                                        |
 | latitude                      | Float             | 43.345                     | Latitude component of the location                                                                                                                  |
 | longitude                     | Float             | 12.443                     | Longitude component of the location                                                                                                                 |
@@ -98,6 +102,8 @@ table lists the `attributes` of these objects:
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                                                           |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                                    |
 | charge_points.evse_ids        | Array             | ["AT\*ION\*E1234"]         | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this type of charge point. |
+| facilities                    | Array<String>     | ["hotel"]                  | Facilities that closely located to the charging station. [See Supported values](../../enums.md#facilities).                                         |
+| parking_type                  | String or `null`  | "along_motorway"           | The general type of parking at the charging location. [See Supported values](../../enums.md#parking-type).                                          |
 | created_at                    | Timestamp         | 1546297200000              | Creation time of the resource                                                                                                                       |
 | updated_at                    | Timestamp         | 1546297200000              | Last update of the resource                                                                                                                         |
 | version                       | Integer           | 1                          | Current lock version                                                                                                                                |
@@ -107,7 +113,7 @@ table lists the `attributes` of these objects:
 `company`
 
 | **Name**       | **Type** | **Example**      | **Description**                                                                                                                                                                                                                                                          |
-| -------------- | -------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|----------------|----------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name           | String   | "McDonalds Graz" | Name of the charging station operator                                                                                                                                                                                                                                    |
 | supported_emps | Array    | -                | EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO). Attention: This is not a list of all supported EMPs, but only those who have been passed in the `operator.supported_emps.id` filter! |
 
@@ -188,7 +194,9 @@ Body:
             "available_count": 2,
             "evse_ids": ["AT*ION*E1234"]
           }
-        ]
+        ],
+        "facilities": ["hotel", "fuel_station"],
+        "parking_type": "parking_garage"
       },
       "relationships": {
         "operator": {

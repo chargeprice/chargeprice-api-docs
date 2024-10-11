@@ -17,6 +17,17 @@ Please expect that new Tag Kinds might be added at any time!
 - nl
 - da
 
+## Plugs
+
+- ccs
+- type2
+- chademo
+- schuko
+- type1
+- type3 
+- tesla_ccs: Used for Superchargers that use the CCS standard, but are only open to Tesla vehicles.
+- tesla_suc
+
 ## Facilities
 
 This list is based on the [facilities in OCPI](https://github.com/ocpi/ocpi/blob/master/mod_locations.asciidoc#mod_locations_facility_enum):

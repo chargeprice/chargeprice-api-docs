@@ -5,12 +5,11 @@ terms. These terms are subject to change at any time without notice.
 
 ## Only use your personal API key
 
-Every API key is given in association to an entity, being a company or a
-physical person. 
+Your API key should be kept secret and only be used within your organisation.
 
 It is not permitted to use any other API key than the one(s) provided by
-Chargeprice (it is not allowed to e.g. use the API key from
-https://www.chargeprice.app).
+Chargeprice. It is not allowed to use the API key from
+https://www.chargeprice.app or other Chargeprice applications.
 
 Additionally the provided API key must only be used for the application that was
 agreed on with Chargeprice. Any use in a new application must be requested
@@ -19,27 +18,12 @@ first.
 Using a non authorized API or misusing your personal API will result in a report
 to legal authorities. 
 
-## Branding
+# Rate Limit
 
-The API consumer shall mention Chargeprice, display the Chargeprice logo
-(resources can be found [here](/logos)) and link to www.chargeprice.app on every
-media the data transferred by Chargeprice is used.
+Per default any issued API key is allowed to perform 1000 API requests per minute, 
+measured over a time window of 5 minutes.
 
-Before launching the integration of the Chargeprice API, a screenshot or test
-account needs to be provided to Chargeprice and Chargeprice needs to approve the
-branding.
-
-Exceptions might be explicitly granted only by a legal representative of
-Chargeprice SAS. 
-
-## Soft Limit & Current Usage
-
-In case the monthly API limit is reached, Chargeprice won't be turn off the API
-access automatically. However Chargeprice will reach out to the API consumer.
-
-Right now it is not possible for the API consumer to see the number of requests
-for the current or past months. Chargeprice can provide this data at any time
-though if the API consumer requests it.
+If your use case requires a higher rate limit, please get in touch with us!
 
 ## Reselling data
 

@@ -20,16 +20,25 @@ This API follows the <https://jsonapi.org> specification.
 
 The following fields are to be sent in the request body, in the `attributes` section:
 
-| **Name**                         | **Type** | **Presence** | **Example**                            | **Description**                                                         |
-|----------------------------------|----------|--------------|----------------------------------------|-------------------------------------------------------------------------|
-| station                          | Object   | required     |                                        | Station reference                                                       |
-| station.country                  | String   | required     | `AT`                                   | ISO 3166 code of the country where the prices should be fetched         |
-| station.operator                 | Object   | required     |                                        | Operator of the station                                                 |
-| station.operator.id              | String   | required     | `20006f18-3ed4-4715-92b5-08e37e6dd18c` | ID of the operator company                                              |
-| station.operator.type            | String   | required     | `company`                              | Type of the company (always `company` for now)                          |
-| filter.brand_restricted_tariffs  | Boolean  | optional     | `true`                                 | Include tariffs restricted to specific vehicle brands. Default: `true`. |
-| filter.foreign_tariffs           | Boolean  | optional     | `true`                                 | Include tariffs restricted to specific countries. Default: `true`.      |
-| filter.provider_customer_tariffs | Boolean  | optional     | `true`                                 | Include tariffs restricted to provider customers. Default: `false`.     |
+| **Name**                         | **Type**      | **Presence** | **Example**                            | **Description**                                                                                                                                                                     |
+|----------------------------------|---------------|--------------|----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| station                          | Object        | required     |                                        | Station configuration root object.                                                                                                                                                  |
+| station.country                  | String        | optional*    | `AT`                                   | ISO 3166 code of the country where the prices should be fetched                                                                                                                     |
+| station.id                       | Array<String> | optional*    | `["some-uuid"]`                        | Return prices for the given stations. If not provided, only CPO based prices will be returned. Max. number of IDs: 50                                                               |
+| station.operator                 | Object        | optional*    |                                        | Operator of the station                                                                                                                                                             |
+| station.operator.id              | String        | required     | `20006f18-3ed4-4715-92b5-08e37e6dd18c` | ID of the operator company                                                                                                                                                          |
+| station.operator.type            | String        | required     | `company`                              | Type of the company (always `company` for now)                                                                                                                                      |
+| station.charge_point             | Object        | optional     |                                        | If provided, the result will only contain segments that match the given charge point. If not provided, all segments for the CPO (or station) x tariff combination will be returned. |
+| station.charge_point.power       | Float         | required     | `22.0`                                 | Filter prices for only this power value.                                                                                                                                            |
+| station.charge_point_plug        | String        | required     | `"type2"`                              | Filter prices for only this plug. [See allowed values](../../enums.md#plugs)                                                                                                        |
+| filter.brand_restricted_tariffs  | Boolean       | optional     | `true`                                 | Include tariffs restricted to specific vehicle brands. Default: `true`.                                                                                                             |
+| filter.foreign_tariffs           | Boolean       | optional     | `true`                                 | Include tariffs restricted to specific countries. Default: `true`.                                                                                                                  |
+| filter.provider_customer_tariffs | Boolean       | optional     | `true`                                 | Include tariffs restricted to provider customers. Default: `false`.                                                                                                                 |
+| filter.tariffs_without_prices    | Boolean       | optional     | `true`                                 | Include tariffs, which are available at the provided CPO, but no price information is available.. Default: `false`.                                                                 |
+
+\* Allowed combinations for the station configuration:
+- country + operator.id + operator.type
+- id
 
 The following table lists the `relationships` section:
 
@@ -40,48 +49,58 @@ The following table lists the `relationships` section:
 ### Includes
 
 The `emp` and `tariff` relationship are included per default.
-See the response of the `included` section.
+See the response of the `included` section. 
+
+### Restrictions when requesting with multiple station IDs
+
+If the `station.id` attribute in the request contains more than 1 station IDs it is also required to provide a list of tariff IDs and the filter will be ignored.
+The reason for this is that the response could be extremely huge if you request tariff details for many stations without limiting the tariffs.
+
+The main use case for requesting tariff details for multiple stations is to fetch station-based prices for a small set of tariffs. 
+Example: Fetching the Tesla Membership and Non-Membership prices for a set of Tesla stations.
 
 ## Response Body
 
 The following table lists the `attributes` of these objects:
 
-| **Name**                                        | **Type**      | **Example**   | **Description**                                                                                                                                                                                                                                                              |
-|-------------------------------------------------|---------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| country                                         | String        | `AT`          | ISO 3166 code of the country for which the prices are defined.                                                                                                                                                                                                               |
-| updated_at                                      | Timestamp     | 1664446527000 | Time when the tariff has been updated                                                                                                                                                                                                                                        |
-| tariff_level                                    | String        | `cpo`         | At which level this tariff applies: `country`: the default tariff for all CPOs in this country, `cpo`: tariff applies to all EVSEs of this CPO, `evse` (not implemented yet): tariff applies only to a specific EVSE.                                                        |
-| restricted_segments                             | Array<Object> | -             |                                                                                                                                                                                                                                                                              |
-| restricted_segments.dimension                   | String        | `minute`      | Either "minute", "kwh" or "session"                                                                                                                                                                                                                                          |
-| restricted_segments.price                       | Float         | 0.39          | The price per dimension.                                                                                                                                                                                                                                                     |
-| restricted_segments.range_gte                   | Integer       | 60            | From which dimension value the price applies. e.g. from 60 minutes on.                                                                                                                                                                                                       |
-| restricted_segments.range_lt                    | Integer       | 120           | Until which dimension value the price applies.      e.g. until 120 minutes.                                                                                                                                                                                                  |
-| restricted_segments.billing_increment           | Float         | 10            | e.g. if dimension is `minute` and billing increment is 10, the customer is charged in blocks of any started 10 minutes.                                                                                                                                                      |
-| restricted_segments.currency                    | String        | `EUR`         | The currency of this component. Overrules the `currency` of the tariff.                                                                                                                                                                                                      |
-| restricted_segments.time_of_day_start           | Integer       | 720           | Time of day when this segment starts to match. In minutes.                                                                                                                                                                                                                   |
-| restricted_segments.time_of_day_end             | Integer       | 1200          | Time of day when this segment stops to match. In minutes.                                                                                                                                                                                                                    |
-| restricted_segments.charge_point_powers         | Array<Float>  | [0.0,22.0]    | List of power value restrictions of a charge point. If empty, all power values match. Also see `charge_point_power_is_range` on how to use this field.                                                                                                                       |
-| restricted_segments.charge_point_energy_type    | String        | `ac`          | Matching power/phase. Either "ac", "dc" or `null` if it applies for both.                                                                                                                                                                                                    |
-| restricted_segments.car_ac_phase                | Integer       | 3             | Matching AC phases of the car (legacy attribute, practically not used anymore by EMSPs).                                                                                                                                                                                     |
-| restricted_segments.charge_point_power_is_range | Boolean       | `true`        | `true`: List of `charge_point_powers` has two values, which define a range of matching power values (Example: [11,22] => 11, 15 and 22 kW charge points match). `false`: Only specifc values are matching (Example: [11,22] => 11 and 22 kW charge points match, 15 kw not). |
-| restricted_segments.use_consumed_charging_power | Boolean       | `false`       | if `true`: The consumed power of the car defines the price, instead of the maximum power of the station. `false`: Maximum power of the station defines the price.                                                                                                            |
+| **Name**                                        | **Type**       | **Example**         | **Description**                                                                                                                                                                                                                                                                                                                                                                                                       |
+|-------------------------------------------------|----------------|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| country                                         | String         | `AT`                | ISO 3166 code of the country for which the prices are defined.                                                                                                                                                                                                                                                                                                                                                        |
+| updated_at                                      | Timestamp      | 1664446527000       | Time when the tariff has been updated                                                                                                                                                                                                                                                                                                                                                                                 |
+| tariff_level                                    | String         | `cpo`               | At which level this tariff applies: `country`: the default tariff for all CPOs in this country, `cpo`: tariff applies to all EVSEs of this CPO, `evse` (not implemented yet): tariff applies only to a specific EVSE or location.                                                                                                                                                                                     |
+| restricted_segments                             | Array<Object>  | -                   |                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| restricted_segments.dimension                   | String         | `minute`            | Either "minute", "kwh" or "session"                                                                                                                                                                                                                                                                                                                                                                                   |
+| restricted_segments.price                       | Float          | 0.39                | The price per dimension.                                                                                                                                                                                                                                                                                                                                                                                              |
+| restricted_segments.range_gte                   | Integer        | 60                  | From which dimension value the price applies. e.g. from 60 minutes on.                                                                                                                                                                                                                                                                                                                                                |
+| restricted_segments.range_lt                    | Integer        | 120                 | Until which dimension value the price applies.      e.g. until 120 minutes.                                                                                                                                                                                                                                                                                                                                           |
+| restricted_segments.billing_increment           | Float          | 10                  | e.g. if dimension is `minute` and billing increment is 10, the customer is charged in blocks of any started 10 minutes.                                                                                                                                                                                                                                                                                               |
+| restricted_segments.currency                    | String         | `EUR`               | The currency of this component. Overrules the `currency` of the tariff.                                                                                                                                                                                                                                                                                                                                               |
+| restricted_segments.time_of_day_start           | Integer        | 720                 | Time of day when this segment starts to match. In minutes.                                                                                                                                                                                                                                                                                                                                                            |
+| restricted_segments.time_of_day_end             | Integer        | 1200                | Time of day when this segment stops to match. In minutes.                                                                                                                                                                                                                                                                                                                                                             |
+| restricted_segments.charge_point_powers         | Array<Float>   | [0.0,22.0]          | List of power value restrictions of a charge point. If empty, all power values match. Also see `charge_point_power_is_range` on how to use this field.                                                                                                                                                                                                                                                                |
+| restricted_segments.charge_point_energy_type    | String         | `ac`                | Matching power/phase. Either "ac", "dc" or `null` if it applies for both.                                                                                                                                                                                                                                                                                                                                             |
+| restricted_segments.car_ac_phase                | Integer        | 3                   | Matching AC phases of the car (legacy attribute, practically not used anymore by EMSPs).                                                                                                                                                                                                                                                                                                                              |
+| restricted_segments.charge_point_power_is_range | Boolean        | `true`              | `true`: List of `charge_point_powers` has two values, which define a range of matching power values (Example: [11,22] => 11, 15 and 22 kW charge points match). `false`: Only specifc values are matching (Example: [11,22] => 11 and 22 kW charge points match, 15 kw not).                                                                                                                                          |
+| restricted_segments.use_consumed_charging_power | Boolean        | `false`             | if `true`: The consumed power of the car defines the price, instead of the maximum power of the station. `false`: Maximum power of the station defines the price.                                                                                                                                                                                                                                                     |
+| no_price_reason                                 | String or null | `price_per_station` | If this value is set, it indicates the reason why the `restricted_segments` attribute doesn't contain price information for a specifc charge point type. It can happen that a price is available for a 50 kW DC station, but not for a 22 kW AC station. The value of `no_price_reason` is only relevant when no price is available, in this case for 22 kW AC. [See possible values](../../enums.md#no-price-reason) |
 
 The following table lists the `relationships` and their values in the `included` section:
 
-| **Name**                      | **Type**           | **Example**                            | **Description**                                                                                               |
-|-------------------------------|--------------------|----------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| tariff                        | Relationship       | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                                                                   |
-| tariff.name                   | String             | `easyFlex`                             | Name of the tariff                                                                                            |
-| tariff.total_monthly_fee      | Float              | 10.0                                   | Monthly fee incl. a 12th of any yearly fee.                                                                   |
-| tariff.is_direct_payment      | Boolean            | `true`                                 | This tariff can be used without registration                                                                  |
-| tariff.is_card_payment        | Boolean            | `true`                                 | This tariff applies to card payments at stations with a terminal                                                          |
-| tariff.provider_customer_only | Boolean            | `true`                                 | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).       |
-| tariff.currency               | String             | `EUR`                                  | Main currency of the tariff. Applies to e.g. the monthly fee. Currency of prices can vary country by country. |
-| tariff.url                    | String             | `http://www.google.at`                 | Website of the tariff.                                                                                        |
-| tariff.vehicle_brands         | Relationship Array | -                                      | Only owners of these vehicle brands are allowed to subscribe to this tariff.                                  |
-| emp                           | Relationship       | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff.                                                  |
-| emp.name                      | String             | `Energie Steiermark`                   | Company name of the EMP                                                                                       |
-| cpo                           | Relationship       | `{"id": "some-uuid", type:"company" }` | The CPO (Charge Point Operator) to which this tariff applies.                                                 |
+| **Name**                      | **Type**           | **Example**                                     | **Description**                                                                                               |
+|-------------------------------|--------------------|-------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| tariff                        | Relationship       | `{"id": "some-uuid", type:"tariff" }`           | The tariff for which the details are given.                                                                   |
+| tariff.name                   | String             | `easyFlex`                                      | Name of the tariff                                                                                            |
+| tariff.total_monthly_fee      | Float              | 10.0                                            | Monthly fee incl. a 12th of any yearly fee.                                                                   |
+| tariff.is_direct_payment      | Boolean            | `true`                                          | This tariff can be used without registration                                                                  |
+| tariff.is_card_payment        | Boolean            | `true`                                          | This tariff applies to card payments at stations with a terminal                                              |
+| tariff.provider_customer_only | Boolean            | `true`                                          | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).       |
+| tariff.currency               | String             | `EUR`                                           | Main currency of the tariff. Applies to e.g. the monthly fee. Currency of prices can vary country by country. |
+| tariff.url                    | String             | `http://www.google.at`                          | Website of the tariff.                                                                                        |
+| tariff.vehicle_brands         | Relationship Array | -                                               | Only owners of these vehicle brands are allowed to subscribe to this tariff.                                  |
+| emp                           | Relationship       | `{"id": "some-uuid", type:"company" }`          | The EMP (E-Mobility Service Provider) who offers the tariff.                                                  |
+| emp.name                      | String             | `Energie Steiermark`                            | Company name of the EMP                                                                                       |
+| cpo                           | Relationship       | `{"id": "some-uuid", type:"company" }`          | The CPO (Charge Point Operator) to which this tariff applies.                                                 |
+| station                       | Relationship       | `{"id": "some-uuid", type:"charging_station" }` | The charging station to which this tariff applies. Only set if `station.id` was provided in the request.      |
 
 Timestamp = Millis since 1.1.1970
 
@@ -99,9 +118,9 @@ To find all matching segments you need to filter using the following attributes:
 * use_consumed_charging_power
 * car_ac_phase
 
-## Example
+## Examples
 
-### Request
+### Example 1: Request CPO based prices of all tariffs for the given operator ID in Austria
 
 ```http
 POST http://example-base-url.com/v1/tariff_details
@@ -126,6 +145,65 @@ Body:
         "brand_restricted_tariffs": true,
         "foreign_tariffs": true,
         "provider_customer_tariffs": true,
+        "tariffs_without_prices": false
+      }
+    }
+  }
+}
+```
+
+### Example 2: Request prices of the given tariff at the given station
+
+```http
+POST http://example-base-url.com/v1/tariff_details
+Content-Type: application/json
+Api-Key: my-secret-key
+```
+
+Body:
+
+```json
+{
+  "data": {
+    "attributes": {
+      "station": {
+        "id": ["71006f18-3ed4-4715-92b5-08e37e6dd180"],
+      }
+    },
+    "relationships": {
+      "tariffs": {
+        "data": [
+          {
+            "id": "20006f18-3ed4-4715-92b5-08e37e6dd18c",
+            "type": "tariff"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+### Example 3: Request prices of the given tariff at the given station and only for the specified power and plug
+
+```http
+POST http://example-base-url.com/v1/tariff_details
+Content-Type: application/json
+Api-Key: my-secret-key
+```
+
+Body:
+
+```json
+{
+  "data": {
+    "attributes": {
+      "station": {
+        "id": ["71006f18-3ed4-4715-92b5-08e37e6dd180"],
+        "charge_point": {
+          "power": 22.0,
+          "plug": "type2"
+        }
       }
     },
     "relationships": {
@@ -176,7 +254,8 @@ Body:
             "charge_point_power_is_range": true,
             "use_consumed_charging_power": false
           }
-        ]
+        ],
+        "no_price_reason": "prices_per_station"
       },
       "relationships": {
         "emp": {
@@ -195,6 +274,12 @@ Body:
           "data": {
             "type": "company",
             "id": "50006f18-3ed4-4715-92b5-08e37e6dd18c"
+          }
+        },
+        "station": {
+          "data": {
+            "type": "charging_station",
+            "id": "95006f18-3ed4-4715-92b5-08e37e6dd1aa"
           }
         }
       }

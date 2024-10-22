@@ -18,7 +18,7 @@ first.
 Using a non authorized API or misusing your personal API will result in a report
 to legal authorities. 
 
-# Rate Limit
+## Rate Limit
 
 Per default any issued API key is allowed to perform 1000 API requests per minute, 
 measured over a time window of 5 minutes.

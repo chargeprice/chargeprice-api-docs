@@ -28,6 +28,13 @@ Please expect that new Tag Kinds might be added at any time!
 - tesla_ccs: Used for Superchargers that use the CCS standard, but are only open to Tesla vehicles.
 - tesla_suc
 
+## No Price Reason
+
+- prices_per_station: Prices are different for each station and not yet integrated on Chargeprice.
+- not_public: Prices are not public and hence not available on Chargeprice.
+- not_yet_listed: Prices are public, but not yet integrated into Chargeprice.
+- no_reliable_data_available: Prices are public, but ambiguous, unclear or somebody reported them as wrong.
+
 ## Facilities
 
 This list is based on the [facilities in OCPI](https://github.com/ocpi/ocpi/blob/master/mod_locations.asciidoc#mod_locations_facility_enum):

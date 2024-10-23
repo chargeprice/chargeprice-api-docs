@@ -58,3 +58,9 @@ This list is based on the [parking types in OCPI](https://github.com/ocpi/ocpi/b
 - parking_lot
 
 New values might be added at any time!
+
+## Integration Status
+
+- pending: No or very limited price coverage.
+- in_progress: Little price coverage.
+- complete: Most relevant or all prices are available.

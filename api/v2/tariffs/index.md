@@ -46,9 +46,10 @@ The following table lists the `attributes` of a `tariff` or `sub_tariff` (both h
 | yearly_service_fee                              | Float               | 20.0                   | Any additionaly fee to be paid per year                                                                                                                                                                               |
 | is_flat_rate                                    | Boolean             | true                   | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                                                                                                                                |
 | is_direct_payment                               | Boolean             | true                   | This tariff can be used without registration                                                                                                                                                                          |
-| is_card_payment                                 | Boolean             | true                   | This tariff applies to card payments at stations with a terminal                                                                                                                                                                                               |
+| is_card_payment                                 | Boolean             | true                   | This tariff applies to card payments at stations with a terminal                                                                                                                                                      |
 | provider_customer_only                          | Boolean             | true                   | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                                                                               |
 | existing_customer_only                          | Boolean             | true                   | If true, tariff is only available for existing customers and a registration for new customers is not possible anymore.                                                                                                |
+| integration_status                              | String              | "complete"             | How far this tariff is integrated into Chargeprice. [See possible values](../../enums.md#integration-status).                                                                                                         |
 | currency                                        | String              | "EUR"                  | Currency in which any price of the tariff is defined.                                                                                                                                                                 |
 | notes                                           | String              | "Very special tariff"  | Any other information about the tariff. Free text.                                                                                                                                                                    |
 | url                                             | String              | "http://www.google.at" | In case the tariff has a specific url (other than the general EMP url)                                                                                                                                                |
@@ -154,6 +155,8 @@ Body:
         "is_direct_payment": false,
         "is_card_payment": false,
         "provider_customer_only": false,
+        "existing_customer_only": false,
+        "integration_status": "complete",
         "currency": "EUR",
         "notes": null,
         "url": "http://www.google.at",

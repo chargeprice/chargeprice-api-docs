@@ -83,6 +83,7 @@ The following table lists the `attributes` of these objects:
 | restricted_segments.charge_point_power_is_range | Boolean        | `true`              | `true`: List of `charge_point_powers` has two values, which define a range of matching power values (Example: [11,22] => 11, 15 and 22 kW charge points match). `false`: Only specifc values are matching (Example: [11,22] => 11 and 22 kW charge points match, 15 kw not).                                                                                                                                          |
 | restricted_segments.use_consumed_charging_power | Boolean        | `false`             | if `true`: The consumed power of the car defines the price, instead of the maximum power of the station. `false`: Maximum power of the station defines the price.                                                                                                                                                                                                                                                     |
 | no_price_reason                                 | String or null | `price_per_station` | If this value is set, it indicates the reason why the `restricted_segments` attribute doesn't contain price information for a specifc charge point type. It can happen that a price is available for a 50 kW DC station, but not for a 22 kW AC station. The value of `no_price_reason` is only relevant when no price is available, in this case for 22 kW AC. [See possible values](../../enums.md#no-price-reason) |
+| prices_per_station_available                    | Boolean        | `false`             | Indicates if prices per station are available for this CPO and tariff.                                                                                                                                                                                                                                                                                                                                                |
 
 The following table lists the `relationships` and their values in the `included` section:
 
@@ -255,7 +256,8 @@ Body:
             "use_consumed_charging_power": false
           }
         ],
-        "no_price_reason": "prices_per_station"
+        "no_price_reason": "prices_per_station",
+        "prices_per_station_available": false
       },
       "relationships": {
         "emp": {

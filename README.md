@@ -62,3 +62,4 @@ You might also be interested in our
 * [Using the API for Market Analytics](./guides/using_the_api_for_market_analytics.md)
 * [Exporting all Charging Stations](/guides/exporting_all_charging_stations.md)
 * [Adding your Data to Chargeprice](/guides/adding_your_data_to_chargeprice.md)
+* [Syncing tariff data to your system](/guides/syncing_tariff_data_to_your_system.md)

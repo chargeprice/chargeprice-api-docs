@@ -34,9 +34,10 @@ The following query parameters are available.
 | filter[longitude]                  | Float            | optional*    | 12.345                                                                    | Longitude location component of the center of the radius search                                                    |
 | filter[latitude]                   | Float            | optional*    | 12.345                                                                    | Latitude location component of the center of the radius search                                                     |
 | filter[radius]                     | Integer          | optional*    | 1000                                                                      | Radius (in meters) in which stations should be searched                                                            |
+| filter[operator.id]                | CSV              | optional*    | ae62cd2d-f29d-4107-b087-6d4f75261cca,4e12cd2d-d29d-3107-8087-6d4f75261cc7 | Only stations of these operators are returned                                                                            |
+| filter[evse_operator]              | CSV              | optional*    | AT\*ION,DE\*EBW                                                           | Only stations of these evse operators are returned                                                                       |
 | filter[charge_points.plug.in]      | CSV              | optional     | "ccs,type2"                                                               | Only return stations that support this plug                                                                        |
 | filter[charge_points.power.gte]    | Float            | optional     | 50                                                                        | Minimum power of a plug                                                                                            |
-| filter[operator.id]                | CSV              | optional     | ae62cd2d-f29d-4107-b087-6d4f75261cca,4e12cd2d-d29d-3107-8087-6d4f75261cc7 | Only stations of these operators are returned                                                                      |
 | filter[operator.supported_emps.id] | CSV              | optional     | ce12cd2d-f29d-3107-8087-6d4f75261cc0,4e12cd2d-d29d-3107-8087-6d4f75261cc7 | Only stations where these EMPs (NOT tariffs!) are supported. Extract the EMP ID of a tariff to use this filter!    |
 | filter[free_charging]              | Boolean          | optional     | true                                                                      | Only stations with free charging                                                                                   |
 | filter[free_parking]               | Boolean          | optional     | true                                                                      | Only stations with free parking                                                                                    |
@@ -76,6 +77,10 @@ following are supported and defined by the combination of filters:
   * radius
 * ID: Get all stations with the given ids
   * id
+* Operator ID: Get all stations of the CPO (using the Chargeprice Internal CPO ID)
+  * operator.id
+* EVSE Operator: Get all stations of this CPO (using the EVSE Party ID)
+  * evse_operator
 
 These searches can't be combined, they are mutually exclusive (XOR)! 
 ## Response Body

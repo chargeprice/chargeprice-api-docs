@@ -39,12 +39,14 @@ Please expect that new Tag Kinds might be added at any time!
 
 This list is based on the [facilities in OCPI](https://github.com/ocpi/ocpi/blob/master/mod_locations.asciidoc#mod_locations_facility_enum):
 
-- hotel
-- restaurant
+- hotel: Any kind of hotel, motel, hostel...
+- restaurant: Any kind of restaurant incl. fast food.
 - cafe
 - supermarket
 - fuel_station
 - train_station
+- car_dealership: Any kind of shop that sells or repairs cars.
+- motorway_access: Close nearby you can enter a motorway.
 
 New values might be added at any time!
 
@@ -52,7 +54,7 @@ New values might be added at any time!
 
 This list is based on the [parking types in OCPI](https://github.com/ocpi/ocpi/blob/master/mod_locations.asciidoc#mod_locations_parkingtype_enum):
 
-- along_motorway
+- along_motorway: Service station/area.
 - parking_garage
 - underground_garage
 - parking_lot

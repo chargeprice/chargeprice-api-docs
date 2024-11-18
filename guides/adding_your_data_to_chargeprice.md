@@ -11,8 +11,10 @@ prices) into the Chargeprice system.
 
 The easiert and quickest way to integrate your POIs into Chargeprice is via the
 industry-standard [OCPI](https://evroaming.org/ocpi-background/). This requires
-the CPO to provide an OCPI-compliant API, where Chargeprice connects to  the
-Locations module. The current supported versions are [2.2.1](https://github.com/ocpi/ocpi/tree/2.2.1) and [2.1.1](https://github.com/ocpi/ocpi/tree/2.1.1).
+the CPO to provide an OCPI-compliant API, where Chargeprice connects to the
+Locations module. The current supported versions are
+[2.2.1](https://github.com/ocpi/ocpi/tree/2.2.1) and
+[2.1.1](https://github.com/ocpi/ocpi/tree/2.1.1).
 
 This is right now also the only option to integrate live status (availability of
 a POI) into Chargeprice.
@@ -67,7 +69,22 @@ Chargeprice with a simple list of supported EVSE Operator IDs (e.g. "AT*ION").
 Such tariffs usually consist of multiple hundreds or thousands of price
 definitions, which might change on a regular basis. 
 
-#### Conform to Chargeprice API
+##### OCPI
+
+If you can provide B2C prices via the industry-standard
+[OCPI](https://evroaming.org/ocpi-background/), it is the best way to integrate
+your prices into Chargeprice. This requires the CPO to provide an OCPI-compliant
+API, where Chargeprice connects to the Tariffs module. The current supported
+versions are [2.2.1](https://github.com/ocpi/ocpi/tree/2.2.1) and
+[2.1.1](https://github.com/ocpi/ocpi/tree/2.1.1).
+
+This is mostly used to integrate CPO prices, as roaming prices are usually not
+provided via OCPI.
+
+##### Chargeprice Price Exchange Format
+
+If you are an EMSP that provides roaming, we have developed a simply format to
+exchange tariff data.
 
 In order to integrate such tariffs into Chargeprice, the EMSP needs to provide
 an API with the prices, that Chargeprice can consume:
@@ -77,7 +94,7 @@ an API with the prices, that Chargeprice can consume:
 Note: In case the prices don't change regularly, the data might also be
 exchanged manually via email in the same CSV format as the API.
 
-#### Custom API
+##### Custom API
 
 In some cases the above integration isn't possible, e.g. if the EMSP provides
 more dynamic prices that change very often. Here there is also the option for a

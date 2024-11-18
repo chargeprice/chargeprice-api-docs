@@ -47,7 +47,7 @@ Per default tariffs with POI pricing are not returned in this API. If you are ho
 
 Now you should have successfully synced the CPO-based tariffs to your system, which covers already ~98% of all prices!
 
-# Step 3: Fetch all Charging Stations of CPOs with POI pricing (optional)
+## Step 3: Fetch all Charging Stations of CPOs with POI pricing (optional)
 
 For many use cases the CPO-based tariffs are already good enough and you don't need to sync the POI-based tariffs. If your use case however requires also this level of detail, read further:
 
@@ -61,7 +61,7 @@ After doing this for all CPO and country combinations, you should have all the c
 - CPO ID: 3, Tariff IDs: [10,11], Country: AT, Charging Station IDs: [20,21]
 - CPO ID: 4, Tariff IDs: [12], Country: NL, Charging Station IDs: [23,24]
 
-# Step 4: Fetch all POI-based  tariffs (optional)
+## Step 4: Fetch all POI-based  tariffs (optional)
 
 In the final step you need the [Tariff Details API](../api/v1/tariff_details/index.md) again, but this time to fetch the prices for each of the charging stations you get in step 3.
 

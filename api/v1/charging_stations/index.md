@@ -103,6 +103,8 @@ table lists the `attributes` of these objects:
 | charge_points.available_count  | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                                    |
 | facilities                     | Array<String>     | ["hotel"]                  | Facilities that closely located to the charging station. [See Supported values](../../enums.md#facilities).                                         |
 | parking_type                   | String or `null`  | "along_motorway"           | The general type of parking at the charging location. [See Supported values](../../enums.md#parking-type).                                          |
+| created_at                     | Timestamp         | 1546297200000              | Creation time of the resource                                                                                                                       |
+| updated_at                     | Timestamp         | 1546297200000              | Last time the resource has changed                                                                                                                                                    |
 | version                        | Integer           | 1                          | Current lock version                                                                                                                                |
 | meta.branding                  | Hash or null      | See below                  | Stations with an active promotion campaign.                                                                                                         |
 | meta.branding.map_pin_icon_url | String            | http://cp.com/logo.png     | URL to the map pin icon.                                                                                                                            |
@@ -171,6 +173,8 @@ Body:
       "id": "20006f18-3ed4-4715-92b5-08e37e6dd18c",
       "type": "charging_station",
       "attributes": {
+        "created_at": 1546297200000,
+        "updated_at": 1546297200000,
         "name": "Spar",
         "version": 1,
         "latitude": 10.0,

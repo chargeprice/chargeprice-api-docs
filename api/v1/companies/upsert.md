@@ -17,33 +17,37 @@ This API follows the https://jsonapi.org specification.
 
 The body can have the following attributes:
 
-| **Name**                | **Type** | **Presence** | **Example**                            | **Description**                                                                                                                        |
-| ----------------------- | -------- | ------------ | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| id                      | UUID     | required     | "1e49b853-36fc-47ed-9826-97828b5b2fdd" | Create: Client-side generated UUID, Update: Existing Resource ID                                                                       |
-| type                    | String   | required     | "company"                              | Type of the resource. Needs to be `company`.                                                                                           |
-| name                    | String   | required     | "EnBW"                                 | Name of the company                                                                                                                    |
-| version                 | Integer  | required     | 1                                      | Lock version. Needs to be 1 on create and for update 1 higher than the current version.                                                |
-| url                     | String   | optional     | "http://www.enbw.de"                   | E-Mobility website of the company                                                                                                      |
-| is_cpo                  | Boolean  | required     | true                                   | True if the company is a charge point operator                                                                                         |
-| is_emp                  | Boolean  | required     | true                                   | True if the company is an e-mobility service provider                                                                                  |
-| external_source_mapping | Hash     | required     | -                                      | Names or IDs in external data sources. Only the ones known need to be added to the request.                                            |
-| supported_emps          | Array    | required     | -                                      | All EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO) |
+| **Name**                | **Type**             | **Presence** | **Example**                            | **Description**                                                                                                                        |
+|-------------------------|----------------------|--------------|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| id                      | UUID                 | required     | "1e49b853-36fc-47ed-9826-97828b5b2fdd" | Create: Client-side generated UUID, Update: Existing Resource ID                                                                       |
+| type                    | String               | required     | "company"                              | Type of the resource. Needs to be `company`.                                                                                           |
+| name                    | String               | required     | "EnBW"                                 | Name of the company                                                                                                                    |
+| version                 | Integer              | required     | 1                                      | Lock version. Needs to be 1 on create and for update 1 higher than the current version.                                                |
+| url                     | String               | optional     | "http://www.enbw.de"                   | E-Mobility website of the company                                                                                                      |
+| is_cpo                  | Boolean              | required     | true                                   | True if the company is a charge point operator                                                                                         |
+| is_emp                  | Boolean              | required     | true                                   | True if the company is an e-mobility service provider                                                                                  |
+| external_source_mapping | Hash                 | required     | -                                      | Names or IDs in external data sources. Only the ones known need to be added to the request.                                            |
+| supported_emps          | Array                | required     | -                                      | All EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO) |
+| charging_network        | Relationship or null | optional     | -                                      | When a company is part (e.g. as sub CPO) of a bigger charging network.                                                                 |
+
 
 ## Response Body
 
 The following table lists the `attributes` of a `company`:
 
-| **Name**                | **Type**  | **Example**          | **Description**                                                                                                                        |
-| ----------------------- | --------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| name                    | String    | "EnBW"               | Name of the company                                                                                                                    |
-| created_at              | Timestamp | 1546297200000        | Creation time of the resource                                                                                                          |
-| updated_at              | Timestamp | 1546297200000        | Last update of the resource                                                                                                            |
-| version                 | Integer   | 1                    | Current lock version                                                                                                                   |
-| url                     | String    | "http://www.enbw.de" | E-Mobility website of the company                                                                                                      |
-| is_cpo                  | Boolean   | true                 | True if the company is a charge point operator                                                                                         |
-| is_emp                  | Boolean   | true                 | True if the company is an e-mobility service provider                                                                                  |
-| external_source_mapping | Hash      | -                    | Names or IDs in external data sources                                                                                                  |
-| supported_emps          | Array     | -                    | All EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO) |
+| **Name**                | **Type**     | **Example**          | **Description**                                                                                                                        |
+|-------------------------|--------------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| name                    | String       | "EnBW"               | Name of the company                                                                                                                    |
+| created_at              | Timestamp    | 1546297200000        | Creation time of the resource                                                                                                          |
+| updated_at              | Timestamp    | 1546297200000        | Last update of the resource                                                                                                            |
+| version                 | Integer      | 1                    | Current lock version                                                                                                                   |
+| url                     | String       | "http://www.enbw.de" | E-Mobility website of the company                                                                                                      |
+| is_cpo                  | Boolean      | true                 | True if the company is a charge point operator                                                                                         |
+| is_emp                  | Boolean      | true                 | True if the company is an e-mobility service provider                                                                                  |
+| external_source_mapping | Hash         | -                    | Names or IDs in external data sources                                                                                                  |
+| supported_emps          | Array        | -                    | All EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO) |
+| charging_network        | Relationship | -                    | When a company is part (e.g. as sub CPO) of a bigger charging network.                                                                 |
+
 
 Timestamp = Millis since 1.1.1970
 
@@ -80,6 +84,12 @@ Api-Key: my-secret-key
             "id": "2e49b853-36fc-47ed-9826-97828b5b2fdd"
           }
         ]
+      },
+      "charging_network": {
+        "data": {
+          "id": "1c49b853-36fc-47ed-9826-97828b5b2faa",
+          "type": "company"
+        }
       }
     }
   }
@@ -124,6 +134,12 @@ Body:
             "id": "2e49b853-36fc-47ed-9826-97828b5b2fdd"
           }
         ]
+      },
+      "charging_network": {
+        "data": {
+          "id": "1c49b853-36fc-47ed-9826-97828b5b2faa",
+          "type": "company"
+        }
       }
     }
   }

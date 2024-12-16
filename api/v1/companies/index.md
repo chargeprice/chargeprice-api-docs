@@ -44,7 +44,8 @@ The following table lists the `attributes` of a `company`:
 | external_source_mapping                   | Hash         | -                    | Names or IDs in external data sources                                                                                                  |
 | external_source_mapping.evse_operator_ids | Array        | ["AT*ION]            | All eMI3 EVSE Operator (CPO) IDs of this company                                                                                       |
 | supported_emps                            | Array        | -                    | All EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO) |
-| charging_network                          | Relationship | -                    | When a company is part (e.g. as sub CPO) of a bigger charging network. |
+| cpo_group                                 | Relationship | -                    | When a company is part (e.g. as sub CPO) of a bigger charging network.                                                                 |
+| emp_group                                 | Relationship | -                    | When a company is shares the same roaming partners than another EMP.                                                                 |
 
 Timestamp = Millis since 1.1.1970
 
@@ -97,7 +98,13 @@ Body:
             }
           ]
         },
-        "charging_network": {
+        "cpo_group": {
+          "data": {
+            "id": "1c49b853-36fc-47ed-9826-97828b5b2faa",
+            "type": "company"
+          }
+        },
+        "emp_group": {
           "data": {
             "id": "1c49b853-36fc-47ed-9826-97828b5b2faa",
             "type": "company"

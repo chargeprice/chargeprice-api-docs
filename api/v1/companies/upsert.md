@@ -28,7 +28,8 @@ The body can have the following attributes:
 | is_emp                  | Boolean              | required     | true                                   | True if the company is an e-mobility service provider                                                                                  |
 | external_source_mapping | Hash                 | required     | -                                      | Names or IDs in external data sources. Only the ones known need to be added to the request.                                            |
 | supported_emps          | Array                | required     | -                                      | All EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO) |
-| charging_network        | Relationship or null | optional     | -                                      | When a company is part (e.g. as sub CPO) of a bigger charging network.                                                                 |
+| cpo_group               | Relationship or null | optional     | -                                      | When a company is part (e.g. as sub CPO) of a bigger charging network.                                                                 |
+| emp_group               | Relationship or null | optional     | -                                      | When a company is shares the same roaming partners than another EMP.                                                                   |
 
 
 ## Response Body
@@ -46,8 +47,8 @@ The following table lists the `attributes` of a `company`:
 | is_emp                  | Boolean      | true                 | True if the company is an e-mobility service provider                                                                                  |
 | external_source_mapping | Hash         | -                    | Names or IDs in external data sources                                                                                                  |
 | supported_emps          | Array        | -                    | All EMP companies which are connected to this CPO (=customers of these EMPS are able to activate charging stations of the current CPO) |
-| charging_network        | Relationship | -                    | When a company is part (e.g. as sub CPO) of a bigger charging network.                                                                 |
-
+| cpo_group               | Relationship | -                    | When a company is part (e.g. as sub CPO) of a bigger charging network.                                                                 |
+| emp_group               | Relationship | -                    | When a company is shares the same roaming partners than another EMP.                                                                   |
 
 Timestamp = Millis since 1.1.1970
 
@@ -85,7 +86,13 @@ Api-Key: my-secret-key
           }
         ]
       },
-      "charging_network": {
+      "cpo_group": {
+        "data": {
+          "id": "1c49b853-36fc-47ed-9826-97828b5b2faa",
+          "type": "company"
+        }
+      },
+      "emp_group": {
         "data": {
           "id": "1c49b853-36fc-47ed-9826-97828b5b2faa",
           "type": "company"
@@ -135,7 +142,13 @@ Body:
           }
         ]
       },
-      "charging_network": {
+      "cpo_group": {
+        "data": {
+          "id": "1c49b853-36fc-47ed-9826-97828b5b2faa",
+          "type": "company"
+        }
+      },
+      "emp_group": {
         "data": {
           "id": "1c49b853-36fc-47ed-9826-97828b5b2faa",
           "type": "company"

@@ -10,7 +10,7 @@ This API follows the <https://jsonapi.org> specification.
 
 ## Access URL
 
-https://api.chargeprice.app/v1/opendata/swiss_charging_prices
+https://api.chargeprice.app/v1/opendata/charging_prices_ch
 
 ## Headers
 

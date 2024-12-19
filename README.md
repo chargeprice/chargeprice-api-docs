@@ -44,6 +44,8 @@ You might also be interested in our
   * [Create](./api/v1/user_feedback/create.md)
 * Vehicles
   * [Index](./api/v1/vehicles/index.md)
+* Country Statistics
+  * [Index](./api/v1/country_statistics/index.md)
 
 ### V2
 

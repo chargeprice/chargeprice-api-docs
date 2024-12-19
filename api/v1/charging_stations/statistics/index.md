@@ -48,9 +48,6 @@ results will be returned. The following table lists the `attributes` and
 You can read this as: There are `<count>` number of charge points in `<country>`
 operated by `<operator>` with a power level of `<power>` and plug type `<plug>`.
 
-The name of the operator can be fetched via [GET
-/v1/companies](../../companies/index.md)
-
 The example below also describes the response in this way.
 
 ## Example

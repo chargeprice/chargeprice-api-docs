@@ -40,8 +40,9 @@ The following query parameters are available.
 | filter[parking_type]               | CSV              | optional     | "parking_garage,along_motorway"                                           | Only stations that have one of these parking types. [See supported values](../../enums.md#parking-type)                  |
 | filter[country]                    | CSV              | optional     | `AT,DE`                                                                   | Only stations in the given countries                                                                                     |
 | fields[company]                    | CSV              | optional     | "name,supported_emps"                                                     | If set, only the given fields of a company are returned. Default: "name". Allowed Values: "name", "supported_emps"       |
-| page[size]                         | Positive Integer | optional     | 2                                                                         | Max no. of stations in the current response. Default: 400, Max value: 400                                                |
+| page[size]                         | Positive Integer | optional     | 2                                                                         | Max no. of stations in the current response. Default: 400, Max value: 1000 (should mainly be used for exports)           |
 | page[number]                       | Positive Integer | optional     | 10                                                                        | Current page number. Default: 1                                                                                          |
+| export                             | Boolean          | optional     | false                                                                     | If set to true, no other filters are required. Should be used to export all kinds of stations. Default: false            |
 
 #### Pagination
 
@@ -77,6 +78,8 @@ following are supported and defined by the combination of filters:
   * operator.id
 * EVSE Operator: Get all stations of this CPO (using the EVSE Party ID)
   * evse_operator
+* Export: Simple export all or specific stations. No other filters are required.
+  * export=true
 
 These searches can't be combined, they are mutually exclusive (XOR)! 
 ## Response Body
@@ -104,7 +107,7 @@ table lists the `attributes` of these objects:
 | facilities                     | Array<String>     | ["hotel"]                  | Facilities that closely located to the charging station. [See Supported values](../../enums.md#facilities).                                         |
 | parking_type                   | String or `null`  | "along_motorway"           | The general type of parking at the charging location. [See Supported values](../../enums.md#parking-type).                                          |
 | created_at                     | Timestamp         | 1546297200000              | Creation time of the resource                                                                                                                       |
-| updated_at                     | Timestamp         | 1546297200000              | Last time the resource has changed                                                                                                                                                    |
+| updated_at                     | Timestamp         | 1546297200000              | Last time the resource has changed                                                                                                                  |
 | version                        | Integer           | 1                          | Current lock version                                                                                                                                |
 | meta.branding                  | Hash or null      | See below                  | Stations with an active promotion campaign.                                                                                                         |
 | meta.branding.map_pin_icon_url | String            | http://cp.com/logo.png     | URL to the map pin icon.                                                                                                                            |

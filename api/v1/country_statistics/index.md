@@ -39,16 +39,21 @@ If no pagination parameters are provided you will get the first page.
 A response contains 0 to many entries.
 The following table lists the available `attributes`:
 
-| **Name**            | **Type** | **Example**                        | **Description**                                                                         |
-|---------------------|----------|------------------------------------|-----------------------------------------------------------------------------------------|
-| country             | String   | "AT"                               | ISO 3166 country code                                                                   |
-| year                | Integer  | 2020                               | Year of the statistics                                                                  |
-| month               | Integer  | 9                                  | Month of the statistics                                                                 |
-| emp_count           | Integer  | 500                                | Number of E-Mobility Service Providers (EMPs) that operate in the country.              |
-| cpo_count           | Integer  | `{"id": "123", "type": "company"}` | Number of Charge Point Operators (CPOs) that operate stations in the country.           |
-| charge_points       | Array    | -                                  | Statistics per type of charge points.                                                   |
-| charge_points.type  | String   | `dc`                               | Type of charge points. Possible values: `total`, `ac`, `dc` (< 150 kW), `hpc` (150+ kW) |
-| charge_points.count | Integer  | 34                                 | Number of charge points (connectors) of this type in the country.                       |
+| **Name**                                    | **Type** | **Example**                        | **Description**                                                                                      |
+|---------------------------------------------|----------|------------------------------------|------------------------------------------------------------------------------------------------------|
+| country                                     | String   | "AT"                               | ISO 3166 country code. XX=Statistics of countries combined.                                          |
+| year                                        | Integer  | 2020                               | Year of the statistics                                                                               |
+| month                                       | Integer  | 9                                  | Month of the statistics                                                                              |
+| emp_count                                   | Integer  | 500                                | Number of E-Mobility Service Providers (EMPs) that operate in the country.                           |
+| cpo_count                                   | Integer  | `{"id": "123", "type": "company"}` | Number of Charge Point Operators (CPOs) that operate stations in the country.                        |
+| charge_points                               | Array    | -                                  | Statistics per type of charge points.                                                                |
+| charge_points.type                          | String   | `dc`                               | Type of charge points. Possible values: `total`, `ac`, `dc` (< 150 kW), `hpc` (150+ kW)              |
+| charge_points.count                         | Integer  | 34                                 | Number of charge points (connectors) of this type in the country.                                    |
+| top_cpos_by_charge_points                   | Array    | -                                  | Top 15 Charge Point Operators in this country (CPO), by number of charge points.                     |
+| top_cpos_by_charge_points.type              | String   | `dc`                               | Type of charge points. Possible values: `total`, `ac`, `dc` (< 150 kW), `hpc` (150+ kW)              |
+| top_cpos_by_charge_points.cpo_counts        | Array    | -                                  | Type of charge points. Possible values: `total`, `ac`, `dc` (< 150 kW), `hpc` (150+ kW)              |
+| top_cpos_by_charge_points.cpo_counts.cpo_id | Array    | -                                  | ID of the CPO. CPO Details (Name etc.) can be fetched via the [Companies API](../companies/index.md) |
+| top_cpos_by_charge_points.cpo_counts.count  | Array    | -                                  | Number of charge points (connectors) of this type for this CPO in the country.                       |
 
 The example below also describes the response in this way.
 
@@ -91,6 +96,21 @@ Body:
                   {
                     "type": "hpc",
                     "count": 3
+                  }
+                ],
+                "top_cpos_by_charge_points": [
+                  {
+                    "type": "total",
+                    "cpo_counts": [
+                      {
+                        "cpo_id": "1",
+                        "count": 6
+                      },
+                      {
+                        "cpo_id": "2",
+                        "count": 2
+                      }
+                    ]
                   }
                 ]
             }

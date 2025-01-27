@@ -84,6 +84,7 @@ The following table lists the `attributes` of these objects:
 | flat_rate                              | Boolean         | true                              | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                                                                                                                                                       |
 | direct_payment                         | Boolean         | true                              | This tariff can be used without registration                                                                                                                                                                                                 |
 | provider_customer_tariff               | Boolean         | true                              | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                                                                                                      |
+| is_roaming                             | Boolean         | `true`                            | True if the tariff is from a roaming EMP, false if it's from the CPO directly.                                                                                                                                                               |
 | currency                               | String          | "EUR"                             | Currency of the prices or fees                                                                                                                                                                                                               |
 | tags                                   | Array           | -                                 | Tags that are shown next to the tariff. E.g. "New Prices since 01.09.", "Club Membership required"                                                                                                                                           |
 | tags.kind                              | String          | "info"                            | Find all valid value [here](../../enums.md).                                                                                                                                                                                                 |
@@ -248,6 +249,7 @@ Body:
         "flat_rate": false,
         "direct_payment": false,
         "provider_customer_only": false,
+        "is_roaming": true,
         "start_time": 720,
         "currency": "EUR",
         "branding": {

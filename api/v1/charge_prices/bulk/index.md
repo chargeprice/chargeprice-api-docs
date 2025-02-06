@@ -24,6 +24,7 @@ The following fields are to be sent in the request body, in the `attributes` sec
 | currency              | String       | optional (default: "EUR") | "EUR"        | Currency in which the prices should be returned. Possible values are listed at the [eurofxref]               |
 | start_time            | Integer      | optional (default: 12:00) | 720 (=12:00) | Time of day in minutes when the charging session gets started. Min value: 0 (00:00), max value: 1439 (23:59) |
 | allow_unbalanced_load | Boolean      | optional (default: false) | false        | If true, it allows higher powers for uniphase charging vehicles. If false, power is restricted to 4.5 kW.    |
+| include_direct_payment | Boolean      | optional (default: false) | false        | If true, all direct payment tariffs are also considered for the prices.    |
 
 The following table lists the `relationships` section of a `charge_price_bulk_request` object:
 
@@ -72,6 +73,7 @@ Api-Key: my-secret-key
       "start_time": 720,
       "currency": "EUR",
       "allow_unbalanced_load": true,
+      "include_direct_payment": true
     },
     "relationships": {
       "tariffs": {

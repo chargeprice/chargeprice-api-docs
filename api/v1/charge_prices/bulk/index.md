@@ -18,20 +18,20 @@ This API follows the https://jsonapi.org specification.
 
 The following fields are to be sent in the request body, in the `attributes` section of a `bulk_price_preview_request` object:
 
-| **Name**              | **Type**     | **Presence**              | **Example**  | **Description**                                                                                              |
-|-----------------------|--------------|---------------------------|--------------|--------------------------------------------------------------------------------------------------------------|
-| battery_range         | Array[Float] | required                  | [20.0,80.0]  | Array with 2 values, that defines the battery start and end values for the charge in percentage.             |
-| currency              | String       | optional (default: "EUR") | "EUR"        | Currency in which the prices should be returned. Possible values are listed at the [eurofxref]               |
-| start_time            | Integer      | optional (default: 12:00) | 720 (=12:00) | Time of day in minutes when the charging session gets started. Min value: 0 (00:00), max value: 1439 (23:59) |
-| allow_unbalanced_load | Boolean      | optional (default: false) | false        | If true, it allows higher powers for uniphase charging vehicles. If false, power is restricted to 4.5 kW.    |
-| include_direct_payment | Boolean      | optional (default: false) | false        | If true, all direct payment tariffs are also considered for the prices.    |
+| **Name**               | **Type**     | **Presence**              | **Example**  | **Description**                                                                                              |
+|------------------------|--------------|---------------------------|--------------|--------------------------------------------------------------------------------------------------------------|
+| battery_range          | Array[Float] | required                  | [20.0,80.0]  | Array with 2 values, that defines the battery start and end values for the charge in percentage.             |
+| currency               | String       | optional (default: "EUR") | "EUR"        | Currency in which the prices should be returned. Possible values are listed at the [eurofxref]               |
+| start_time             | Integer      | optional (default: 12:00) | 720 (=12:00) | Time of day in minutes when the charging session gets started. Min value: 0 (00:00), max value: 1439 (23:59) |
+| allow_unbalanced_load  | Boolean      | optional (default: false) | false        | If true, it allows higher powers for uniphase charging vehicles. If false, power is restricted to 4.5 kW.    |
+| include_direct_payment | Boolean      | optional (default: false) | false        | If true, all direct payment tariffs are also considered for the prices.                                      |
 
 The following table lists the `relationships` section of a `charge_price_bulk_request` object:
 
 | **Name**          | **Type**               | **Presence** | **Example**                                       | **Description**                                                                                                                                             |
 |-------------------|------------------------|--------------|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | charging_stations | Array of Relationships | required     | `[{"id": "some-uuid", type:"charging_station" }]` | Charging station for which the price should be calculated. Only charging stations of data_adapter chargeprice are allowed. Max. 50 stations can be defined. |
-| tariffs           | Array of Relationships | required     | `[{"id": "some-uuid", type:"tariff" }]`           | Prices are calculated for the given tariffs. Up to 200 tariffs can be defined. See [GET v1/tariffs](../tariffs/index.md) for the valid options.              |
+| tariffs           | Array of Relationships | required     | `[{"id": "some-uuid", type:"tariff" }]`           | Prices are calculated for the given tariffs. Up to 200 tariffs can be defined. See [GET v1/tariffs](../tariffs/index.md) for the valid options.             |
 | vehicle           | Relationship           | required     | `{"id": "some-uuid", type:"car" }`                | Vehicle at charge. See [GET v1/vehicles](../vehicles/index.md) for the valid options.                                                                       |
 
 ## Response Body

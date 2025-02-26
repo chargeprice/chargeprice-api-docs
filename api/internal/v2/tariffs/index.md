@@ -1,5 +1,7 @@
 # GET /v2/tariffs
 
+***For Chargeprice-internal use only! Please use [/v1/tariff_details](/api/v1/tariff_details/index.md) to fetch unit prices instead.***
+
 Returns raw tariffs. Tariffs can either be of type `tariff` or `sub_tariff`
 (which describes the tariff per CPO in more detail).
 

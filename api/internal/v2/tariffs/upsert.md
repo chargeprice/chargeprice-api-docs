@@ -1,5 +1,7 @@
 # PUT /v2/tariffs/:tariff_id
 
+***For Chargeprice-internal use only!***
+
 Create or update a tariff, if already existing.
 
 This API follows the https://jsonapi.org specification.

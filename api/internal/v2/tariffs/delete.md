@@ -1,5 +1,7 @@
 # DELETE /v2/tariffs/:tariff_id
 
+***For Chargeprice-internal use only!***
+
 Delete a tariff.
 
 This API follows the https://jsonapi.org specification.

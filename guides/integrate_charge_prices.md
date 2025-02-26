@@ -1,4 +1,7 @@
-# Integrate Charge Prices into your Application
+# Directly use the Chargeprice API in your Client Application
+
+In case you want to use the Chargeprice API directly in your client application,
+without the need to set up your own server or backend, this guide is for you.
 
 At the moment the following POI (Charging Station) data sources are supported
 as data adapters for the Charge Prices API:
@@ -26,7 +29,7 @@ You will need to map the data from the Charging Stations API to the following
 attributes in the Charge Prices API:
 
 | **Chargeprice (Charging Stations)** | **Chargeprice (Charge Prices)** | **Transformation** |
-| ----------------------------------- | ------------------------------- | ------------------ |
+|-------------------------------------|---------------------------------|--------------------|
 | country                             | station.country                 | -                  |
 | operator.id                         | station.network                 | -                  |
 | longitude                           | station.longitude               | -                  |
@@ -42,7 +45,7 @@ You will need to map the data of Going Electric to the following attributes in
 Chargeprice:
 
 | **Going Electric** | **Chargeprice**             | **Transformation** |
-| ------------------ | --------------------------- | ------------------ |
+|--------------------|-----------------------------|--------------------|
 | address.country    | station.country             | -                  |
 | network            | station.network             | false -> null      |
 | coordinates.lng    | station.longitude           | -                  |
@@ -58,7 +61,7 @@ You will need to map the data of OpenChargeMap to the following attributes in
 Chargeprice:
 
 | **Open Charge Map**                                         | **Chargeprice**             | **Transformation**                                                                          |
-| ----------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------- |
+|-------------------------------------------------------------|-----------------------------|---------------------------------------------------------------------------------------------|
 | AddressInfo.Country.ISOCode                                 | station.country             | -                                                                                           |
 | OperatorID                                                  | station.network             | convert to string: 23 => `"23"`                                                             |
 | AddressInfo.Longitude                                       | station.longitude           | -                                                                                           |

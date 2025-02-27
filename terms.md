@@ -3,7 +3,7 @@
 By using the Chargeprice API, you are accepting the entirety of the following
 terms. These terms are subject to change at any time without notice.
 
-## Only use your personal API key
+## Only use your own API key
 
 Your API key should be kept secret and only be used within your organisation.
 

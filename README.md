@@ -8,27 +8,37 @@ charging tariffs, charge point operators (CPOs), e-mobility providers (EMPs), ch
 **You want the data, but don't want to code? Check out our [data
 platform](./data_platform.md)!**
 
-## Getting Access
+## How to get access?
 
-Get in touch via sales@chargeprice.net and tell us about your application:
+### Commercial Access
 
-* What do you want to build?
-* Which data do you need?
+If you are interested in a commercial license, we offer a variety of plans to suit your needs.
 
-In the meantime feel free to test and play around with the [staging version of
-our API](./test_the_api.md).
+Please get in touch via sales@chargeprice.net. 
 
-You might also be interested in our
-[pricing](https://www.chargeprice.net) and [terms of use](./terms.md).
+### Demo Access
 
-## Getting started guides
+To get started quickly, **you can request a free demo API access via [this form](https://tally.so/r/w4pJAX)**.
+You will receive an email with the instructions automatically. 
 
-Depending on your use case, you might want to start with one of the following guides:
+*Please be aware that data is limited in the demo version and any commercial use is prohibited.*
+
+## Getting started
+
+To execute your first API requests as quickly as possible, you can use [this Postman Collection](./Chargeprice_API.postman_collection.json). [Postman](https://www.postman.com/) is a popular tool that allows you to easily test and debug your API requests.
+
+Depending on your use case, you might want to continue with one of the following guides:
 
 * [Syncing tariff or data to your Backend](/guides/syncing_tariff_data_to_your_system.md)
 * [Directly use the Chargeprice API in your Client Application](./guides/integrate_charge_prices.md)
 * [Exporting all Charging Stations](/guides/exporting_all_charging_stations.md)
 * [Adding your Data to Chargeprice](/guides/adding_your_data_to_chargeprice.md)
+
+If you have any questions, feel free to reach out to us at contact@chargeprice.net!
+
+## Terms of Use
+
+By using the API, you comply to these [terms of use](./terms.md).
 
 ## Endpoints
 

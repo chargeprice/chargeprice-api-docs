@@ -53,21 +53,22 @@ Authorization: Basic <credentials>
 
 The response **MUST** have the following attributes in the defined order.
 
-| **Name**     | **Required** | **Data Type** | **Example**        | **Description**                                                                                                                                                                                                                                             |
-|--------------|--------------|---------------|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| evse_id      | TRUE         | String        | AT\*ION\*E0001*123 | eMI3 Roaming ID of the connector                                                                                                                                                                                                                            |
-| country_code | TRUE         | String(2)     | AT                 | Country in which the EVSE is deployed. ISO 3166-1 alpha-2                                                                                                                                                                                                   |
-| currency     | TRUE         | String(3)     | EUR                | Currency in which the price is defined. ISO 4217                                                                                                                                                                                                            |
-| dimension    | TRUE         | String        | ENERGY             | Dimension of the Price. Possible values:<br>FLAT (preferred) or SESSION (alternativly) = price per charging session<br>ENERGY = price per charged kWh<br>TIME = price per hour charging<br>PARKING_TIME = price per hour not charging                       |
-| price        | TRUE         | Float         | 0.5                | B2C price incl. VAT                                                                                                                                                                                                                                         |
-| min_duration | FALSE        | Integer       | 3600               | Only valid if Dimension is TIME or PARKING_TIME.<br>Defines when this unit price is applied from (in seconds) Default: 0                                                                                                                                    |
-| max_duration | FALSE        | Integer       | 7200               | Only valid if Dimension is TIME or PARKING_TIME.<br>Defines until when this unit price is applied to (in seconds) Default: unlimited                                                                                                                        |
-| start_time   | FALSE        | String        | 08:00:00           | Time of day when this unit price is applied from (HH:MM:SS) Default: not set (Price is valid any time of the day)                                                                                                                                                                              |
-| end_time     | FALSE        | String        | 20:00:00           | Time of day until when this unit price is applied to (HH:MM:SS) Default: not set (Price is valid any time of the day)                                                                                                                                                                         |
-| step_size    | FALSE        | Float         | 900                | If Dimension is TIME or PARKING_TIME and step size is 60, the customer is charged in blocks of any started 60 seconds. For Dimension ENERGY the unit is Wh. For FLAT it **SHOULD** never be set. Default: 60 seconds (TIME and PARKING_TIME), 1 Wh (ENERGY) |
-| start_date   | FALSE        | String        | 2024-01-01         | Date when this unit price is applied from (YYYY-MM-DD) Default: Not applied.                                                                                                                                                                                |
-| end_date     | FALSE        | String        | 2024-31-12         | Date until when this unit price is applied to (YYYY-MM-DD) Default: Not applied.                                                                                                                                                                            |
-| days_of_week | FALSE        | String        | MONDAY,TUESDAY     | Which day(s) of the week this element is active. Default: All days. Comma separated list. Possible values: MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY                                                                                   |
+| **Name**            | **Required** | **Data Type** | **Example**                    | **Description**                                                                                                                                                                                                                                             |
+|---------------------|--------------|---------------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| evse_id             | TRUE         | String        | AT\*ION\*E0001*123             | eMI3 Roaming ID of the connector                                                                                                                                                                                                                            |
+| country_code        | TRUE         | String(2)     | AT                             | Country in which the EVSE is deployed. ISO 3166-1 alpha-2                                                                                                                                                                                                   |
+| currency            | TRUE         | String(3)     | EUR                            | Currency in which the price is defined. ISO 4217                                                                                                                                                                                                            |
+| dimension           | TRUE         | String        | ENERGY                         | Dimension of the Price. Possible values:<br>FLAT (preferred) or SESSION (alternativly) = price per charging session<br>ENERGY = price per charged kWh<br>TIME = price per hour charging<br>PARKING_TIME = price per hour not charging                       |
+| price               | TRUE         | Float         | 0.5                            | B2C price incl. VAT                                                                                                                                                                                                                                         |
+| min_duration        | FALSE        | Integer       | 3600                           | Only valid if Dimension is TIME or PARKING_TIME.<br>Defines when this unit price is applied from (in seconds) Default: 0                                                                                                                                    |
+| max_duration        | FALSE        | Integer       | 7200                           | Only valid if Dimension is TIME or PARKING_TIME.<br>Defines until when this unit price is applied to (in seconds) Default: unlimited                                                                                                                        |
+| start_time          | FALSE        | String        | 08:00:00                       | Time of day when this unit price is applied from (HH:MM:SS) Default: not set (Price is valid any time of the day)                                                                                                                                           |
+| end_time            | FALSE        | String        | 20:00:00                       | Time of day until when this unit price is applied to (HH:MM:SS) Default: not set (Price is valid any time of the day)                                                                                                                                       |
+| step_size           | FALSE        | Float         | 900                            | If Dimension is TIME or PARKING_TIME and step size is 60, the customer is charged in blocks of any started 60 seconds. For Dimension ENERGY the unit is Wh. For FLAT it **SHOULD** never be set. Default: 60 seconds (TIME and PARKING_TIME), 1 Wh (ENERGY) |
+| start_date          | FALSE        | String        | 2024-01-01                     | Date when this unit price is applied from (YYYY-MM-DD) Default: Not applied.                                                                                                                                                                                |
+| end_date            | FALSE        | String        | 2024-31-12                     | Date until when this unit price is applied to (YYYY-MM-DD) Default: Not applied.                                                                                                                                                                            |
+| days_of_week        | FALSE        | String        | MONDAY,TUESDAY                 | Which day(s) of the week this element is active. Default: All days. Comma separated list. Possible values: MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY                                                                                   |
+| start_charging_link | FALSE        | String        | https://charge.mypage.com/1234 | A link to a direct payment website, deeplink to an app etc. to start the charging at this EVSE ID.                                                                                                                                                          |
 
 ### Additional Rules
 
@@ -85,11 +86,11 @@ The response **MUST** have the following attributes in the defined order.
   * 0.5€/kWh 
   * 0.1€/min after 1h until 3h
 
-| evse_id        | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week |
-|----------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|--------------|
-| AT\*ION\*E0001 | AT           | EUR      | FLAT      | 0.35  |              |              |            |          |           |            |          |              |
-| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.5   |              |              |            |          |           |            |          |              |
-| AT\*ION\*E0001 | AT           | EUR      | TIME      | 6     | 3600         | 10800        |            |          |           |            |          |              |
+| evse_id        | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week | start_charging_link |
+|----------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|--------------|---------------------|
+| AT\*ION\*E0001 | AT           | EUR      | FLAT      | 0.35  |              |              |            |          |           |            |          |              |                     |
+| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.5   |              |              |            |          |           |            |          |              |                     |
+| AT\*ION\*E0001 | AT           | EUR      | TIME      | 6     | 3600         | 10800        |            |          |           |            |          |              |                     |
 
 ### Example 2: Day and night price
 
@@ -99,10 +100,10 @@ The response **MUST** have the following attributes in the defined order.
   * 0.2€/min 06:00-22:00
   * 0.1€/min 22:00-06:00
 
-| evse_id       | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week |
-|---------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|--------------|
-| FR\*FR1\*E001 | FR           | EUR      | TIME      | 12    |              |              | 06:00:00   | 22:00:00 |           |            |          |              |
-| FR\*FR1\*E001 | FR           | EUR      | TIME      | 6     |              |              | 22:00:00   | 06:00:00 |           |            |          |              |
+| evse_id       | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week | start_charging_link |
+|---------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|--------------|---------------------|
+| FR\*FR1\*E001 | FR           | EUR      | TIME      | 12    |              |              | 06:00:00   | 22:00:00 |           |            |          |              |                     |
+| FR\*FR1\*E001 | FR           | EUR      | TIME      | 6     |              |              | 22:00:00   | 06:00:00 |           |            |          |              |                     |
 
 ### Example 3: Time blocks
 
@@ -112,10 +113,10 @@ The response **MUST** have the following attributes in the defined order.
   * 1.5€ for the first 15 min (-> 1.5€/15min = 0.1€/min)
   * 0.3€/min after the first 15 min
 
-| evse_id       | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week |
-|---------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|--------------|
-| FR\*FR1\*E002 | FR           | EUR      | TIME      | 6     |              | 900          |            |          | 900       |            |          |              |
-| FR\*FR1\*E002 | FR           | EUR      | TIME      | 18    | 900          |              |            |          |           |            |          |              |
+| evse_id       | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week | start_charging_link |
+|---------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|--------------|---------------------|
+| FR\*FR1\*E002 | FR           | EUR      | TIME      | 6     |              | 900          |            |          | 900       |            |          |              |                     |
+| FR\*FR1\*E002 | FR           | EUR      | TIME      | 18    | 900          |              |            |          |           |            |          |              |                     |
 
 ### Example 4: Different price during the weekend
 
@@ -125,10 +126,10 @@ The response **MUST** have the following attributes in the defined order.
   * 0.5€ during weekdays
   * 0.6€ during the weekend
 
-| evse_id        | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week                             |
-|----------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|------------------------------------------|
-| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.5   |              |              |            |          |           |            |          | MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY |
-| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.6   |              |              |            |          |           |            |          | SATURDAY,SUNDAY                          |
+| evse_id        | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week                             | start_charging_link |
+|----------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|------------------------------------------|---------------------|
+| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.5   |              |              |            |          |           |            |          | MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY |                     |
+| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.6   |              |              |            |          |           |            |          | SATURDAY,SUNDAY                          |                     |
 
 ### Example 5: Price change on a dedicated date
 
@@ -138,10 +139,25 @@ The response **MUST** have the following attributes in the defined order.
   * 0.5€ until 31.12.2024
   * 0.6€ from 01.01.2025
 
-| evse_id        | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size  | start_date | end_date | days_of_week |
-|----------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|------------|------------|----------|--------------|
-| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.5   |              |              |            |          |            | 31.12.2024 |          |              |
-| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.6   |              |              |            |          | 01.01.2025 |            |          |              |
+| evse_id        | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size  | start_date | end_date | days_of_week | start_charging_link |
+|----------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|------------|------------|----------|--------------|---------------------|
+| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.5   |              |              |            |          |            | 31.12.2024 |          |              |                     |
+| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.6   |              |              |            |          | 01.01.2025 |            |          |              |                     |
+
+### Example 6: kWh price with blocking fee and a start charging link
+
+* EVSE: AT\*ION\*E0001
+* Country: Austria
+* Tariff:
+  * 0.5€/kWh 
+  * 0.1€/min after 1h until 3h
+* Deeplink: https://charge.mypage.com/evse/AT_ION_E0001
+
+| evse_id        | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week | start_charging_link                         |
+|----------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|--------------|---------------------------------------------|
+| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.5   |              |              |            |          |           |            |          |              | https://charge.mypage.com/evse/AT_ION_E0001 |
+| AT\*ION\*E0001 | AT           | EUR      | TIME      | 6     | 3600         | 10800        |            |          |           |            |          |              | https://charge.mypage.com/evse/AT_ION_E0001 |
+
 
 
 ### Checklist of what the EMSP need to provide to Chargeprice

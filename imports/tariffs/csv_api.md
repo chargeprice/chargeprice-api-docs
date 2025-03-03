@@ -151,12 +151,12 @@ The response **MUST** have the following attributes in the defined order.
 * Tariff:
   * 0.5€/kWh 
   * 0.1€/min after 1h until 3h
-* Deeplink: https://charge.mypage.com/evse/AT_ION_E0001
+* Deeplink: https://charge.mypage.com/evse/1234 (1234 could be an internal ID of the provider)
 
-| evse_id        | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week | start_charging_link                         |
-|----------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|--------------|---------------------------------------------|
-| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.5   |              |              |            |          |           |            |          |              | https://charge.mypage.com/evse/AT_ION_E0001 |
-| AT\*ION\*E0001 | AT           | EUR      | TIME      | 6     | 3600         | 10800        |            |          |           |            |          |              | https://charge.mypage.com/evse/AT_ION_E0001 |
+| evse_id        | country_code | currency | dimension | price | min_duration | max_duration | start_time | end_time | step_size | start_date | end_date | days_of_week | start_charging_link                 |
+|----------------|--------------|----------|-----------|-------|--------------|--------------|------------|----------|-----------|------------|----------|--------------|-------------------------------------|
+| AT\*ION\*E0001 | AT           | EUR      | ENERGY    | 0.5   |              |              |            |          |           |            |          |              | https://charge.mypage.com/evse/1234 |
+| AT\*ION\*E0001 | AT           | EUR      | TIME      | 6     | 3600         | 10800        |            |          |           |            |          |              | https://charge.mypage.com/evse/1234 |
 
 
 

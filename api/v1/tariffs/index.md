@@ -1,6 +1,6 @@
 # GET /v1/tariffs
 
-Get all available tariffs.
+Get a list all available tariffs. Only provides meta data like the name of the provider, the name of the tariff, the monthly fee, etc. The actual unit prices are available in [/v1/tariff_details](../tariff_details/index.md).
 
 This API follows the https://jsonapi.org specification.
 
@@ -15,13 +15,13 @@ This API follows the https://jsonapi.org specification.
 
 ## Request
 
-The following query filter parameters are available: 
+The following query parameters are available: 
 
-| **Name**               | **Type**   | **Presence** | **Example**                                                                 | **Description**                                                                                         |
-|------------------------|------------|--------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| provider_customer_only | Boolean    | optional     | true                                                                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
-| direct_payment         | Boolean    | optional     | true                                                                        | This tariff can be used without registration                                                            |
-| id                     | CSV of IDs | optional     | `cbe781a1-c16e-4af0-890a-b5f5943b6b77,1be781a1-c16e-4af0-890a-b5f5943b6b7a` | Only return tariffs with these IDs                                                                      |
+| **Name**                       | **Type**   | **Presence** | **Example**                                                                 | **Description**                                                                                         |
+|--------------------------------|------------|--------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| filter[provider_customer_only] | Boolean    | optional     | true                                                                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home). |
+| filter[direct_payment]         | Boolean    | optional     | true                                                                        | This tariff can be used without registration                                                            |
+| filter[id]                     | CSV of IDs | optional     | `cbe781a1-c16e-4af0-890a-b5f5943b6b77,1be781a1-c16e-4af0-890a-b5f5943b6b7a` | Only return tariffs with these IDs                                                                      |
 
 ## Response Body
 
@@ -38,7 +38,7 @@ The following table lists the `attributes` of these objects:
 | is_card_payment           | Boolean       | true                        | This tariff applies to card payments at stations with a terminal                                                       |
 | existing_customer_only    | Boolean       | true                        | If true, tariff is only available for existing customers and a registration for new customers is not possible anymore. |
 | provider_customer_tariff  | Boolean       | true                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                |
-| integration_status        | String        | "complete"                  | How far this tariff is integrated into Chargeprice. [See possible values](../../enums.md#integration-status).                                                      |
+| integration_status        | String        | "complete"                  | How far this tariff is integrated into Chargeprice. [See possible values](../../enums.md#integration-status).          |
 | branding                  | Hash or null  | -                           | If branding for the tariff is not available, then `null`                                                               |
 | branding.background_color | String        | "#ff0000"                   | Brand color to be used as background color to show the tariff.                                                         |
 | branding.text_color       | String        | "#000000"                   | Color to be used as text color to show the tariff.                                                                     |

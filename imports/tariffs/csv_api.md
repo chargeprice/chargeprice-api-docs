@@ -1,7 +1,10 @@
-# Import Tariffs: CSV API
+# Import Tariffs: CSV API per EVSE ID
 
 This documents specifies the API which an EMSP needs to provide in order to have
 the EMPS's tariffs integrated into Chargeprice.
+
+If your prices vary by location, this is the right format to exchange data.
+If your prices vary only by charge point operator (=EVSE Party ID), we provide a simpler format that you can check [here](./csv_per_evse_party_api.md).
 
 ## Verbs
 

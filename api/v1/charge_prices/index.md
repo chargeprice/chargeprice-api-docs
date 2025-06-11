@@ -90,7 +90,7 @@ The following table lists the `attributes` of these objects:
 | tags.kind                              | String          | "info"                            | Find all valid value [here](../../enums.md).                                                                                                                                                                                                 |
 | tags.text                              | String          | "Hello"                           | The main text of the tag.                                                                                                                                                                                                                    |
 | tags.url                               | String          | "http://xyz.com"                  | A URL where the tag links to. Might contain `{locale}` (e.g. `http://test.com/{locale}/post.html`), which should be replaced by the current locale by the client.                                                                            |
-| systemTags                             | Array           | ["random_sdk"]                    | Tags that should not be displayed in the UI and are only meant to be used in the application for custom logic etc. Might contain any string.                                                                                                 |
+| system_tags                            | Array           | ["random_sdk"]                    | Tags that should not be displayed in the UI and are only meant to be used in the application for custom logic etc. Might contain any string.                                                                                                 |
 | start_time                             | Integer         | 720                               | Time of day in minutes when the charging session gets started.                                                                                                                                                                               |
 | branding                               | Hash or null    | -                                 | If branding for the tariff is not available, then `null`                                                                                                                                                                                     |
 | branding.background_color              | String          | "#ff0000"                         | Brand color to be used as background color to show the tariff.                                                                                                                                                                               |
@@ -278,7 +278,7 @@ Body:
             "url": "http://www.google.at"
           }
         ],
-        "systemTags": ["random_sdk"]
+        "system_tags": ["random_sdk"]
       },
       "relationships": {
         "tariff": {

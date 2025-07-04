@@ -41,6 +41,7 @@ The body can have the following attributes:
 | no_price_reason                                 | String              |              | "inherit"                              | Reason why there is no price available. Options: `inherit` (tariff -> `not_yet_listed`, `sub_tariff` and `poi_tariff` -> same as `super_tariff`), `prices_per_station`, `not_public`, `not_yet_listed`                |
 | apply_prices_to_sub_tariff                      | Boolean (or `null`) |              | true                                   | Prices of a tariff should be applied (copied to) sub tariffs during the price calculation.                                                                                                                            |
 | supported_countries                             | Array<String>       |              | ["AT","DE"]                            | List of countries where the tariff is mainly supported.                                                                                                                                                               |
+| system_tags                                     | Array<String>       |              | ["random_sdk"]                         | Tags that should not be displayed in the UI and are only meant to be used in the application for custom logic etc. Might contain any string.                                                                          |
 | tags                                            | Array               |              | -                                      | Tags that are shown next to the tariff. E.g. "New Prices since 01.09.", "Club Membership required"                                                                                                                    |
 | tags.kind                                       | String              | required     | "info"                                 | Find all valid value [here](/docs/api/enums.md).                                                                                                                                                                      |
 | tags.localized_text                             | Hash                | required     | { "en": "Hello" }                      | Key-value pairs of localized text. Find all valid languages [here](/docs/api/enums.md).                                                                                                                               |
@@ -96,6 +97,7 @@ The following table lists the `attributes` of a `tariff` or `sub_tariff` (both h
 | no_price_reason                                 | String              | "inherit"              | Reason why there is no price available. Options: `inherit` (tariff -> `not_yet_listed`, `sub_tariff` and `poi_tariff` -> same as `super_tariff`), `prices_per_station`, `not_public`, `not_yet_listed`                |
 | apply_prices_to_sub_tariff                      | Boolean (or `null`) | true                   | Prices of a tariff should be applied (copied to) sub tariffs during the price calculation.                                                                                                                            |
 | supported_countries                             | Array<String>       | ["AT","DE"]            | List of countries where the tariff is mainly supported.                                                                                                                                                               |
+| system_tags                                     | Array<String>       | ["random_sdk"]         | Tags that should not be displayed in the UI and are only meant to be used in the application for custom logic etc. Might contain any string.                                                                          |
 | tags                                            | Array               | -                      | Tags that are shown next to the tariff. E.g. "New Prices since 01.09.", "Club Membership required"                                                                                                                    |
 | tags.kind                                       | String              | "info"                 | Find all valid value [here](/docs/api/enums.md).                                                                                                                                                                      |
 | tags.localized_text                             | Hash                | { "en": "Hello" }      | Key-value pairs of localized text. Find all valid languages [here](/docs/api/enums.md).                                                                                                                               |
@@ -197,6 +199,9 @@ Api-Key: my-secret-key
           "show_until": 1704357860000,
           "hide_for_owners": true
         }
+      ],
+      "system_tags": [
+        "random_sdk"
       ],
       "url": "http://www.google.at",
       "no_price_policy": "inherit",
@@ -302,6 +307,9 @@ Body:
           "show_until": 1704357860000,
           "hide_for_owners": true
         }
+      ],
+      "system_tags": [
+        "random_sdk"
       ],
       "url": "http://www.google.at",
       "no_price_policy": "inherit",

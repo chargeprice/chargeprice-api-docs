@@ -108,6 +108,21 @@ The following table lists the `relationships` and their values in the `included`
 
 Timestamp = Millis since 1.1.1970
 
+### OCPI Attribute Mapping
+
+My users of the API will be used to the OCPI standard, so we provide a mapping of the Chargeprice attributes to the OCPI Tariffs attributes.
+For attributes that are not in this table, there is no 100% matching equivalent in OCPI, so we don't map them to avoid confusion.
+
+| **Chargeprice Attribute**             | **OCPI Tariffs Attribute** | **Value Mapping**                                                                                                                                                                                                                                                    |
+|---------------------------------------|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| restricted_segments.dimension         | price_components.type      | minute=TIME<br>kwh=ENERGY<br>session=FLAT                                                                                                                                                                                                                                  |
+| restricted_segments.price             | price_components.price     | Chargeprice attribute includes VAT, while OCPI attribute doesn't include VAT.                                                                                                                                                                                        |
+| restricted_segments.billing_increment | price_components.step_size | Dimension `minute` => Billing Increment in minutes. OCPI attribute is in seconds for TIME. Multiple by 60 to get the OCPI equivalent.<br>Dimension `kwh` => Billing Increment is in kWh. OCPI attribute is in Watt for ENERGY. Multiple by 1000 to get the OCPI equivalent. |
+| restricted_segments.range_gte         | restrictions.min_duration  | Chargeprice attribute is in minutes, while OCPI attribute is in seconds. Multiple by 60 to get the OCPI equivalent.                                                                                                                                                  |
+| restricted_segments.range_lt          | restrictions.max_duration  | Chargeprice attribute is in minutes, while OCPI attribute is in seconds. Multiple by 60 to get the OCPI equivalent.                                                                                                                                                  |
+| restricted_segments.time_of_day_start | restrictions.start_time    | Chargeprice attribute is in minutes since the start of the day. OCPI attribute is a string in format `HH:mm`. Integer divide by 60 to get the hourse (`HH`) and do a modulo operation to get the minutes (`mm`) part.                                                                      |
+| restricted_segments.time_of_day_end   | restrictions.end_time      | Chargeprice attribute is in minutes since the start of the day. OCPI attribute is a string in format `HH:mm`. Integer divide by 60 to get the hourse (`HH`) and do a modulo operation to get the minutes (`mm`) part.                                                                      |
+
 ### Unit prices for a specifc charge point
 
 The `restricted_segments` array contains a list of all unit prices that define an EMP tariff at a specific CPO for all charge points.

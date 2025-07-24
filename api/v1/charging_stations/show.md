@@ -44,6 +44,7 @@ The following table lists it's `attributes`:
 | charge_points                  | Array             | -                          | Charge points at this station, grouped by power and plug type                                                                           |
 | charge_points.plug             | String            | "ccs"                      | Type of plug. [See supported values](../../enums.md#plugs)                                                                              |
 | charge_points.power            | Float             | 50.0                       | Max. power                                                                                                                              |
+| charge_points.energy_type      | String            | `ac`                       | Energy Type of the charge point: `ac` (Alternating Current) or `dc`(Direct Current)                                                     |
 | charge_points.count            | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
 | charge_points.available_count  | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
 | parking_description            | String or `null`  | "0.5€/h"                   | Describes the parking situation with costs, times etc. in the provided language. Not available for all stations.                        |
@@ -96,6 +97,7 @@ Body:
         {
           "plug": "ccs",
           "power": 50.0,
+          "energy_type": "dc",
           "count": 2,
           "available_count": 2
         }

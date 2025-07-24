@@ -100,6 +100,7 @@ table lists the `attributes` of these objects:
 | evse_ids                       | Array             | ["AT\*ION\*E1234"]         | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this location.             |
 | charge_points                  | Array             | -                          | Charge points at this station, grouped by power and plug type                                                                                       |
 | charge_points.plug             | String            | "ccs"                      | Type of plug. [See supported values](../../enums.md#plugs)                                                                                          |
+| charge_points.energy_type      | String            | `ac`                       | Energy Type of the charge point: `ac` (Alternating Current) or `dc`(Direct Current)                                                                 |
 | charge_points.power            | Float             | 50.0                       | Max. power                                                                                                                                          |
 | charge_points.count            | Integer           | 2                          | Total number of charge points of this type at the station                                                                                           |
 | charge_points.evse_ids         | Array             | ["AT\*ION\*E1234"]         | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this type of charge point. |
@@ -192,6 +193,7 @@ Body:
           {
             "plug": "ccs",
             "power": 50.0,
+            "energy_type": "dc",
             "count": 2,
             "available_count": 2,
             "evse_ids": ["AT*ION*E1234"]

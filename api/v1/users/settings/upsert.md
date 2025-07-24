@@ -20,31 +20,43 @@ This API follows the https://jsonapi.org specification.
 
 The body can have the following attributes and relationships:
 
-| **Name**           | **Type**           | **Presence** | **Example**                                       | **Description**                                                                                                                                                                                                                             |
-|--------------------|--------------------|--------------|---------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                 | UUID               | required     | "1e49b853-36fc-47ed-9826-97828b5b2fdd"            | Create: Client-side generated UUIDv4, Update: Existing Resource ID                                                                                                                                                                          |
-| type               | String             | required     | "tariff"                                          | Type of the resource. Needs to be `user_settings`.                                                                                                                                                                                          |
-| version            | Integer            | required     | 1                                                 | Lock version. Needs to be 1 on create and for update 1 higher than the current version.                                                                                                                                                     |
-| vehicle            | Relationship       | required     | `{"id": "some-uuid", type:"car" }`                | The current selected vehicle of the user.                                                                                                                                                                                                   |
-| available_vehicles | Relationship       | required     | `[{"id": "some-uuid", type:"car" }]`              | All vehicles that the user has added to their profile. Max number: 20.                                                                                                                                                                      |
-| tariffs            | Relationship Array | required     | `[{"id": "some-uuid", type:"tariff" }]`           | A list of tariffs that the user "owns" or has subscribed to. Max number of tariffs: 200                                                                                                                                                     |
-| favourite_stations | Relationship Array | required     | `[{"id": "some-uuid", type:"charging_station" }]` | Stations that the user has added to their favourites. The type defines the source of the station: "charging_station" => Chargeprice Station DB, "going_electric_charging_station" => Going Electric Station DB. Max number of stations: 100 |
+| **Name**                              | **Type**           | **Presence** | **Example**                                       | **Description**                                                                                                                                                                                                                             |
+|---------------------------------------|--------------------|--------------|---------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                                    | UUID               | required     | "1e49b853-36fc-47ed-9826-97828b5b2fdd"            | Create: Client-side generated UUIDv4, Update: Existing Resource ID                                                                                                                                                                          |
+| type                                  | String             | required     | "tariff"                                          | Type of the resource. Needs to be `user_settings`.                                                                                                                                                                                          |
+| android_purchases                     | Array              | optional     | -                                                 | List of **active** purchases on an Android device the user did.                                                                                                                                                                             |
+| android_purchases.purchase_token      | String             | required     | -                                                 | `purchaseToken` received from Google Play Store.                                                                                                                                                                                            |
+| android_purchases.product_id          | String             | required     | -                                                 | `productId` from the Google Play Store. Currently only `premium`.                                                                                                                                                                             |
+| ios_purchases                         | Array              | optional     | -                                                 | List of **active** purchases on an iOS device the user did.                                                                                                                                                                                 |
+| ios_purchases.receipt_data            | String             | required     | -                                                 | `receiptData` received from the Apple App Store.                                                                                                                                                                                            |
+| ios_purchases.original_transaction_id | String             | required     | -                                                 | `original_transaction_id` received from the Apple App Store.                                                                                                                                                                                |
+| version                               | Integer            | required     | 1                                                 | Lock version. Needs to be 1 on create and for update 1 higher than the current version.                                                                                                                                                     |
+| vehicle                               | Relationship       | required     | `{"id": "some-uuid", type:"car" }`                | The current selected vehicle of the user.                                                                                                                                                                                                   |
+| available_vehicles                    | Relationship       | required     | `[{"id": "some-uuid", type:"car" }]`              | All vehicles that the user has added to their profile. Max number: 20.                                                                                                                                                                      |
+| tariffs                               | Relationship Array | required     | `[{"id": "some-uuid", type:"tariff" }]`           | A list of tariffs that the user "owns" or has subscribed to. Max number of tariffs: 200                                                                                                                                                     |
+| favourite_stations                    | Relationship Array | required     | `[{"id": "some-uuid", type:"charging_station" }]` | Stations that the user has added to their favourites. The type defines the source of the station: "charging_station" => Chargeprice Station DB, "going_electric_charging_station" => Going Electric Station DB. Max number of stations: 100 |
 
 ## Response Body
 
 A response contains a `user_settings` object.
 The following table lists it's `attributes` and `relationships`:
 
-| **Name**           | **Type**     | **Example**                                       | **Description**                                                                                                                                                                                                 |
-|--------------------|--------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| created_at         | Timestamp    | 1546297200000                                     | Creation time of the resource                                                                                                                                                                                   |
-| updated_at         | Timestamp    | 1546297200000                                     | Last update of the resource                                                                                                                                                                                     |
-| version            | Integer      | 1                                                 | Current lock version                                                                                                                                                                                            |
-| owner              | Relationship | `{"id": "some-uuid", type:"user" }`               | The user that belongs to these settings                                                                                                                                                                         |
-| tariffs            | Relationship | `[{"id": "some-uuid", type:"tariff" }]`           | A list of tariffs that the user "owns" or has subscribed to.                                                                                                                                                    |
-| vehicle            | Relationship | `{"id": "some-uuid", type:"car" }`                | The current selected vehicle of the user                                                                                                                                                                        |
-| available_vehicles | Relationship | `[{"id": "some-uuid", type:"car" }]`              | All vehicles that the user has added to their profile.                                                                                                                                                          |
-| favourite_stations | Relationship | `[{"id": "some-uuid", type:"charging_station" }]` | Stations that the user has added to their favourites. The type defines the source of the station: "charging_station" => Chargeprice Station DB, "going_electric_charging_station" => Going Electric Station DB. |
+| **Name**                              | **Type**     | **Example**                                       | **Description**                                                                                                                                                                                                 |
+|---------------------------------------|--------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| android_purchases                     | Array        | -                                                 | List of **active** purchases on an Android device the user did.                                                                                                                                                 |
+| android_purchases.purchase_token      | String       | -                                                 | `purchaseToken` received from Google Play Store.                                                                                                                                                                |
+| android_purchases.product_id          | String       | -                                                 | `productId` from the Google Play Store. Currently only `premium`.                                                                                                                                               |
+| ios_purchases                         | Array        | -                                                 | List of **active** purchases on an iOS device the user did.                                                                                                                                                     |
+| ios_purchases.receipt_data            | String       | -                                                 | `receiptData` received from the Apple App Store.                                                                                                                                                                |
+| ios_purchases.original_transaction_id | String       | -                                                 | `original_transaction_id` received from the Apple App Store.                                                                                                                                                    |
+| created_at                            | Timestamp    | 1546297200000                                     | Creation time of the resource                                                                                                                                                                                   |
+| updated_at                            | Timestamp    | 1546297200000                                     | Last update of the resource                                                                                                                                                                                     |
+| version                               | Integer      | 1                                                 | Current lock version                                                                                                                                                                                            |
+| owner                                 | Relationship | `{"id": "some-uuid", type:"user" }`               | The user that belongs to these settings                                                                                                                                                                         |
+| tariffs                               | Relationship | `[{"id": "some-uuid", type:"tariff" }]`           | A list of tariffs that the user "owns" or has subscribed to.                                                                                                                                                    |
+| vehicle                               | Relationship | `{"id": "some-uuid", type:"car" }`                | The current selected vehicle of the user                                                                                                                                                                        |
+| available_vehicles                    | Relationship | `[{"id": "some-uuid", type:"car" }]`              | All vehicles that the user has added to their profile.                                                                                                                                                          |
+| favourite_stations                    | Relationship | `[{"id": "some-uuid", type:"charging_station" }]` | Stations that the user has added to their favourites. The type defines the source of the station: "charging_station" => Chargeprice Station DB, "going_electric_charging_station" => Going Electric Station DB. |
 
 ## Example
 
@@ -65,6 +77,18 @@ Body:
     "type": "user_settings",
     "attributes": {
       "version": 1,
+      "android_purchases": [
+        {
+          "purchase_token": "some-purchase-token",
+          "product_id": "premium"
+        }
+      ],
+      "ios_purchases": [
+        {
+          "receipt_data": "some-receipt-data",
+          "original_transaction_id": "some-transaction-id",
+        }
+      ]
     },
     "relationships": {
       "vehicle": {
@@ -121,6 +145,18 @@ Body:
       "created_at": 1546297200000,
       "updated_at": 1546297200000,
       "version": 1,
+      "android_purchases": [
+        {
+          "purchase_token": "some-purchase-token",
+          "product_id": "premium"
+        }
+      ],
+      "ios_purchases": [
+        {
+          "receipt_data": "some-receipt-data",
+          "original_transaction_id": "some-transaction-id",
+        }
+      ]
     },
     "relationships": {
       "owner": {

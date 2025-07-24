@@ -80,7 +80,7 @@ Body:
       "android_purchases": [
         {
           "purchase_token": "some-purchase-token",
-          "product_id": "premium",
+          "product_id": "premium"
         }
       ],
       "ios_purchases": [

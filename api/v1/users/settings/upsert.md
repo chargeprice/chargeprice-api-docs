@@ -145,6 +145,18 @@ Body:
       "created_at": 1546297200000,
       "updated_at": 1546297200000,
       "version": 1,
+      "android_purchases": [
+        {
+          "purchase_token": "some-purchase-token",
+          "product_id": "premium"
+        }
+      ],
+      "ios_purchases": [
+        {
+          "receipt_data": "some-receipt-data",
+          "original_transaction_id": "some-transaction-id",
+        }
+      ]
     },
     "relationships": {
       "owner": {

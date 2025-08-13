@@ -28,24 +28,25 @@ The following query parameters are available:
 A response contains 0 to many `tariff` objects.
 The following table lists the `attributes` of these objects:
 
-| **Name**                  | **Type**      | **Example**                 | **Description**                                                                                                        |
-|---------------------------|---------------|-----------------------------|------------------------------------------------------------------------------------------------------------------------|
-| provider                  | String        | "Maingau Energie"           | Name of the charge card provider                                                                                       |
-| name                      | String        | "EinfachStromLaden"         | Name of the tariff                                                                                                     |
-| total_monthly_fee         | Float         | 10.0                        | Monthly fee incl. a 12th of any yearly fee.                                                                            |
-| currency                  | String        | "EUR"                       | Main currency of the tariff. Applies to e.g. the monthly fee.                                                          |
-| is_direct_payment         | Boolean       | true                        | This tariff can be used without registration                                                                           |
-| is_card_payment           | Boolean       | true                        | This tariff applies to card payments at stations with a terminal                                                       |
-| existing_customer_only    | Boolean       | true                        | If true, tariff is only available for existing customers and a registration for new customers is not possible anymore. |
-| provider_customer_tariff  | Boolean       | true                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                |
-| integration_status        | String        | "complete"                  | How far this tariff is integrated into Chargeprice. [See possible values](../../enums.md#integration-status).          |
-| branding                  | Hash or null  | -                           | If branding for the tariff is not available, then `null`                                                               |
-| branding.background_color | String        | "#ff0000"                   | Brand color to be used as background color to show the tariff.                                                         |
-| branding.text_color       | String        | "#000000"                   | Color to be used as text color to show the tariff.                                                                     |
-| branding.logo_url         | String        | "https://logo.com/test.png" | Brand logo to be displayed next to the tariff.                                                                         |
-| supported_countries       | Array<String> | ["AT","DE"]                 | List of countries where the tariff is mainly supported. If empty, it's supported in every country.                     |
-| charge_card_id            | String        | "201"                       | GoingElectric charge card ID. If a tariff has none, it defaults to "0". (Legacy attribute)                             |
-| emp                       | Relationship  | -                           | Owner EMP of the tariff.                                                                                               |
+| **Name**                    | **Type**      | **Example**                 | **Description**                                                                                                        |
+|-----------------------------|---------------|-----------------------------|------------------------------------------------------------------------------------------------------------------------|
+| provider                    | String        | "Maingau Energie"           | Name of the charge card provider                                                                                       |
+| name                        | String        | "EinfachStromLaden"         | Name of the tariff                                                                                                     |
+| total_monthly_fee           | Float         | 10.0                        | Monthly fee incl. a 12th of any yearly fee.                                                                            |
+| currency                    | String        | "EUR"                       | Main currency of the tariff. Applies to e.g. the monthly fee.                                                          |
+| is_direct_payment           | Boolean       | true                        | This tariff can be used without registration                                                                           |
+| is_vehicle_brand_restricted | Boolean       | true                        | This tariff can only be subscribed to by owning a vehicle of a specific brand.                                         |
+| is_card_payment             | Boolean       | true                        | This tariff applies to card payments at stations with a terminal                                                       |
+| existing_customer_only      | Boolean       | true                        | If true, tariff is only available for existing customers and a registration for new customers is not possible anymore. |
+| provider_customer_tariff    | Boolean       | true                        | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                |
+| integration_status          | String        | "complete"                  | How far this tariff is integrated into Chargeprice. [See possible values](../../enums.md#integration-status).          |
+| branding                    | Hash or null  | -                           | If branding for the tariff is not available, then `null`                                                               |
+| branding.background_color   | String        | "#ff0000"                   | Brand color to be used as background color to show the tariff.                                                         |
+| branding.text_color         | String        | "#000000"                   | Color to be used as text color to show the tariff.                                                                     |
+| branding.logo_url           | String        | "https://logo.com/test.png" | Brand logo to be displayed next to the tariff.                                                                         |
+| supported_countries         | Array<String> | ["AT","DE"]                 | List of countries where the tariff is mainly supported. If empty, it's supported in every country.                     |
+| charge_card_id              | String        | "201"                       | GoingElectric charge card ID. If a tariff has none, it defaults to "0". (Legacy attribute)                             |
+| emp                         | Relationship  | -                           | Owner EMP of the tariff.                                                                                               |
 
 Timestamp = Millis since 1.1.1970
 
@@ -77,6 +78,7 @@ Body:
         "is_direct_payment": true,
         "is_card_payment": true,
         "existing_customer_only": false,
+        "is_vehicle_brand_restricted": false,
         "integration_status": "complete",
         "total_monthly_fee": 0.0,
         "currency": "EUR",
@@ -106,6 +108,7 @@ Body:
         "is_direct_payment": false,
         "is_card_payment": false,
         "existing_customer_only": false,
+        "is_vehicle_brand_restricted": false,
         "integration_status": "pending",
         "branding": null,
         "supported_countries": ["AT","DE"],

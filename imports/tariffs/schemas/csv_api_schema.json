@@ -1,0 +1,93 @@
+{
+  "fields": [
+    {
+      "name": "evse_id",
+      "type": "string"
+    },
+    {
+      "name": "country_code",
+      "type": "string",
+      "constraints": {
+        "pattern": "^[A-Z]{2}$"
+      }
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "constraints": {
+        "pattern": "^[A-Z]{3}$"
+      }
+    },
+    {
+      "name": "dimension",
+      "type": "string",
+      "constraints": {
+        "enum": ["ENERGY", "TIME","FLAT","PARKING_TIME"]
+      }
+    },
+    {
+      "name": "price",
+      "type": "string",
+      "constraints": {
+        "pattern": "^-?\\d+(\\.\\d+)?$"
+      }
+    },
+    {
+      "name": "min_duration",
+      "type": "string",
+      "constraints": {
+        "pattern": "^$|^\\d+$"
+      }
+    },
+    {
+      "name": "max_duration",
+      "type": "string",
+      "constraints": {
+        "pattern": "^$|^\\d+$"
+      }
+    },
+    {
+      "name": "start_time",
+      "type": "string",
+      "constraints": {
+        "pattern": "^$|^([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$"
+      }
+    },
+    {
+      "name": "end_time",
+      "type": "string",
+      "constraints": {
+        "pattern": "^$|^([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$"
+      }
+    },
+    {
+      "name": "step_size",
+      "type": "string",
+      "constraints": {
+        "pattern": "^$|^\\d+$"
+      }
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "constraints": {
+        "pattern": "^$|^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+      }
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "constraints": {
+        "pattern": "^$|^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+      }
+    },
+    {
+      "name": "days_of_week",
+      "type": "string",
+      "constraints": {
+        "pattern": "^$|^(?:MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY|SUNDAY)(?:,(?:MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY|SUNDAY))*$"
+      }
+    }
+  ],
+  "primaryKey": ["evse_id"]
+}

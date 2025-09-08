@@ -167,3 +167,13 @@ The response **MUST** have the following attributes in the defined order.
 
 * URL of the API
 * Headers for Authentiation
+
+### Validate your CSV
+
+You can validate if your CSV matches all the above criteria with this online tool: [CSV Validator](https://csvlint.io/).
+Please use the following schema for the validation: [CSV Schema](./schemas/csv_api_schema.json).
+
+1. Store your CSV data as a file.
+2. Upload your CSV file to the tool
+3. Upload the schema file to the tool
+4. Validate the CSV

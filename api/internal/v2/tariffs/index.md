@@ -85,6 +85,7 @@ The following table lists the `attributes` of a `tariff` or `sub_tariff` (both h
 | prices.decomposition.currency                   | String              | -                      | The currency of this component. Overrules the `currency` of the tariff. For any combination of prices, all values defined in the price segment which currently apply, need to have the same currency!                 |
 | prices.decomposition.time_of_day_start          | Integer             | 720                    | Time of day when this segment starts to count or gets active                                                                                                                                                          |
 | prices.decomposition.time_of_day_end            | Integer             | 720                    | Time of day when this segment stops to count or be active                                                                                                                                                             |
+| prices.decomposition.is_average_price           | Boolean             | true                   | If true, the price is not applied to the whole network of a CPO, but it is just an average price from all POIs.                                                                                                       |
 | vehicle_brands                                  | Relationship Array  | -                      | Only owners of these vehicle brands are allowed to subscribe to this tariff.                                                                                                                                          |
 | super_tariffs                                   | Relationship Array  | -                      | Only allowed for `sub_tariff`. To which tariffs this sub tariff counts to.                                                                                                                                            |
 | emp                                             | Relationship        | -                      | Owner EMP of the tariff.                                                                                                                                                                                              |
@@ -146,7 +147,8 @@ Body:
                 "billing_increment": 0.01,
                 "currency": null,
                 "time_of_day_start": 600,
-                "time_of_day_end": 1200
+                "time_of_day_end": 1200,
+                "is_average_price": false
               }
             ]
           }

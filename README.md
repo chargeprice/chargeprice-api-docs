@@ -47,12 +47,15 @@ guides:
 If you have any questions, feel free to reach out to us at
 contact@chargeprice.net!
 
-
 ## OCPI Compatibility 
 While our API uses a proprietary format to support a more extensive set of
 attributes than the OCPI standard allows, we recognize the importance of
 interoperability in the e-mobility ecosystem. If you require OCPI-compatible
 data, we are happy to provide it upon request.
+
+## Changelog
+
+See the [changelog](./changelog.md) for recent changes to the API.
 
 ## Terms of Use
 

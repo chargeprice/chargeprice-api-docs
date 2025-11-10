@@ -19,7 +19,7 @@ This API follows the https://jsonapi.org specification.
 The body can have the following attributes:
 
 | **Name**                         | **Type**          | **Presence** | **Example**                            | **Description**                                                                                                                         |
-| -------------------------------- | ----------------- | ------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------------------|-------------------|--------------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | id                               | UUID              | required     | "1e49b853-36fc-47ed-9826-97828b5b2fdd" | Create: Client-side generated UUID, Update: Existing Resource ID                                                                        |
 | version                          | Integer           | required     | 1                                      | Lock version. Needs to be 1 on create and for update 1 higher than the current version.                                                 |
 | type                             | String            | required     | "charging_station"                     | Always "charging_station".                                                                                                              |
@@ -32,7 +32,7 @@ The body can have the following attributes:
 | free_parking                     | Boolean or `null` | required     | true                                   | Parking at the station is free of charge (`null` = unknown)                                                                             |
 | free_charging                    | Boolean or `null` | required     | true                                   | Charging at the station is free of charge (`null` = unknown)                                                                            |
 | charge_points                    | Array             | required     | -                                      | Charge points at this station, grouped by power and plug type                                                                           |
-| charge_points.plug               | String            | required     | "ccs"                                  | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                                          |
+| charge_points.plug               | String            | required     | "ccs"                                  | Type of plug. [See Supported values](../../enums.md#plugs)                                                                              |
 | charge_points.power              | Float             | required     | 50.0                                   | Max. power                                                                                                                              |
 | charge_points.count              | Integer           | required     | 2                                      | Total number of charge points of this type at the station                                                                               |
 | charge_points.evse_ids           | Array             | required     | ["AT\*ION\*E1234"]                     | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this location. |
@@ -46,7 +46,7 @@ A response contains a `charging_station` object.
 The following table lists it's `attributes`:
 
 | **Name**                      | **Type**          | **Example**                | **Description**                                                                                                                         |
-| ----------------------------- | ----------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------|-------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | name                          | String            | "McDonalds Graz"           | Name of the charging station                                                                                                            |
 | latitude                      | Float             | 43.345                     | Latitude component of the location                                                                                                      |
 | longitude                     | Float             | 12.443                     | Longitude component of the location                                                                                                     |
@@ -56,7 +56,7 @@ The following table lists it's `attributes`:
 | free_charging                 | Boolean or `null` | true                       | Charging at the station is free of charge (`null` = unknown)                                                                            |
 | evse_ids                      | Array             | ["AT\*ION\*E1234"]         | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this location. |
 | charge_points                 | Array             | -                          | Charge points at this station, grouped by power and plug type                                                                           |
-| charge_points.plug            | String            | "ccs"                      | Type of plug (`ccs`, `chademo`, `type2`, `type1`, `type3`, `schuko`, `tesla_ccs`, `tesla_suc`)                                          |
+| charge_points.plug            | String            | "ccs"                      | Type of plug. [See Supported values](../../enums.md#plugs)                                                                              |
 | charge_points.power           | Float             | 50.0                       | Max. power                                                                                                                              |
 | charge_points.count           | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
 | charge_points.available_count | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |

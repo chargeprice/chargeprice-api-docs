@@ -19,14 +19,16 @@ Please expect that new Tag Kinds might be added at any time!
 
 ## Plugs
 
-- ccs
+- ccs: CCS standard with Type 2 connector.
 - type2
 - chademo
 - schuko
 - type1
 - type3 
 - tesla_ccs: Used for Superchargers that use the CCS standard, but are only open to Tesla vehicles.
-- tesla_suc
+- tesla_suc: Used for Tesla Supercharger stations that are not open to other vehicles.
+- ccs1: CCS standard with Type 1 connector.
+- nacs: North American Charging Standard, formerly known as Tesla connector.
 
 ## No Price Reason
 

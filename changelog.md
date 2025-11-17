@@ -9,3 +9,7 @@ New field `is_average_price` in `charge_point_prices` and `tariff_details` to in
 ## 2025-10-30 [Added] New Dimension "parking_minute"
 
 New dimension `parking_minute` added to `v2/tariffs` and `v1/tariff_details` (optionally returned, not added per default) to support parking fees after charging.
+
+## 2024-11-15 [Added] Rate Limit to Open Data API
+
+This [Swiss Open Data API](./api/v1/opendata/charging_prices_switzerland.md) is rate limited to 2 requests per 24 hours per IP address.

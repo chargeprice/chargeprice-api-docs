@@ -12,6 +12,11 @@ This API follows the <https://jsonapi.org> specification.
 
 https://api.chargeprice.app/v1/opendata/charging_prices_ch
 
+## Rate Limit
+
+This API is rate limited to 2 requests per 24 hours per IP address.
+Syncing the prices once per day is sufficient to keep your data up to date.
+
 ## Headers
 
 * `Content-Type: application/json`

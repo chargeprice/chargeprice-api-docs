@@ -13,3 +13,7 @@ New dimension `parking_minute` added to `v2/tariffs` and `v1/tariff_details` (op
 ## 2024-11-15 [Added] Rate Limit to Open Data API
 
 This [Swiss Open Data API](./api/v1/opendata/charging_prices_switzerland.md) is rate limited to 2 requests per 24 hours per IP address.
+
+## 2024-06-20 [Changed] Access to Swiss Open Data API
+
+The Swiss Open Data API now requires an API key for access. Contact <sales@chargeprice.net> to get access.

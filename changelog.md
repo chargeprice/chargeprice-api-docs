@@ -14,6 +14,10 @@ New dimension `parking_minute` added to `v2/tariffs` and `v1/tariff_details` (op
 
 This [Swiss Open Data API](./api/v1/opendata/charging_prices_switzerland.md) is rate limited to 2 requests per 24 hours per IP address.
 
-## 2025-06-20 [Changed] Access to Swiss Open Data API
+## 2025-11-20 [Changed] Access to Swiss Open Data API
 
 The Swiss Open Data API now requires an API key for access. Contact <sales@chargeprice.net> to get access.
+
+## 2025-11-25 [Added] New Field "source_label" to Charging Stations
+
+New field `source_label` added to the `charging_stations` resource to indicate the source of the data.

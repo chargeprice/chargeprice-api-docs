@@ -50,7 +50,8 @@ The following table lists it's `attributes`:
 | parking_description            | String or `null`  | "0.5€/h"                   | Describes the parking situation with costs, times etc. in the provided language. Not available for all stations.                        |
 | facilities                     | Array<String>     | ["hotel"]                  | Facilities that closely located to the charging station. [See Supported values](../../enums.md#facilities).                             |
 | parking_type                   | String or `null`  | "along_motorway"           | The general type of parking at the charging location. [See Supported values](../../enums.md#parking-type).                              |
-| operator                       | Relationship      | -                          | Reference of the operator (CPO)                                                                                                         |
+| operator                       | Relationship      | -                          | Reference of the operator (CPO)                                                                                                       |
+| source_label                   | String or null    | "ocpi"                     | Indicator for the source of the data.                                                                                                   |
 | meta.branding                  | Hash or null      | See below                  | Stations with an active promotion campaign.                                                                                             |
 | meta.branding.map_pin_icon_url | String            | http://cp.com/logo.png     | URL to the map pin icon.                                                                                                                |
 
@@ -104,7 +105,8 @@ Body:
       ],
       "parking_description": "0.5€/h",
       "facilities": ["hotel", "fuel_station"],
-      "parking_type": "parking_garage"
+      "parking_type": "parking_garage",
+      "source_label": "OCPI"
     },
     "relationships": {
       "operator": {

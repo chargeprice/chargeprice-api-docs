@@ -109,7 +109,9 @@ table lists the `attributes` of these objects:
 | parking_type                   | String or `null`  | "along_motorway"           | The general type of parking at the charging location. [See Supported values](../../enums.md#parking-type).                                          |
 | created_at                     | Timestamp         | 1546297200000              | Creation time of the resource                                                                                                                       |
 | updated_at                     | Timestamp         | 1546297200000              | Last time the resource has changed                                                                                                                  |
+| operator                       | Relationship      | -                          | Reference of the operator (CPO)                                                                                                       |
 | version                        | Integer           | 1                          | Current lock version                                                                                                                                |
+| source_label                   | String or null    | "ocpi"                     | Indicator for the source of the data.                                                                                                               |
 | meta.branding                  | Hash or null      | See below                  | Stations with an active promotion campaign.                                                                                                         |
 | meta.branding.map_pin_icon_url | String            | http://cp.com/logo.png     | URL to the map pin icon.                                                                                                                            |
 
@@ -200,7 +202,8 @@ Body:
           }
         ],
         "facilities": ["hotel", "fuel_station"],
-        "parking_type": "parking_garage"
+        "parking_type": "parking_garage",
+        "source_label": "OCPI"
       },
       "relationships": {
         "operator": {

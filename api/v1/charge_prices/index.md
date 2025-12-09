@@ -84,6 +84,7 @@ The following table lists the `attributes` of these objects:
 | total_monthly_fee                      | Float           | 12.30                             | Any monthly fee + any yearly (service) fee (proportional)                                                                                                                                                                                    |
 | flat_rate                              | Boolean         | `true`                            | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                                                                                                                                                       |
 | direct_payment                         | Boolean         | `true`                            | This tariff can be used without registration                                                                                                                                                                                                 |
+| is_card_payment                        | Boolean         | `true`                            | `true` if the tariff can be used with a credit card at a terminal.                                                                                                                                                                                        |
 | provider_customer_tariff               | Boolean         | `true`                            | If `true`, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                                                                                                    |
 | is_roaming                             | Boolean         | `true`                            | `true` if the tariff is from a roaming EMP, false if it's from the CPO directly.                                                                                                                                                             |
 | is_promoted                            | Boolean         | `true`                            | `true` if the tariff has a promotion campaign active.                                                                                                                                                                                        |
@@ -252,6 +253,7 @@ Body:
         "total_monthly_fee": 0,
         "flat_rate": false,
         "direct_payment": false,
+        "is_card_payment": true,
         "provider_customer_only": false,
         "is_roaming": true,
         "start_time": 720,

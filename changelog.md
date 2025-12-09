@@ -21,3 +21,7 @@ The Swiss Open Data API now requires an API key for access. Contact <sales@charg
 ## 2025-11-25 [Added] New Field "source_label" to Charging Stations
 
 New field `source_label` added to the `charging_stations` resource to indicate the source of the data.
+
+## 2025-12-09 [Added] Added `is_card_payment` Field to v1/charge_prices Endpoint
+
+New field `is_card_payment` added to the `v1/charge_prices` endpoint to indicate if this price is for card payments at a terminal.

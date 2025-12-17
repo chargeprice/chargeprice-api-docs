@@ -25,3 +25,7 @@ New field `source_label` added to the `charging_stations` resource to indicate t
 ## 2025-12-09 [Added] Added `is_card_payment` Field to v1/charge_prices Endpoint
 
 New field `is_card_payment` added to the `v1/charge_prices` endpoint to indicate if this price is for card payments at a terminal.
+
+## 2025-12-17 [Added] Occupancy Restrictions for Tariffs
+
+New fields `occupancy_gte` and `occupancy_lt` added to the `tariffs` resource to allow for more granular pricing based on the occupancy of the charging site.

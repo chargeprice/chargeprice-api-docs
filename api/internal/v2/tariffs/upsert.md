@@ -67,6 +67,8 @@ The body can have the following attributes:
 | prices.decomposition.time_of_day_start          | Integer             |              | 600                                    | Time of day when this segment starts to count or gets active. Both start and end need to be set or stay empty!                                                                                                        |
 | prices.decomposition.time_of_day_end            | Integer             |              | 1200                                   | Time of day when this segment stops to count or be active. Both start and end need to be set or stay empty!                                                                                                           |
 | prices.decomposition.is_average_price           | Boolean             |              | true                                   | If true, the price is not applied to the whole network of a CPO, but it is just an average price from all POIs.                                                                                                       |
+| prices.decomposition.occupancy_gte              | Integer or null     |              | `20`                                   | Inclusive minimum occupancy rate (in percent) of the charging site to activate this segment. If `null`, segment is active always.                                                                                     |
+| prices.decomposition.occupancy_lt               | Integer or null     |              | `80`                                   | Exclusive maximum occupancy rate (in percent) of the charging site to activate this segment. If `null`, segment is active always.                                                                                     |
 | vehicle_brands                                  | Relationship Array  |              | -                                      | Which vehicle brands are supported by this tariff.                                                                                                                                                                    |
 | super_tariffs                                   | Relationship Array  |              | -                                      | Only allowed for `sub_tariff`. To which tariffs this sub tariff counts to.                                                                                                                                            |
 | emp                                             | Relationship        |              | -                                      | Owner EMP of the tariff.                                                                                                                                                                                              |
@@ -124,6 +126,8 @@ The following table lists the `attributes` of a `tariff` or `sub_tariff` (both h
 | prices.decomposition.time_of_day_start          | Integer             | 720                    | Time of day when this segment starts to count or gets active                                                                                                                                                          |
 | prices.decomposition.time_of_day_end            | Integer             | 720                    | Time of day when this segment stops to count or be active                                                                                                                                                             |
 | prices.decomposition.is_average_price           | Boolean             | true                   | If true, the price is not applied to the whole network of a CPO, but it is just an average price from all POIs.                                                                                                       |
+| prices.decomposition.occupancy_gte              | Integer or null     | `20`                   | Inclusive minimum occupancy rate (in percent) of the charging site to activate this segment. If `null`, segment is active always.                                                                                     |
+| prices.decomposition.occupancy_lt               | Integer or null     | `80`                   | Exclusive maximum occupancy rate (in percent) of the charging site to activate this segment. If `null`, segment is active always.                                                                                     |
 | vehicle_brands                                  | Relationship Array  | -                      | Which vehicle brands are supported by this tariff.                                                                                                                                                                    |
 | super_tariffs                                   | Relationship Array  | -                      | Only allowed for `sub_tariff`. To which tariffs this sub tariff counts to.                                                                                                                                            |
 | emp                                             | Relationship        | -                      | Owner EMP of the tariff.                                                                                                                                                                                              |
@@ -176,7 +180,9 @@ Api-Key: my-secret-key
               "currency": "EUR",
               "time_of_day_start": 600,
               "time_of_day_end": 1200,
-              "is_average_price": false
+              "is_average_price": false,
+              "occupancy_gte": 20,
+              "occupancy_lt": 80
             }
           ]
         }
@@ -285,7 +291,9 @@ Body:
               "currency": "EUR",
               "time_of_day_start": 600,
               "time_of_day_end": 1200,
-              "is_average_price": false
+              "is_average_price": false,
+              "occupancy_gte": 20,
+              "occupancy_lt": 80
             }
           ]
         }

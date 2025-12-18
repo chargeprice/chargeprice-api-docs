@@ -19,7 +19,7 @@ Syncing the prices once per day is sufficient to keep your data up to date.
 
 ## Headers
 
-* `API-Key: <your_api_key>` (contact <sales@chargeprice.net> to get access. Access is free of charge for non-commercial use cases.)
+* `API-Key: <your_api_key>` ([Get access here](https://docs.google.com/forms/d/e/1FAIpQLSffawP96ayTOA-_BBKuJfMFsKhD-e_IgrGhq7p2ApP2qFPZJA/viewform?usp=dialog))
 * `Content-Type: application/json`
 
 ## Response Body

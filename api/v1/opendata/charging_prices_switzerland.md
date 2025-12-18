@@ -2,7 +2,15 @@
 
 Current prices at public charging stations in Switzerland.
 
-Good to know: This open data API currently only contains data that has been directly provided by Charge Point Operators (CPOs) or E-Mobility Service Providers (EMPs). The [full Chargeprice API](https://github.com/chargeprice/chargeprice-api-docs) contains a higher coverage of data in Switzerland and Europe.  
+## Terms of use
+
+- You may use this dataset for non-commercial purposes.
+- You may use this dataset for commercial purposes, but you must seek prior permission from the data owner.
+- You must provide the source (author, title and link to the dataset).
+
+## General Information
+
+This open data API currently only contains data that has been directly provided by Charge Point Operators (CPOs) or E-Mobility Service Providers (EMPs). The [full Chargeprice API](https://github.com/chargeprice/chargeprice-api-docs) contains a higher coverage of data in Switzerland and Europe.  
 
 The data in this API only contains information about charging prices. You can connect these prices with open data around charging stations using https://www.ich-tanke-strom.ch/. 
 

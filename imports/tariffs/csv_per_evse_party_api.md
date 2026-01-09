@@ -128,6 +128,11 @@ The response **MUST** have the following attributes in the defined order.
 | AT\*ION       | DC          |             |           | AT           | EUR      | ENERGY    | 0.6   |              |              |            |          | 01.01.2025 |            |          |              |                     |
 
 
+### Production Example
+
+A final data delivery can simply look like [this Google Sheet](https://docs.google.com/spreadsheets/d/1qNZRIHW0q_DIU3R1YqaqPa6U_VM5OmR_mYxnwvlQBv0/edit).
+Google Sheets are CSV compatible and can be written in an automated way by the provider.
+
 ### Checklist of what the EMSP need to provide to Chargeprice
 
 Please check this section in [this document](csv_api.md). It also applies here.

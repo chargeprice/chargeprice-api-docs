@@ -162,6 +162,10 @@ The response **MUST** have the following attributes in the defined order.
 | AT\*ION\*E0001 | AT           | EUR      | TIME      | 6     | 3600         | 10800        |            |          |           |            |          |              | https://charge.mypage.com/evse/1234 |
 
 
+### Production Example
+
+A final data delivery can simply look like [this Google Sheet](https://docs.google.com/spreadsheets/d/11GjLrBojdkdO6aUmVQW-gyYzueJChQzL4VeGpmH4q-4/edit).
+Google Sheets are CSV compatible and can be written in an automated way by the provider.
 
 ### Checklist of what the EMSP need to provide to Chargeprice
 

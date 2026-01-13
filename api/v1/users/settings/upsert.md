@@ -57,6 +57,7 @@ The following table lists it's `attributes` and `relationships`:
 | vehicle                               | Relationship | `{"id": "some-uuid", type:"car" }`                | The current selected vehicle of the user                                                                                                                                                                        |
 | available_vehicles                    | Relationship | `[{"id": "some-uuid", type:"car" }]`              | All vehicles that the user has added to their profile.                                                                                                                                                          |
 | favourite_stations                    | Relationship | `[{"id": "some-uuid", type:"charging_station" }]` | Stations that the user has added to their favourites. The type defines the source of the station: "charging_station" => Chargeprice Station DB, "going_electric_charging_station" => Going Electric Station DB. |
+| meta.products                         | Array        | `["mobile_premium"]`                              | List of products available to the user.<br>[See supported values](../../../enums.md#user-products)                                                                                                                         |
 
 ## Example
 

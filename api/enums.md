@@ -68,3 +68,8 @@ New values might be added at any time!
 - pending: No or very limited price coverage.
 - in_progress: Little price coverage.
 - complete: Most relevant or all prices are available.
+
+## User Products
+
+- mobile_premium: Paid features in the mobile app.
+- web_pro: Paid features in the web application.

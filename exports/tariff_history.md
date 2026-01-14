@@ -17,7 +17,7 @@ Given an example tariff "EnBW Ladetarif M" (5.99€/Month) with the following pr
   - DC: 0.59€/kWh + 0.1€/minute after 90 minutes 
 
 Every price displayed above becomes a "tariff component" and every tariff component is represent by a single row in the export.
-Hence the above pricing would result in 4 rows:
+Hence the above pricing would result in 4 rows (please note that this example doesn't show all columns of the export. Check the table below for all columns):
 
 | Valid From | Valid To  | Country | CPO     | EVSE Operator IDs | EMP  | Tariff      | Total Monthly Fee | Currency of Monthly Fee | Updated At | Energy Type | Power Start (gte) | Power End (lte) | Dimension | Unit Price | Range Start (gte) | Range End (lt) | Billing Increment | Currency of Price | Time of Day Start | Time of Day End |
 |------------|-----------|---------|---------|-------------------|------|-------------|-------------------|-------------------------|------------|-------------|-------------------|-----------------|-----------|------------|-------------------|----------------|-------------------|-------------------|-------------------|-----------------|
@@ -65,8 +65,10 @@ be four new rows in the export!
 | EVSE Operator IDs       | String                          | AT\*ION,AT\*ABC      | List of EVSE Operator IDs that belong to this CPO in current country separated by comma.                                                                                                                              |
 | EMP Name                | String                          | EnBW                 | Name of the E-Mobility Provider which is offering the tariff.                                                                                                                                                         |
 | EMP ID                  | UUID                            | EnBW                 | Chargeprice Internal ID                                                                                                                                                                                               |
+| Is Roaming              | Boolean (TRUE, FALSE)           | TRUE                 | True if the tariff is from a roaming EMP, false if it's from the CPO directly.                                                                                                                                        |
 | Tariff Name             | String                          | Ladetarif M          | Name of the Tariff                                                                                                                                                                                                    |
 | Tariff ID               | UUID                            | Ladetarif M          | Chargeprice Internal ID                                                                                                                                                                                               |
+| Is Direct Payment       | Boolean (TRUE, FALSE)           | TRUE                 | This tariff can be used without registration                                                                                                                                                                          |
 | Total Monthly Fee       | Float                           | 5.99                 | Monthly fee incl. 1/12 of any yearly fees                                                                                                                                                                             |
 | Currency of Monthly Fee | ISO 4217 Currency Code          | EUR                  | Currency used for the total monthly fee                                                                                                                                                                               |
 | Tariff Level            | String                          | `cpo`                | At which level this tariff applies: `country`: the default tariff for all CPOs in this country, `cpo`: tariff applies to all EVSEs of this CPO, `evse` (not implemented yet): tariff applies only to a specific EVSE. |
@@ -82,6 +84,7 @@ be four new rows in the export!
 | Currency of Price       | ISO 4217 Currency Code          | EUR                  | Currency of the Unit Price                                                                                                                                                                                            |
 | Time of Day Start       | Integer or Empty                | 720                  | Time of day when this segment starts to count or gets active. In minutes. If not set, the price is valid the whole day.                                                                                               |
 | Time of Day End         | Integer or Empty                | 1200                 | Time of day when this segment stops to count or be active. In minutes. If not set, the price is valid the whole day.                                                                                                  |
+| Is Average Price        | Boolean (TRUE, FALSE)           | TRUE                 | If TRUE, the price is not applied to the whole network of a CPO, but it is just an average price from all POIs.                                                                                                       |
 
 # Maintaining the history after receiving this export
 
@@ -104,8 +107,10 @@ attributes in APIs:
 | EVSE Operator IDs       |                                              | operator.external_source_mapping.evse_operator_ids* |
 | EMP Name                | emp.name                                     |                                                     |
 | EMP ID                  | emp.id                                       |                                                     |
+| Is Roaming              | is_roaming                                   |                                                     |
 | Tariff Name             | tariff.name                                  |                                                     |
 | Tariff ID               | tariff.id                                    |                                                     |
+| Is Direct Payment       | tariff.is_direct_payment                     |                                                     |
 | Total Monthly Fee       | tariff.total_monthly_fee                     |                                                     |
 | Currency of Monthly Fee | tariff.currency                              |                                                     |
 | Tariff Level            | tariff_level                                 |                                                     |
@@ -121,6 +126,7 @@ attributes in APIs:
 | Currency of Price       | restricted_segments.currency                 |                                                     |
 | Time of Day Start       | restricted_segments.time_of_day_start        |                                                     |
 | Time of Day End         | restricted_segments.time_of_day_end          |                                                     |
+| Is Average Price        | restricted_segments.is_average_price         |                                                     |
 
 \* The EVSE Operator IDs in the Historical Export are already filtered by
 country (using the first two characters of the party ID e.g. AT*ION => AT, or the first ID of the list if no country is matching), while the ones in the

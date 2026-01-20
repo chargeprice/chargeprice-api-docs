@@ -8,13 +8,17 @@ This API follows the https://jsonapi.org specification.
 
 * `API-Key: <your_api_key>` (contact sales@chargeprice.net to get access)
 * `Authorization: Bearer <user_access_token>`
-* `Content-Type: application/json`
+* `Content-Type: multipart/form-data`
 
 ## Authorization Group
 
 `WritePhotos`
 
 ## Request
+
+This request is a multipart/form-data request containing two parts:
+- `resource`: A JSON:API compliant resource object as described below.
+- `file`: The binary photo file to be uploaded.
 
 ### Charging Station Photo
 
@@ -24,13 +28,12 @@ The body can have the following attributes:
 |------------------|--------------|--------------|----------------------------------------------------------------------------|-------------------------------------------------------------------------|
 | id               | UUID         | required     | "1e49b853-36fc-47ed-9826-97828b5b2fdd"                                     | Create: Client-side generated UUID.                                     |
 | type             | String       | required     | "charging_station_photo"                                                   | Type of the resource. Needs to be `charging_station_photo`.             |
-| photo_data       | String       | required     | "base64-encoded-photo-data"                                                | Base64 encoded photo data. See more about the photo requirements below. |
 | charging_station | Relationship | required     | `{ id: "2e49b853-36fc-47ed-9826-97828b5b2fdd", type: "charging_station" }` | The ID of the charging station, at which the photo was taken.           |
 
 ### Photo Requirements
 
 * Maximum file size: 2 MB
-* Accepted file formats: JPEG
+* Accepted file formats: JPG, PNG
 * Client should apply a 90% JPEG compression to reduce file size
 * Maximum resolution: 1080 px (long side)
 * Charging Station Photos:
@@ -54,16 +57,15 @@ The following table lists the `relationships` of a `charging_station_photo`:
 
 ```http
 POST http://example-base-url.com/v1/photos
-Content-Type: application/json
+Content-Type: multipart/form-data
 Api-Key: my-secret-key
 
+file: (binary photo file)
+resource:
 {
   "data": {
     "id": "1e49b853-36fc-47ed-9826-97828b5b2fdd",
     "type": "charging_station_photo",
-    "attributes": {
-      "photo_data": "base64-encoded-photo-string",
-    },
     "relationships": {
       "charging_station": {
         "data": {

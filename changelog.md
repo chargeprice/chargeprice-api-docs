@@ -29,3 +29,12 @@ New field `is_card_payment` added to the `v1/charge_prices` endpoint to indicate
 ## 2025-12-17 [Added] Occupancy Restrictions for Tariffs
 
 New fields `occupancy_gte` and `occupancy_lt` added to the `tariffs` resource to allow for more granular pricing based on the occupancy of the charging site.
+
+# 2026-01-20 [Added] Photos APIs
+
+New APIs to upload and manage photos of charging stations
+- `POST /v1/photos` to upload photos
+- `DELETE /v1/photos/:photo_id` to delete a photo
+- `GET /v1/charging_stations/:charging_station_id/photos` to get photo metadata
+
+# 2026-01-21 [Added] Priority Field in User Feedback

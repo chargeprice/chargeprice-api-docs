@@ -32,6 +32,7 @@ brackets the max. length of the string.
 * `context` (500): Any text that gives more context of the current state of the
   app. e.g. Language, selected car model, selected battery state...
 * `language` (2): ISO-639-1 language code (e.g. en, de, nl, fr)
+* `priority`: (enum). Allowed values: `normal`, `high`, `critical`. Default is `normal`.
 
 ### Attributes per type
 

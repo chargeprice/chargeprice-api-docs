@@ -38,3 +38,7 @@ New APIs to upload and manage photos of charging stations
 - `GET /v1/charging_stations/:charging_station_id/photos` to get photo metadata
 
 # 2026-01-21 [Added] Priority Field in User Feedback
+
+# 2026-01-28 [Added] Max. power filter for Charging Stations API
+
+[Charging Stations](./api/v1/charging_stations/index.md) can now be filtered by maximum power level, next to minimum power.

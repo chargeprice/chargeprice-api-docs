@@ -45,7 +45,7 @@ format. CSVs in any other format are not accepted by Chargeprice.
 
 [View CSV definition](/imports/charging_stations/csv.md)
 
-## You are an E-Mobility Service Provider (EMSP)
+## You are Charge Point Operator (CPO) with Direct Payment or subscription prices or E-Mobility Service Provider (EMSP)
 
 ### Tariffs / Prices
 

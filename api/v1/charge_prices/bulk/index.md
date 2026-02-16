@@ -18,13 +18,14 @@ This API follows the https://jsonapi.org specification.
 
 The following fields are to be sent in the request body, in the `attributes` section of a `bulk_price_preview_request` object:
 
-| **Name**               | **Type**     | **Presence**              | **Example**  | **Description**                                                                                              |
-|------------------------|--------------|---------------------------|--------------|--------------------------------------------------------------------------------------------------------------|
-| battery_range          | Array[Float] | required                  | [20.0,80.0]  | Array with 2 values, that defines the battery start and end values for the charge in percentage.             |
-| currency               | String       | optional (default: "EUR") | "EUR"        | Currency in which the prices should be returned. Possible values are listed at the [eurofxref]               |
-| start_time             | Integer      | optional (default: 12:00) | 720 (=12:00) | Time of day in minutes when the charging session gets started. Min value: 0 (00:00), max value: 1439 (23:59) |
-| allow_unbalanced_load  | Boolean      | optional (default: false) | false        | If true, it allows higher powers for uniphase charging vehicles. If false, power is restricted to 4.5 kW.    |
-| include_direct_payment | Boolean      | optional (default: false) | false        | If true, all direct payment tariffs are also considered for the prices.                                      |
+| **Name**                | **Type**     | **Presence**                  | **Example**  | **Description**                                                                                              |
+|-------------------------|--------------|-------------------------------|--------------|--------------------------------------------------------------------------------------------------------------|
+| battery_range           | Array[Float] | required                      | [20.0,80.0]  | Array with 2 values, that defines the battery start and end values for the charge in percentage.             |
+| currency                | String       | optional (default: "EUR")     | "EUR"        | Currency in which the prices should be returned. Possible values are listed at the [eurofxref]               |
+| start_time              | Integer      | optional (default: 12:00)     | 720 (=12:00) | Time of day in minutes when the charging session gets started. Min value: 0 (00:00), max value: 1439 (23:59) |
+| allow_unbalanced_load   | Boolean      | optional (default: false)     | false        | If true, it allows higher powers for uniphase charging vehicles. If false, power is restricted to 4.5 kW.    |
+| include_direct_payment  | Boolean      | optional (default: false)     | false        | If true, all direct payment tariffs are also considered for the prices.                                      |
+| charge_points_power_lte | Float        | optional (default: unlimited) | 22           | Return prices for connectors with a power less than or equal to this value.                                  |
 
 The following table lists the `relationships` section of a `charge_price_bulk_request` object:
 
@@ -73,7 +74,8 @@ Api-Key: my-secret-key
       "start_time": 720,
       "currency": "EUR",
       "allow_unbalanced_load": true,
-      "include_direct_payment": true
+      "include_direct_payment": true,
+      "charge_points_power_lte": 22
     },
     "relationships": {
       "tariffs": {

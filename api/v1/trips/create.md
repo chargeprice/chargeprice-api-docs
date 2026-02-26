@@ -152,13 +152,6 @@ Api-Key: my-secret-key
       "state_of_charge_destination": 0.2,
       "vehicle_consumption": 20,
       "exclude": ["motorway"],
-      "filter": {
-        "charge_points_power_gte": 12.345,
-        "charge_points_power_lte": 50.0,
-        "price_lte": 30.0,
-        "facilities": ["supermarket"],
-        "supported_by_my_tariffs": false
-      },
       "user_products": ["mobile_premium"],
       "price_display_mode": "total_cost"
     },

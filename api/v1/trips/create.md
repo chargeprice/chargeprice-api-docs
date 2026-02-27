@@ -69,6 +69,7 @@ The following table lists the `attributes` of a `trip` response:
 | stations_on_route.promoted           | Boolean         | true                                   | If `true` the golden map pin with bigger size should be used for this location.                                                                                                         |
 | stations_on_route.map_pin_icon_url   | String          | "http://example.com/icon.png"          | URL of the icon to be used for the map pin, instead of the power level.                                                                                                                 |
 | stations_on_route.currency           | String          | "EUR"                                  | Currency of the price                                                                                                                                                                   |
+| status                               | String          | "completed"                            | "pending": Still calculating, fetch the result in a few seconds again. "completed": Calculation complete.                                                                               |
 
 
 ### Steps & Types
@@ -80,14 +81,15 @@ The following types exist:
 
 The start or destination of the trip or planned intermediate stop without charging.
 
-| **Name**        | **Type** | **Example** | **Description**                                         |
-|-----------------|----------|-------------|---------------------------------------------------------|
-| type            | String   | "stop"      |                                                         |
-| name            | String   | Vienna      | Name of the location                                    |
-| longitude       | Float    | 11.56789    | Longitude coordinate                                    |
-| latitude        | Float    | 48.12345    | Latitude coordinate                                     |
-| state_of_charge | Float    | 0.5         | State of Charge when reaching this stop. 0.5=50%        |
-| stop_type       | String   | "start"     | Possible values: "start", "intermediate", "destination" |
+| **Name**        | **Type** | **Example**                            | **Description**                                         |
+|-----------------|----------|----------------------------------------|---------------------------------------------------------|
+| type            | String   | "stop"                                 |                                                         |
+| id              | String   | "46adf982-4e41-431b-833a-dfa89b484c71" | ID of the stop. Needed only for the Update API.         |
+| name            | String   | Vienna                                 | Name of the location                                    |
+| longitude       | Float    | 11.56789                               | Longitude coordinate                                    |
+| latitude        | Float    | 48.12345                               | Latitude coordinate                                     |
+| state_of_charge | Float    | 0.5                                    | State of Charge when reaching this stop. 0.5=50%        |
+| stop_type       | String   | "start"                                | Possible values: "start", "intermediate", "destination" |
 
 #### Charge Stop
 
@@ -293,8 +295,9 @@ Body:
               "currency": "EUR",
               "promoted": true,
               "map_pin_icon_url": "http://cp.com/logo.png",
-            }
+            },
           ],
+          "status": "completed"
         }
       ]
     }

@@ -23,6 +23,14 @@ to legal authorities.
 Per default any issued API key is allowed to perform 1000 API requests per minute, 
 measured over a time window of 5 minutes.
 
+** Update April 2026: An additional rate limit of 400 requests per minute
+measured of a time window of 1 minute has been added for the
+[v1/tariff_details](./api/v1/tariff_details/index.md) and
+[v1/charge_prices](./api/v1/charge_prices/index.md) endpoint, due to the high
+computational effort of these endpoints. The general rate limit of 1000 requests
+per minute is still valid for all other endpoints. Please ensure to sync data
+your system sequentially to avoid hitting the rate limit.**
+
 If your use case requires a higher rate limit, please get in touch with us!
 
 ## Reselling data

@@ -69,6 +69,7 @@ The following table lists the `attributes` of a `trip` response:
 | stations_on_route.promoted                 | Boolean         | true                                   | If `true` the golden map pin with bigger size should be used for this location.                                                                                                         |
 | stations_on_route.map_pin_icon_url         | String          | "http://example.com/icon.png"          | URL of the icon to be used for the map pin, instead of the power level.                                                                                                                 |
 | stations_on_route.currency                 | String          | "EUR"                                  | Currency of the price                                                                                                                                                                   |
+| is_saved                                   | Boolean         | true                                   | Indicates whether the trip is saved. Unsaved trips will automatically be deleted after 48 hours.                                                                                        |
 | status                                     | String          | "completed"                            | "pending": Still calculating, fetch the result in a few seconds again. "completed": Calculation complete.                                                                               |
 
 
@@ -295,7 +296,8 @@ Body:
               "map_pin_icon_url": "http://cp.com/logo.png",
             },
           ],
-          "status": "completed"
+          "status": "completed",
+          "is_saved": false
         }
       ]
     }

@@ -13,9 +13,6 @@ This API follows the https://jsonapi.org specification.
 
 `CreateTrips`
 
-
-
-
 ## Request Body
 
 The following fields are to be sent in the request body, in the `attributes` section of a `trip` object:
@@ -57,3 +54,20 @@ Api-Key: my-secret-key
 ## Response
 
 See [Create Trips API](create.md).
+
+#### 400 Bad Request (Too Many Saved Trips)
+
+The user already has the maximum number of saved trips (200) and cannot save
+more trips until they delete some of the existing saved trips.
+
+```json
+{
+  "errors": [
+    {
+      "status": "400",
+      "code": "TOO_MANY_SAVED_TRIPS",
+      "title": "Too many saved trips"
+    }
+  ]
+}
+```

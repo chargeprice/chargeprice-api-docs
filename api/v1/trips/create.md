@@ -305,7 +305,7 @@ Body:
 }
 ```
 
-##### 400 Bad Request (No Route)
+#### 400 Bad Request (No Route)
 
 No route could be calculated for the given parameters.
 Either there is no road or no charging stations could be found to charge.
@@ -322,7 +322,7 @@ Either there is no road or no charging stations could be found to charge.
 }
 ```
 
-##### 400 Bad Request
+#### 400 Bad Request
 
 Client provided invalid request body.
 
@@ -338,7 +338,7 @@ Client provided invalid request body.
 }
 ```
 
-##### 403 Forbidden
+#### 403 Forbidden
 
 * API-Key is missing
 * API-Key is invalid
@@ -356,7 +356,7 @@ Client provided invalid request body.
 }
 ```
 
-##### 403 Forbidden (Premium Required)
+#### 403 Forbidden (Premium Required)
 
 * A premium subscription is required for planning this trip.
 
@@ -373,7 +373,7 @@ Client provided invalid request body.
 ```
 
 
-##### 404 Not Found
+#### 404 Not Found
 
 e.g. The provided currency doesn't exist in the system.
 
@@ -389,7 +389,7 @@ e.g. The provided currency doesn't exist in the system.
 }
 ```
 
-##### 500 Internal Server Error
+#### 500 Internal Server Error
 
 An unexpected error happened.
 

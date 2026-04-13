@@ -18,13 +18,12 @@ This API follows the https://jsonapi.org specification.
 
 The following fields are to be sent in the request body, in the `attributes` section of a `trip` object:
 
-| **Name**                           | **Type** | **Presence** | **Example**                            | **Description**                                                                                 |
-|------------------------------------|----------|--------------|----------------------------------------|-------------------------------------------------------------------------------------------------|
-| selected_route_id                  | String   | optional     | "14adf982-4e41-431b-833a-dfa89b484c15" | Change the selected route to another. It will trigger the calculation of the alternative route. |
-| replace_charge_stop                |          | optional     | -                                      | Replace a scheduled charging stop with another.                                                 |
-| replace_charge_stop.old_station_id | String   | required     | "21adf982-4e41-431b-833a-dfa89b484c75" | Station that should be removed as a charge stop.                                                |
-| replace_charge_stop.new_station_id | String   | required     | "4fadf982-4e41-431b-833a-dfa89b484c45" | Station that should be added as a charge stop instead.                                          |
-| is_saved                           | Boolean  | required     | true                                   | Indicates whether the trip is saved. Send `true` to save it, and `false` to delete it.          |                                                           |
+| **Name**                   | **Type** | **Presence** | **Example**                            | **Description**                                                                                 |  |
+|----------------------------|----------|--------------|----------------------------------------|-------------------------------------------------------------------------------------------------|--|
+| charge_stop                |          | optional     | -                                      | Replace the selected charging station for a scheduled charging stop with another.               |  |
+| charge_stop.id             | String   | required     | "21adf982-4e41-431b-833a-dfa89b484c75" | Charge Stop ID where the selected charging station should be replaced.                          |  |
+| charge_stop.new_station_id | String   | required     | "4fadf982-4e41-431b-833a-dfa89b484c45" | Station that should be selected as a charge stop instead.                                       |  |
+| is_saved                   | Boolean  | required     | true                                   | Indicates whether the trip is saved. Send `true` to save it, and `false` to delete it.          |  |
 
 ## Example
 
@@ -41,9 +40,8 @@ Api-Key: my-secret-key
   "data": {
     "type": "trip_update",
     "attributes": {
-      "selected_route_id": "14adf982-4e41-431b-833a-dfa89b484c15",
-      "replace_charge_stop": {
-        "old_station_id": "21adf982-4e41-431b-833a-dfa89b484c75",
+      "charge_stop": {
+        "id": "21adf982-4e41-431b-833a-dfa89b484c75",
         "new_station_id": "4fadf982-4e41-431b-833a-dfa89b484c45"
       },
       "is_saved": true

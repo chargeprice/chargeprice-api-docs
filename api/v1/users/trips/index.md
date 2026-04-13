@@ -7,6 +7,7 @@ This API follows the https://jsonapi.org specification.
 ## Headers
 
 * `API-Key: <your_api_key>` (sales@chargeprice.net to get access)
+* `Authorization: Bearer <user_access_token>`
 * `Content-Type: application/json`
 
 ## Authorization Group
@@ -63,39 +64,6 @@ Body:
 }
 ```
 
-##### 400 Bad Request (No Route)
-
-No route could be calculated for the given parameters.
-Either there is no road or no charging stations could be found to charge.
-
-```json
-{
-  "errors": [
-    {
-      "status": "400",
-      "code": "NO_ROUTE_FOUND",
-      "title": "No currency with iso ATS"
-    }
-  ]
-}
-```
-
-##### 400 Bad Request
-
-Client provided invalid request body.
-
-```json
-{
-  "errors": [
-    {
-      "status": "400",
-      "code": "BAD_REQUEST",
-      "title": "..."
-    }
-  ]
-}
-```
-
 ##### 403 Forbidden
 
 * API-Key is missing
@@ -109,39 +77,6 @@ Client provided invalid request body.
       "status": "403",
       "code": "FORBIDDEN",
       "title": "api_key missing"
-    }
-  ]
-}
-```
-
-##### 403 Forbidden (Premium Required)
-
-* A premium subscription is required for planning this trip.
-
-```json
-{
-  "errors": [
-    {
-      "status": "403",
-      "code": "PREMIUM_REQUIRED",
-      "title": "..."
-    }
-  ]
-}
-```
-
-
-##### 404 Not Found
-
-e.g. The provided currency doesn't exist in the system.
-
-```json
-{
-  "errors": [
-    {
-      "status": "404",
-      "code": "NOT_FOUND",
-      "title": "No currency with iso ATS"
     }
   ]
 }
@@ -162,7 +97,5 @@ An unexpected error happened.
   ]
 }
 ```
-
-[eurofxref]: https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
 
 

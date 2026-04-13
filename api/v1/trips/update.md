@@ -7,6 +7,7 @@ This API follows the https://jsonapi.org specification.
 ## Headers
 
 * `API-Key: <your_api_key>` (sales@chargeprice.net to get access)
+* `Authorization: Bearer <user_access_token>`
 * `Content-Type: application/json`
 
 ## Authorization Group

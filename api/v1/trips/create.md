@@ -7,6 +7,7 @@ This API follows the https://jsonapi.org specification.
 ## Headers
 
 * `API-Key: <your_api_key>` (sales@chargeprice.net to get access)
+* `Authorization: Bearer <user_access_token>` (only needed if user is logged in)
 * `Content-Type: application/json`
 
 ## Authorization Group
@@ -96,21 +97,26 @@ The start or destination of the trip or planned intermediate stop without chargi
 
 When you need to charge during the trip.
 
-| **Name**              | **Type** | **Example**                            | **Description**                                         |
-|-----------------------|----------|----------------------------------------|---------------------------------------------------------|
-| type                  | String   | "charge_stop"                          |                                                         |
-| station_id            | String   | "46adf982-4e41-431b-833a-dfa89b484c71" | ID of the related charging station                      |
-| station_name          | String   | McDonalds Vienna South                 | Name of the charging station                            |
-| operator_name         | String   | IONITY                                 | Name of the charge point operator (CPO)                 |
-| longitude             | Float    | 11.56789                               | Longitude of the charging station                       |
-| latitude              | Float    | 48.12345                               | Latitude of the charging station                        |
-| power                 | Float    | 150.0                                  | Highest power of the charging station in kW.            |
-| charge_point_count    | Integer  | 4                                      | Number of charge points at this location.               |
-| duration              | Integer  | 32                                     | Time charging at this stop.                             |
-| cost                  | Float    | 37.2                                   | Total cost of the whole charging session.               |
-| currency              | String   | "EUR"                                  | Currency of the cost.                                   |
-| state_of_charge_start | Float    | 0.3                                    | State of Charge when reaching this charge stop. 0.3=30% |
-| state_of_charge_end   | Float    | 0.8                                    | State of Charge when leaving the charge stop. 0.8=80%   |
+| **Name**                      | **Type** | **Example**                            | **Description**                                                                           |
+|-------------------------------|----------|----------------------------------------|-------------------------------------------------------------------------------------------|
+| type                          | String   | "charge_stop"                          |                                                                                           |
+| id                            | String   | "16adf982-4e41-431b-833a-dfa89b484c71" | Unique ID of the charge stop.                                                             |
+| station_id                    | String   | "46adf982-4e41-431b-833a-dfa89b484c71" | ID of the related charging station                                                        |
+| station_name                  | String   | McDonalds Vienna South                 | Name of the charging station                                                              |
+| operator_name                 | String   | IONITY                                 | Name of the charge point operator (CPO)                                                   |
+| longitude                     | Float    | 11.56789                               | Longitude of the charging station                                                         |
+| latitude                      | Float    | 48.12345                               | Latitude of the charging station                                                          |
+| power                         | Float    | 150.0                                  | Highest power of the charging station in kW.                                              |
+| charge_point_count            | Integer  | 4                                      | Number of charge points at this location.                                                 |
+| duration                      | Integer  | 32                                     | Time charging at this stop.                                                               |
+| cost                          | Float    | 37.2                                   | Total cost of the whole charging session.                                                 |
+| currency                      | String   | "EUR"                                  | Currency of the cost.                                                                     |
+| state_of_charge_start         | Float    | 0.3                                    | State of Charge when reaching this charge stop. 0.3=30%                                   |
+| state_of_charge_end           | Float    | 0.8                                    | State of Charge when leaving the charge stop. 0.8=80%                                     |
+| station_candidates            | Array    | []                                     | List of candidate stations for this charge stop, including the selected charging station. |
+| station_candidates.station_id | String   | "46adf982-4e41-431b-833a-dfa89b484c71" | ID of the candidate station.                                                              |
+| station_candidates.score      | Float    | 10.9                                   | Higher score means better candidate.                                                      |
+| station_candidates.detour     | Float    | 5.0                                    | Detour to the route as if no charge stop was needed (in minutes).                         |
 
 #### Route Leg
 
@@ -223,6 +229,7 @@ Body:
             },
             {
               "type": "charge_stop",
+              "id": "16adf982-4e41-431b-833a-dfa89b484c70",
               "station_id": "36adf982-4e41-431b-833a-dfa89b484c71",
               "longitude": 13.383,
               "latitude": 47.42122,
@@ -235,6 +242,13 @@ Body:
               "currency": "EUR",
               "state_of_charge_start": 0.2,
               "state_of_charge_end": 0.8,
+              "station_candidates": [
+                {
+                  "station_id": "36adf982-4e41-431b-833a-dfa89b484c71",
+                  "score": 10.9,
+                  "detour": 5.0
+                }
+              ]
             },
             {
               "type": "route_leg",

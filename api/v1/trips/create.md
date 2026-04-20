@@ -110,6 +110,7 @@ When you need to charge during the trip.
 | charge_point_count            | Integer  | 4                                      | Number of charge points at this location.                                                 |
 | duration                      | Integer  | 32                                     | Time charging at this stop.                                                               |
 | cost                          | Float    | 37.2                                   | Total cost of the whole charging session.                                                 |
+| tariff_name                   | String   | "Standard Tariff"                      | Name of the tariff applied for this charging session.                                     |
 | currency                      | String   | "EUR"                                  | Currency of the cost.                                                                     |
 | state_of_charge_start         | Float    | 0.3                                    | State of Charge when reaching this charge stop. 0.3=30%                                   |
 | state_of_charge_end           | Float    | 0.8                                    | State of Charge when leaving the charge stop. 0.8=80%                                     |
@@ -239,6 +240,7 @@ Body:
               "charge_point_count": 2,
               "duration": 50,
               "cost": 30.0,
+              "tariff_name": "Standard Tariff",
               "currency": "EUR",
               "state_of_charge_start": 0.2,
               "state_of_charge_end": 0.8,

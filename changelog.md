@@ -42,3 +42,5 @@ New APIs to upload and manage photos of charging stations
 # 2026-01-28 [Added] Max. power filter for Charging Stations API
 
 [Charging Stations](./api/v1/charging_stations/index.md) can now be filtered by maximum power level, next to minimum power.
+
+# 2026-05-15 [Added] New Field "vehicle_brands" to [Tariffs V1](./api/v1/tariffs/index.md)

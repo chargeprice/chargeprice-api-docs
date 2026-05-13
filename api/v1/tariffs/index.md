@@ -47,6 +47,7 @@ The following table lists the `attributes` of these objects:
 | supported_countries         | Array<String> | ["AT","DE"]                 | List of countries where the tariff is mainly supported. If empty, it's supported in every country.                     |
 | charge_card_id              | String        | "201"                       | GoingElectric charge card ID. If a tariff has none, it defaults to "0". (Legacy attribute)                             |
 | emp                         | Relationship  | -                           | Owner EMP of the tariff.                                                                                               |
+| vehicle_brands              | Relationship  | -                           | This tariff can only be subscribed to by owning a vehicle of these specific brands. If empty, all brands are supported. |
 
 Timestamp = Millis since 1.1.1970
 
@@ -96,6 +97,10 @@ Body:
             "type": "company",
             "id": "3be781a1-c16e-4af0-890a-b5f5943b6b75"
           }
+        },
+        "vehicle_brands": {
+          "data": [
+          ]
         }
       }
     },
@@ -108,7 +113,7 @@ Body:
         "is_direct_payment": false,
         "is_card_payment": false,
         "existing_customer_only": false,
-        "is_vehicle_brand_restricted": false,
+        "is_vehicle_brand_restricted": true,
         "integration_status": "pending",
         "branding": null,
         "supported_countries": ["AT","DE"],
@@ -122,6 +127,14 @@ Body:
             "type": "company",
             "id": "2be781a1-c16e-4af0-890a-b5f5943b6b71"
           }
+        },
+        "vehicle_brands": {
+          "data": [
+            {
+              "type": "vehicle_brand",
+              "id": "1be781a1-c16e-4af0-890a-b5f5943b6b72"
+            }
+          ]
         }
       }
     }

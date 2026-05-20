@@ -105,8 +105,10 @@ dataset.
 
 ### How "fast" can I run the sync?
 
-Please run the sync sequentially and DON'T do parallel requests, to avoid stressing the system too much.
+Please run the sync sequentially and **DON'T do parallel requests**, to avoid stressing the system too much.
 If you sync whole Europe, it shouldn't take longer than 1-2 hours to get all the data.
+
+There is also a rate limit of the API that is explained in the [terms](../terms.md#rate-limit).
 
 ### This looks quite complex. Is there also an easier way, like a database dump?
 

@@ -44,3 +44,5 @@ New APIs to upload and manage photos of charging stations
 [Charging Stations](./api/v1/charging_stations/index.md) can now be filtered by maximum power level, next to minimum power.
 
 # 2026-05-15 [Added] New Field "vehicle_brands" to [Tariffs V1](./api/v1/tariffs/index.md)
+
+# 2026-05-27 [Modified] Restricted access to specific attributes of [Vehicles V2](./api/v2/vehicles/index.md)

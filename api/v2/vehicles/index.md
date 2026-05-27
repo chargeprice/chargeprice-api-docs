@@ -11,7 +11,7 @@ This API follows the https://jsonapi.org specification.
 
 ## Authorization Group
 
-`ReadVehicles`
+`ReadVehicles` + `ReadVehiclesFull` (to get `dc_charging_curve` and `ac_power_per_charging_point` )
 
 ## Request
 

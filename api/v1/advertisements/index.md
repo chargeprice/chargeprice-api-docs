@@ -21,7 +21,7 @@ The following query parameters are available.
 | **Name**              | **Type** | **Presence** | **Example** | **Description**                                                                                                                                        |
 |-----------------------|----------|--------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
 | filter[country]       | String   | required     | "AT"        | ISO 3166 country code of the user.                                                                                                                     |
-| exclusive_ad_provider | Boolean  | optional     | true        | true: There is no other ad provider (e.g. AdMob). In this case more ads are served. false: Used in combination with other ad providers. Default: false |
+| ~~exclusive_ad_provider~~ | Boolean  | optional     | true        | ~~true: There is no other ad provider (e.g. AdMob). In this case more ads are served. false: Used in combination with other ad providers.~~ Default: true. As there is no Google Ads anymore, it can't be configured anymore.  |
 
 ## Response Body
 
@@ -32,6 +32,7 @@ The following table lists the `attributes` of these objects:
 | **Name**           | **Type** | **Example**                                   | **Description**                                                                                                           |
 |--------------------|----------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
 | cta_url            | String   | "https://test.com"                            | Link that should be opened when clicking on the ad                                                                        |
+| deeplink_target            | String   | "premium"                            | Deep link within the app.                                                                        |
 | banner_image_url   | String   | "https://www.chargeprice.app/images/test.png" | URL of Banner Image (=the Ad) that should be displayed.                                                                   |
 | placement_location | String   | "map"                                         | Defines where in the app this ad should be displayed. Possible values: "map", "price_list1", "price_list2", "price_list3" |
 
@@ -58,6 +59,7 @@ Body:
       "type": "banner_advertisement",
       "attributes": {
         "cta_url": "https://test.com",
+        "deeplink_target": "premium",
         "banner_image_url": "https://www.chargeprice.app/images/test.png",
         "placement_location": "map"
       }

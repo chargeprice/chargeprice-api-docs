@@ -49,6 +49,7 @@ The following table lists the `attributes` of a `tariff` or `sub_tariff` (both h
 | is_flat_rate                                    | Boolean             | true                   | Given a monthly fee, charging with this tariff is at no extra cost for a single charge                                                                                                                                |
 | is_direct_payment                               | Boolean             | true                   | This tariff can be used without registration                                                                                                                                                                          |
 | is_card_payment                                 | Boolean             | true                   | This tariff applies to card payments at stations with a terminal                                                                                                                                                      |
+| is_secondary_tariff                             | Boolean             | true                   | This tariff is not the main offer of the EMP (e.g. a white label for a partner, or a regional offer).                                                                                                                   |
 | provider_customer_only                          | Boolean             | true                   | If true, tariff is only available for customers of a provider (e.g. electricity provider for the home).                                                                                                               |
 | existing_customer_only                          | Boolean             | true                   | If true, tariff is only available for existing customers and a registration for new customers is not possible anymore.                                                                                                |
 | integration_status                              | String              | "complete"             | How far this tariff is integrated into Chargeprice. [See possible values](../../enums.md#integration-status).                                                                                                         |
@@ -163,6 +164,7 @@ Body:
         "is_flat_rate": false,
         "is_direct_payment": false,
         "is_card_payment": false,
+        "is_secondary_tariff": false,
         "provider_customer_only": false,
         "existing_customer_only": false,
         "integration_status": "complete",

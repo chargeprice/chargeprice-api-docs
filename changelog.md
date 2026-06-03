@@ -46,3 +46,5 @@ New APIs to upload and manage photos of charging stations
 # 2026-05-15 [Added] New Field "vehicle_brands" to [Tariffs V1](./api/v1/tariffs/index.md)
 
 # 2026-05-27 [Modified] Restricted access to specific attributes of [Vehicles V2](./api/v2/vehicles/index.md)
+
+# 2026-06-10 [Added] New Field "is_secondary_tariff" to [Tariffs](./api/v1/tariffs/index.md) and [Tariff Details](./api/v1/tariff_details/index.md)

@@ -42,7 +42,7 @@ Query Parameters:
 
 ## Missing Station
 
-Base URLs: https://cms.chargeprice.net/userFeedback/missingStation
+Base URL: https://cms.chargeprice.net/userFeedback/missingStation
 
 Query Parameters:
 
@@ -52,14 +52,25 @@ Query Parameters:
 | `latitude`  | Float    | optional     | `65.4321`   | Latitude of the missing station.          |
 | `userToken` | String   | optional     | `tok_abc`   | Authentication token of the current user. |
 
-## Missing Vehicle, or Other Feedback
+## Missing Vehicle
 
-Base URLs: 
-- Missing Vehicle: https://cms.chargeprice.net/userFeedback/missingVehicle
-- Other Feedback: https://cms.chargeprice.net/userFeedback/other
+Base URL: https://cms.chargeprice.net/userFeedback/missingVehicle
 
 Query Parameters:
 
 | **Name**    | **Type** | **Presence** | **Example** | **Description**                           |
 |-------------|----------|--------------|-------------|-------------------------------------------|
 | `userToken` | String   | optional     | `tok_abc`   | Authentication token of the current user. |
+
+## Missing Vehicle, or Other Feedback
+
+Base URL: https://cms.chargeprice.net/userFeedback/other
+- Missing Vehicle: https://cms.chargeprice.net/userFeedback/missingVehicle
+
+Query Parameters:
+
+| **Name**    | **Type** | **Presence** | **Example**                     | **Description**                                                                                   |
+|-------------|----------|--------------|---------------------------------|---------------------------------------------------------------------------------------------------|
+| `userToken` | String   | optional     | `tok_abc`                       | Authentication token of the current user.                                                         |
+| `type`      | String   | optional     | `other`                         | Type of feedback provided by the user. Possible values: `reportPhoto`, `other`. Default: `other`. |
+| `photoUrl`  | String   | optional     | `https://example.com/photo.jpg` | URL of the photo provided by the user. Required when type is `reportPhoto`.                       |

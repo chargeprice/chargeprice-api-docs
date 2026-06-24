@@ -12,6 +12,7 @@ The following query parameters are required for all types of feedback:
 | `appPlatform`  | String     | required     | `android`                 | The platform of the client app (e.g. `android`, `ios`).                                                                                                                                                           |
 | `appVersion`   | String     | required     | `3.2.1`                   | The version of the client app.                                                                                                                                                                                    |
 | `userProducts` | CSV-String | required     | `mobile_premium,product2` | List of products the user has activated. [See supported values](../api/enums.md#user-products). If a user doesn't have a chargeprice account, but has an active premium subscription, also send "mobile_premium". |
+| `hideTitle`    | Boolean    | optional     | `false`                   | Whether to hide the title of the feedback form. Default is `false`. Allowed values are `true` or `false`.                                                                                                         |
 
 ## Wrong Price
 

@@ -8,6 +8,7 @@ This API follows the https://jsonapi.org specification.
 
 * `API-Key: <your_api_key>` (sales@chargeprice.net to get access)
 * `Content-Type: application/json`
+* `CRM-Device-ID: <device_id>` (optional)
 * `Accept-Language: en`: [Valid Languages](../../enums.md). Used to localize the response, default language is `en`.
 
 ## Authorization Group
@@ -147,6 +148,7 @@ What is a *blocking fee*?
 ```http
 POST http://example-base-url.com/v1/charge_prices
 Content-Type: application/json
+CRM-Device-ID: 123e4567-e89b-12d3-a456-426614174000
 Api-Key: my-secret-key
 Accept-Language: de
 ```

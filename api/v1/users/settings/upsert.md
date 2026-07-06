@@ -233,7 +233,7 @@ Client provided invalid request.
 * API-Key is invalid
 * API-Key not authorized to perform action
 * User Access Token not authorized to perform action
-* User Access Token is invalid or expired
+* User Access Token is invalid
 
 ```json
 {
@@ -242,6 +242,22 @@ Client provided invalid request.
       "status": "403",
       "code": "FORBIDDEN",
       "title": "api_key missing"
+    }
+  ]
+}
+```
+
+##### 403 Forbidden (Token Expired)
+
+* User Access Token has expired and needs to be refreshed.
+
+```json
+{
+  "errors": [
+    {
+      "status": "403",
+      "code": "TOKEN_EXPIRED",
+      "title": "Some message"
     }
   ]
 }

@@ -75,6 +75,8 @@ By using the API, you comply to these [terms of use](./terms.md).
   * [Delete](./api/v1/companies/delete.md)
   * [Index](./api/v1/companies/index.md)
   * [Upsert](./api/v1/companies/upsert.md)
+  * CPOs
+    * [Index](./api/v1/companies/cpos/index.md)
 * Tariff Details
   * [Index](./api/v1/tariff_details/index.md)
 * Tariffs

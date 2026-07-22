@@ -18,20 +18,27 @@ This API follows the https://jsonapi.org specification.
 
 The following fields are to be sent in the request body, in the `attributes` section of a `trip` object:
 
-| **Name**                    | **Type** | **Presence** | **Example**        | **Description**                                                                                                                                                                                                                 |
-|-----------------------------|----------|--------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| stops                       | Array    | required     | -                  | Stops during the trip the given order. At least 2 stops (start and destination) need to be defined.                                                                                                                             |
-| stops.longitude             | Float    | required     | 13.345             | Longitude Location of the stop                                                                                                                                                                                                  |
-| stops.latitude              | Float    | required     | 43.456             | Latitude Location of the stop                                                                                                                                                                                                   |
-| stops.name                  | String   | required     | "Vienna"           | Name of the stop.                                                                                                                                                                                                               |
-| currency                    | String   | optional     | "EUR"              | Currency of the routing charging costs. Default: EUR                                                                                                                                                                            |
-| state_of_charge_start       | Float    | optional     | 0.9                | State of Charge at Start in Percentage (90%=0.9). Default: 90%                                                                                                                                                                  |
-| state_of_charge_destination | Float    | optional     | 0.2                | Min. State of Charge when reaching destination in Percentage (20% = 0.2). Default: 20%                                                                                                                                          |
-| vehicle_consumption         | Float    | optional     | 20                 | Average consumption of the vehicle on the trip. Default: standard consumption of the vehicle.                                                                                                                                   |
-| exclude                     | Array    | optional     | ["motorway"]       | Exclude specific roads. Possible values: "motorway", "toll". Default: nothing excluded.                                                                                                                                         |
-| user_products               | Array    | optional     | ["mobile_premium"] | List of products the user has activated. [See supported values](../../enums.md#user-products). If a user doesn't have a chargeprice account, but has an active premium subscription, also send "mobile_premium". Default: empty |
-| price_display_mode          | String   | optional     | "total_cost"       | Define what kind of price should be in the response: `total_cost`, `average_price_per_kwh`. Default: `average_price_per_kwh`                                                                                                    |
-| include_direct_payment      | Boolean  | optional     | true               | If true, all direct payment tariffs are also considered as payment options for charging stops. Default: `true`                                                                                                                  |
+| **Name**                       | **Type** | **Presence** | **Example**        | **Description**                                                                                                                                                                                                                 |
+|--------------------------------|----------|--------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| stops                          | Array    | required     | -                  | Stops during the trip the given order. At least 2 stops (start and destination) need to be defined.                                                                                                                             |
+| stops.longitude                | Float    | required     | 13.345             | Longitude Location of the stop                                                                                                                                                                                                  |
+| stops.latitude                 | Float    | required     | 43.456             | Latitude Location of the stop                                                                                                                                                                                                   |
+| stops.name                     | String   | required     | "Vienna"           | Name of the stop.                                                                                                                                                                                                               |
+| currency                       | String   | optional     | "EUR"              | Currency of the routing charging costs. Default: EUR                                                                                                                                                                            |
+| state_of_charge_start          | Float    | optional     | 0.9                | State of Charge at Start in Percentage (90%=0.9). Default: 90%                                                                                                                                                                  |
+| state_of_charge_destination    | Float    | optional     | 0.2                | Min. State of Charge when reaching destination in Percentage (20% = 0.2). Default: 20%                                                                                                                                          |
+| vehicle_consumption            | Float    | optional     | 20                 | Average consumption of the vehicle on the trip. Default: standard consumption of the vehicle.                                                                                                                                   |
+| route_strategy                 | String   | optional     | "fastest"          | Strategy for the route calculation. Possible values: `fastest`, `cheapest`. Default: `fastest`                                                                                                                                  |
+| exclude                        | Array    | optional     | ["motorway"]       | Exclude specific roads. Possible values: "motorway", "toll". Default: nothing excluded.                                                                                                                                         |
+| user_products                  | Array    | optional     | ["mobile_premium"] | List of products the user has activated. [See supported values](../../enums.md#user-products). If a user doesn't have a chargeprice account, but has an active premium subscription, also send "mobile_premium". Default: empty |
+| price_display_mode             | String   | optional     | "total_cost"       | Define what kind of price should be in the response: `total_cost`, `average_price_per_kwh`. Default: `average_price_per_kwh`                                                                                                    |
+| include_direct_payment         | Boolean  | optional     | true               | If true, all direct payment tariffs are also considered as payment options for charging stops. Default: `true`                                                                                                                  |
+| filter                         | Object   | optional     | 12.345             | Filter options for the map.                                                                                                                                                                                                     |
+| filter.charge_points_power_gte | Float    | optional     | 12.345             | Only return charging stations with a power greater than or equal to this value.                                                                                                                                                 |
+| filter.charge_points_power_lte | Float    | optional     | 12.345             | Only return charging stations with a power less than or equal to this value.                                                                                                                                                    |
+| filter.price_lte               | Float    | optional     | 30.0               | Only consider stations with a maximum price defined here.                                                                                                                                                                       |
+| filter.facilities              | Array    | optional     | ["supermarket"]    | Only stations that have at least one of these facilities close nearby. [See supported values](../../enums.md#facilities)                                                                                                        |
+| filter.operator_ids            | Array    | optional     | ["some-uuid"]      | Only consider stations operated by the specified operators.                                                                                                                                                                     |
 
 The following table lists the `relationships` section of a `trip` object:
 
@@ -72,6 +79,7 @@ The following table lists the `attributes` of a `trip` response:
 | stations_on_route.currency                 | String          | "EUR"                                  | Currency of the price                                                                                                                                                                   |
 | is_saved                                   | Boolean         | true                                   | Indicates whether the trip is saved. Unsaved trips will automatically be deleted after 48 hours.                                                                                        |
 | status                                     | String          | "completed"                            | "pending": Still calculating, fetch the result in a few seconds again. "completed": Calculation complete.                                                                               |
+| input_parameters                           | Object          | -                                      | Specific parameters provided in the trip request. Currently: `stops`, `route_strategy`, `state_of_charge_start`, `state_of_charge_destination`, `vehicle_consumption`, `exclude`        |
 
 
 ### Steps & Types
@@ -163,7 +171,14 @@ Api-Key: my-secret-key
       "vehicle_consumption": 20,
       "exclude": ["motorway"],
       "user_products": ["mobile_premium"],
-      "price_display_mode": "total_cost"
+      "price_display_mode": "total_cost",
+      "filter": {
+        "charge_points_power_gte": 11,
+        "charge_points_power_lte": 350,
+        "price_lte": 30.0,
+        "facilities": ["restaurant","supermarket"],
+        "operator_ids": ["ab23c982-4e41-431b-833a-dfa89b484c71"]
+      }
     },
     "relationships": {
       "tariffs": {
@@ -313,7 +328,26 @@ Body:
             },
           ],
           "status": "completed",
-          "is_saved": false
+          "is_saved": false,
+          "input_parameters": {
+            "stops": [
+              {
+                "longitude": 13.345,
+                "latitude": 43.456,
+                "name": "Vienna"
+              },
+              {
+                "longitude": 16.373,
+                "latitude": 48.208,
+                "name": "Graz"
+              }
+            ],
+            "route_strategy": "fastest",
+            "state_of_charge_start": 0.9,
+            "state_of_charge_destination": 0.2,
+            "vehicle_consumption": 20,
+            "exclude": ["motorway"]
+          }
         }
       ]
     }

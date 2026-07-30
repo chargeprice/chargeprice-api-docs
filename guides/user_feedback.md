@@ -63,10 +63,9 @@ Query Parameters:
 |-------------|----------|--------------|-------------|-------------------------------------------|
 | `userToken` | String   | optional     | `tok_abc`   | Authentication token of the current user. |
 
-## Missing Vehicle, or Other Feedback
+## Other Feedback
 
 Base URL: https://cms.chargeprice.net/userFeedback/other
-- Missing Vehicle: https://cms.chargeprice.net/userFeedback/missingVehicle
 
 Query Parameters:
 

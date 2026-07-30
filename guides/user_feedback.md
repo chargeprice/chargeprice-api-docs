@@ -16,7 +16,7 @@ The following query parameters are required for all types of feedback:
 
 ## Wrong Price
 
-Base URL: https://cms.chargeprice.net/userFeedback/wrongPrice
+Base URL: https://cms.chargeprice.app/userFeedback/wrongPrice
 
 Query Parameters:
 
@@ -30,7 +30,7 @@ Query Parameters:
 
 ## Station Feedback or Missing Price
 
-Base URL: https://cms.chargeprice.net/userFeedback/stationFeedbackOrMissingPrice
+Base URL: https://cms.chargeprice.app/userFeedback/stationFeedbackOrMissingPrice
 
 Query Parameters:
 
@@ -43,7 +43,7 @@ Query Parameters:
 
 ## Missing Station
 
-Base URL: https://cms.chargeprice.net/userFeedback/missingStation
+Base URL: https://cms.chargeprice.app/userFeedback/missingStation
 
 Query Parameters:
 
@@ -55,7 +55,7 @@ Query Parameters:
 
 ## Missing Vehicle
 
-Base URL: https://cms.chargeprice.net/userFeedback/missingVehicle
+Base URL: https://cms.chargeprice.app/userFeedback/missingVehicle
 
 Query Parameters:
 
@@ -65,7 +65,7 @@ Query Parameters:
 
 ## Other Feedback
 
-Base URL: https://cms.chargeprice.net/userFeedback/other
+Base URL: https://cms.chargeprice.app/userFeedback/other
 
 Query Parameters:
 

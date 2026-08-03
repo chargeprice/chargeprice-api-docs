@@ -38,7 +38,7 @@ The following table lists the `attributes` of a `company`:
 ### Request
 
 ```http
-GET http://example-base-url.com/v1/companies?page[number]=1&page[size]=1
+GET http://example-base-url.com/v1/companies/cpos?filter[user_country]=AT
 Content-Type: application/json
 Api-Key: my-secret-key
 ```

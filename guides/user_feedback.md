@@ -6,13 +6,13 @@ The new web based user feedback form is now available. Depending on the feedback
 
 The following query parameters are required for all types of feedback:
 
-| **Name**       | **Type**   | **Presence** | **Example**               | **Description**                                                                                                                                                                                                   |
-|----------------|------------|--------------|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `lang`         | String     | required     | `en`                      | Language code for the response content. Defaults to `en`.                                                                                                                                                         |
-| `appPlatform`  | String     | required     | `android`                 | The platform of the client app (e.g. `android`, `ios`).                                                                                                                                                           |
-| `appVersion`   | String     | required     | `3.2.1`                   | The version of the client app.                                                                                                                                                                                    |
-| `userProducts` | CSV-String | required     | `mobile_premium,product2` | List of products the user has activated. [See supported values](../api/enums.md#user-products). If a user doesn't have a chargeprice account, but has an active premium subscription, also send "mobile_premium". |
-| `showTitle`    | Boolean    | optional     | `false`                   | Whether to show the title of the feedback form. Default is `false`. Allowed values are `true` or `false`.                                                                                                         |
+| **Name**       | **Type**   | **Presence** | **Example**               | **Description**                                                                                                                                                                                                                  |
+|----------------|------------|--------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `lang`         | String     | required     | `en`                      | Language code for the response content. Defaults to `en`.                                                                                                                                                                        |
+| `appPlatform`  | String     | required     | `android`                 | The platform of the client app (e.g. `android`, `ios`).                                                                                                                                                                          |
+| `appVersion`   | String     | required     | `3.2.1`                   | The version of the client app.                                                                                                                                                                                                   |
+| `userProducts` | CSV-String | optional     | `mobile_premium,product2` | List of products the user has activated. [See supported values](../api/enums.md#user-products). If a user doesn't have a chargeprice account, but has an active premium subscription, also send "mobile_premium". Default: empty |
+| `showTitle`    | Boolean    | optional     | `false`                   | Whether to show the title of the feedback form. Default is `false`. Allowed values are `true` or `false`.                                                                                                                        |
 
 ## Wrong Price
 
@@ -26,7 +26,7 @@ Query Parameters:
 | `tariffId`  | String   | required     | `xyz456`    | ID of the tariff currently viewed.                 |
 | `plug`      | String   | required     | `ccs`       | Plug type currently selected.                      |
 | `power`     | Float    | required     | `50.0`      | Charging power in kW.                              |
-| `userToken` | String   | required     | `tok_abc`   | Authentication token of the current user.          |
+| `userToken` | String   | optional     | `tok_abc`   | Authentication token of the current user.          |
 
 ## Station Feedback or Missing Price
 
@@ -39,7 +39,7 @@ Query Parameters:
 | `poiId`     | String   | required     | `abc123`    | ID of the POI (charging station) currently viewed. |
 | `plug`      | String   | required     | `ccs`       | Plug type currently selected.                      |
 | `power`     | Float    | required     | `50.0`      | Charging power in kW.                              |
-| `userToken` | String   | required     | `tok_abc`   | Authentication token of the current user.          |
+| `userToken` | String   | optional     | `tok_abc`   | Authentication token of the current user.          |
 
 ## Missing Station
 

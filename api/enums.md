@@ -49,6 +49,9 @@ This list is based on the [facilities in OCPI](https://github.com/ocpi/ocpi/blob
 - train_station
 - car_dealership: Any kind of shop that sells or repairs cars.
 - motorway_access: Close nearby you can enter a motorway.
+- toilet: A toilet that might be public or located inside a restaurant, hotel or other facility.
+- park: A public park or garden.
+- playground: A playground for children. It could be public or located inside a restaurant, hotel or other facility.
 
 New values might be added at any time!
 

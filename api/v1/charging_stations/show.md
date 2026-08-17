@@ -31,29 +31,34 @@ The following query parameters are available:
 A response contains a `charging_station` object.
 The following table lists it's `attributes`:
 
-| **Name**                       | **Type**          | **Example**                | **Description**                                                                                                                         |
-|--------------------------------|-------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| name                           | String            | "McDonalds Graz"           | Name of the charging station                                                                                                            |
-| latitude                       | Float             | 43.345                     | Latitude component of the location                                                                                                      |
-| longitude                      | Float             | 12.443                     | Longitude component of the location                                                                                                     |
-| country                        | String            | "AT"                       | ISO 3166 country code of the location                                                                                                   |
-| address                        | String            | "Teslastraße 1, 8010 Graz" | Address of the station                                                                                                                  |
-| free_parking                   | Boolean or `null` | true                       | Parking at the station is free of charge (`null` = unknown)                                                                             |
-| free_charging                  | Boolean or `null` | true                       | Charging at the station is free of charge (`null` = unknown)                                                                            |
-| evse_ids                       | Array             | ["AT\*ION\*E1234"]         | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this location. |
-| charge_points                  | Array             | -                          | Charge points at this station, grouped by power and plug type                                                                           |
-| charge_points.plug             | String            | "ccs"                      | Type of plug. [See supported values](../../enums.md#plugs)                                                                              |
-| charge_points.power            | Float             | 50.0                       | Max. power                                                                                                                              |
-| charge_points.energy_type      | String            | `ac`                       | Energy Type of the charge point: `ac` (Alternating Current) or `dc`(Direct Current)                                                     |
-| charge_points.count            | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
-| charge_points.available_count  | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
-| parking_description            | String or `null`  | "0.5€/h"                   | Describes the parking situation with costs, times etc. in the provided language. Not available for all stations.                        |
-| facilities                     | Array<String>     | ["hotel"]                  | Facilities that closely located to the charging station. [See Supported values](../../enums.md#facilities).                             |
-| parking_type                   | String or `null`  | "along_motorway"           | The general type of parking at the charging location. [See Supported values](../../enums.md#parking-type).                              |
-| operator                       | Relationship      | -                          | Reference of the operator (CPO)                                                                                                       |
-| source_label                   | String or null    | "ocpi"                     | Indicator for the source of the data.                                                                                                   |
-| meta.branding                  | Hash or null      | See below                  | Stations with an active promotion campaign.                                                                                             |
-| meta.branding.map_pin_icon_url | String            | http://cp.com/logo.png     | URL to the map pin icon.                                                                                                                |
+| **Name**                        | **Type**          | **Example**                | **Description**                                                                                                                         |
+|---------------------------------|-------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| name                            | String            | "McDonalds Graz"           | Name of the charging station                                                                                                            |
+| latitude                        | Float             | 43.345                     | Latitude component of the location                                                                                                      |
+| longitude                       | Float             | 12.443                     | Longitude component of the location                                                                                                     |
+| country                         | String            | "AT"                       | ISO 3166 country code of the location                                                                                                   |
+| address                         | String            | "Teslastraße 1, 8010 Graz" | Address of the station                                                                                                                  |
+| free_parking                    | Boolean or `null` | true                       | Parking at the station is free of charge (`null` = unknown)                                                                             |
+| free_charging                   | Boolean or `null` | true                       | Charging at the station is free of charge (`null` = unknown)                                                                            |
+| evse_ids                        | Array             | ["AT\*ION\*E1234"]         | All [EMI3 EVSE IDs](https://emi3group.com/wp-content/uploads/sites/5/2018/12/eMI3-standard-v1.0-Part-2.pdf) connected to this location. |
+| charge_points                   | Array             | -                          | Charge points at this station, grouped by power and plug type                                                                           |
+| charge_points.plug              | String            | "ccs"                      | Type of plug. [See supported values](../../enums.md#plugs)                                                                              |
+| charge_points.power             | Float             | 50.0                       | Max. power                                                                                                                              |
+| charge_points.energy_type       | String            | `ac`                       | Energy Type of the charge point: `ac` (Alternating Current) or `dc`(Direct Current)                                                     |
+| charge_points.count             | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
+| charge_points.available_count   | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
+| parking_description             | String or `null`  | "0.5€/h"                   | Describes the parking situation with costs, times etc. in the provided language. Not available for all stations.                        |
+| facilities                      | Array<String>     | ["hotel"]                  | Facilities that closely located to the charging station. [See Supported values](../../enums.md#facilities).                             |
+| facility_details                | Array<String>     | Object                     | List of actual facilities located near the charging station.                             |
+| facility_details.facility_types | Array<String>     | ["restaurant"]             | Facilities that closely located to the charging station. [See Supported values](../../enums.md#facilities).                             |
+| facility_details.name           | Name or null      | "Burger Kind Paris"        | Name of the facility, if available. Otherwise `null`.                                                                                   |
+| facility_details.longitude      | Float             | 43.345                     | Longitude component of the facility.                                                                                                    |
+| facility_details.latitude       | Float             | 12.443                     | Latitude component of the facility.                                                                                                     |
+| parking_type                    | String or `null`  | "along_motorway"           | The general type of parking at the charging location. [See Supported values](../../enums.md#parking-type).                              |
+| operator                        | Relationship      | -                          | Reference of the operator (CPO)                                                                                                         |
+| source_label                    | String or null    | "ocpi"                     | Indicator for the source of the data.                                                                                                   |
+| meta.branding                   | Hash or null      | See below                  | Stations with an active promotion campaign.                                                                                             |
+| meta.branding.map_pin_icon_url  | String            | http://cp.com/logo.png     | URL to the map pin icon.                                                                                                                |
 
 ### Included Section
 
@@ -104,7 +109,15 @@ Body:
         }
       ],
       "parking_description": "0.5€/h",
-      "facilities": ["hotel", "fuel_station"],
+      "facilities": ["restaurant", "fuel_station"],
+      "facility_details": [
+        {
+          "facility_types": ["restaurant"],
+          "name": "Burger King Paris",
+          "longitude": 43.345,
+          "latitude": 12.443
+        }
+      ],
       "parking_type": "parking_garage",
       "source_label": "OCPI"
     },

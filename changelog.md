@@ -52,3 +52,5 @@ New APIs to upload and manage photos of charging stations
 # 2026-06-08 [Added] [New API to upsert CRM devices for push notifications](./api/v1/crm/devices/upsert.md)
 
 # 2026-07-15 [Added] New API [CPOs](./api/v1/companies/cpos/index.md)
+
+# 2026-08-17 [Added] New facility types and facility details to [Charging Stations](./api/v1/charging_stations/show.md) and [Enums](./api/enums.md)

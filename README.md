@@ -43,6 +43,7 @@ guides:
   Application](./guides/integrate_charge_prices.md)
 * [Exporting all Charging Stations](/guides/exporting_all_charging_stations.md)
 * [Adding your Data to Chargeprice](/guides/adding_your_data_to_chargeprice.md)
+* [Adding a Start Charging Button to Chargeprice](/guides/add_start_charging_button.md)
 
 If you have any questions, feel free to reach out to us at
 contact@chargeprice.net!

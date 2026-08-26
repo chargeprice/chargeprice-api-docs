@@ -11,6 +11,7 @@ This API follows the https://jsonapi.org specification.
 ## Headers
 
 * `API-Key: <your_api_key>` (contact sales@chargeprice.net to get access)
+* `CRM-Device-ID: <device_id>` (optional)
 * `Content-Type: application/json`
 * `Accept-Language: en`: [Valid Languages](../../enums.md). Used to localize the response, default language is `en`.
 

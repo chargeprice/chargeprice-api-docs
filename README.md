@@ -86,12 +86,7 @@ By using the API, you comply to these [terms of use](./terms.md).
   * [Create](./api/v1/user_feedback/create.md)
 * Country Statistics
   * [Index](./api/v1/country_statistics/index.md)
-* ~~Vehicles~~ (*deprecated*)
-  * [Index](./api/v1/vehicles/index.md)
 
 ### V2
 
-* Vehicles
-  * [Index](./api/v2/vehicles/index.md)
-* Vehicle Brands
-  * [Index](./api/v2/vehicle_brands/index.md)
+* Vehicles: Contact <sales@chargeprice.net> for more information.

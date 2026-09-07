@@ -45,7 +45,7 @@ The following table lists the `relationships` section of a `trip` object:
 | **Name** | **Type**               | **Presence** | **Example**                             | **Description**                                                                                                                                 |
 |----------|------------------------|--------------|-----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
 | tariffs  | Array of Relationships | required     | `[{"id": "some-uuid", type:"tariff" }]` | Prices are calculated for the given tariffs. Up to 200 tariffs can be defined. See [GET v1/tariffs](../tariffs/index.md) for the valid options. |
-| vehicle  | Relationship           | required     | `{"id": "some-uuid", type:"car" }`      | Vehicle at charge. See [GET v1/vehicles](../vehicles/index.md) for the valid options.                                                           |
+| vehicle  | Relationship           | required     | `{"id": "some-uuid", type:"car" }`      | Vehicle at charge.                                                                                                                              |
 
 ## Response Body
 

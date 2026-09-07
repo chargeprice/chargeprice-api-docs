@@ -33,7 +33,7 @@ The following table lists the `relationships` section of a `charge_price_bulk_re
 |-------------------|------------------------|--------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | charging_stations | Array of Relationships | required     | `[{"id": "some-uuid", type:"charging_station" }]` | Charging station for which the price should be calculated. Only charging stations of data_adapter chargeprice are allowed. Max. 100 stations can be defined. |
 | tariffs           | Array of Relationships | required     | `[{"id": "some-uuid", type:"tariff" }]`           | Prices are calculated for the given tariffs. Up to 200 tariffs can be defined. See [GET v1/tariffs](../tariffs/index.md) for the valid options.              |
-| vehicle           | Relationship           | required     | `{"id": "some-uuid", type:"car" }`                | Vehicle at charge. See [GET v1/vehicles](../vehicles/index.md) for the valid options.                                                                        |
+| vehicle           | Relationship           | required     | `{"id": "some-uuid", type:"car" }`                | Vehicle at charge.                                                                                                                                           |
 
 ## Response Body
 

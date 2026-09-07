@@ -145,60 +145,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "List Vehicles",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "API-Key",
-						"value": "{{apiKey}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://api.chargeprice.app/v2/vehicles",
-					"protocol": "https",
-					"host": [
-						"api",
-						"chargeprice",
-						"app"
-					],
-					"path": [
-						"v2",
-						"vehicles"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "List Vehicle Brands",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "API-Key",
-						"value": "{{apiKey}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://api.chargeprice.app/v2/vehicle_brands",
-					"protocol": "https",
-					"host": [
-						"api",
-						"chargeprice",
-						"app"
-					],
-					"path": [
-						"v2",
-						"vehicle_brands"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }

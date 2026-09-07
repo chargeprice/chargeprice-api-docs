@@ -11,7 +11,7 @@ The next steps depend on the use case you want to fulfill:
 ## Get total costs of a charging session at a specific CPO or station
 
 Needed endpoints:
-  * [Index Vehicles](../api/v2/vehicles/index.md)
+  * Vehicles: Contact <sales@chargeprice.net> for more information.
   * [Index Tariff Overview (optional)](../api/v1/tariffs/index.md)
   * [Prices](../api/v1/charge_prices/index.md)
 

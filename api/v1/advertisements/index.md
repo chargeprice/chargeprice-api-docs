@@ -29,12 +29,13 @@ The following query parameters are available.
 
 ### Banner Advertisement
 
-| **Name**           | **Type** | **Example**                                   | **Description**                                                                                                           |
-|--------------------|----------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| cta_url            | String   | "https://test.com"                            | Link that should be opened when clicking on the ad                                                                        |
-| deeplink_target    | String   | "premium"                                     | Deep link within the app.                                                                                                 |
-| banner_image_url   | String   | "https://www.chargeprice.app/images/test.png" | URL of Banner Image (=the Ad) that should be displayed.                                                                   |
-| placement_location | String   | "map"                                         | Defines where in the app this ad should be displayed. Possible values: "map", "price_list1", "price_list2", "price_list3" |
+| **Name**                | **Type** | **Example**                                   | **Description**                                                                                                           |
+|-------------------------|----------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| cta_url                 | String   | "https://test.com"                            | Link that should be opened when clicking on the ad                                                                        |
+| deeplink_target         | String   | "premium"                                     | Deep link within the app.                                                                                                 |
+| banner_image_url        | String   | "https://www.chargeprice.app/images/test.png" | URL of Banner Image (=the Ad) that should be displayed.                                                                   |
+| placement_location      | String   | "map"                                         | Defines where in the app this ad should be displayed. Possible values: "map", "price_list1", "price_list2", "price_list3" |
+| impression_tracking_url | String   | "https://www.chargeprice.app/track"           | URL to be used for tracking ad impressions.                                                                                |
 
 ### CRM Push Notification
 
@@ -79,7 +80,8 @@ Body:
         "cta_url": "https://test.com",
         "deeplink_target": "premium",
         "banner_image_url": "https://www.chargeprice.app/images/test.png",
-        "placement_location": "map"
+        "placement_location": "map",
+        "impression_tracking_url": "https://www.chargeprice.app/track"
       }
     },
 

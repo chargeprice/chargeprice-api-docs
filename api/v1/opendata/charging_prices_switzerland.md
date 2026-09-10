@@ -41,7 +41,7 @@ The following table lists the `attributes` of these objects:
 | currency                            | String   | `CHF`              | Currency in which the price is defined. ISO 4217                                                                                                                                                                                                            |
 | elements                            | Object   | -                  | List of Tariff Elements. Compliant to [OCPI TariffElement](https://github.com/ocpi/ocpi/blob/master/mod_tariffs.asciidoc#144-tariffelement-class)                                                                                                           |
 | elements.price_components           | Array    | -                  | List of Price Components that each describe how a certain dimension is priced.                                                                                                                                                                              |
-| elements.price_components.type      | String   | `ENERGY`           | Dimension of the Price. Possible values:<br>FLAT = price per charging session<br>ENERGY = price per charged kWh<br>TIME = price per hour charging<br>PARKING_TIME = price per hour not charging                       |
+| elements.price_components.type      | String   | `ENERGY`           | Dimension of the Price. Possible values:<br>FLAT = price per charging session<br>ENERGY = price per charged kWh<br>TIME = price per hour charging<br>PARKING_TIME = price per hour not charging                                                             |
 | elements.price_components.price     | Float    | 0.5                | B2C price incl. VAT                                                                                                                                                                                                                                         |
 | elements.price_components.step_size | Integer  | 1                  | If Dimension is TIME or PARKING_TIME and step size is 60, the customer is charged in blocks of any started 60 seconds. For Dimension ENERGY the unit is Wh. For FLAT it **SHOULD** never be set. Default: 60 seconds (TIME and PARKING_TIME), 1 Wh (ENERGY) |
 | elements.restrictions               | Object   | -                  | Restrictions that describe under which circumstances the Price Components of this Tariff Element apply.                                                                                                                                                     |
@@ -52,12 +52,13 @@ The following table lists the `attributes` of these objects:
 
 The following table lists the `relationships` and their values in the `included` section:
 
-| **Name**    | **Type**     | **Example**                            | **Description**                                                                                                                          |
-|-------------|--------------|----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| tariff      | Relationship | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                                                                                              |
-| tariff.name | String       | `easyFlex`                             | Name of the tariff                                                                                                                       |
-| emp         | Relationship | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff. In many cases this is also the CPO (Charge Point Operator) of this station. |
-| emp.name    | String       | `Energie Steiermark`                   | Company name of the EMP                                                                                                                  |
+| **Name**              | **Type**     | **Example**                            | **Description**                                                                                                                          |
+|-----------------------|--------------|----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| tariff                | Relationship | `{"id": "some-uuid", type:"tariff" }`  | The tariff for which the details are given.                                                                                              |
+| tariff.name           | String       | `easyFlex`                             | Name of the tariff                                                                                                                       |
+| emp                   | Relationship | `{"id": "some-uuid", type:"company" }` | The EMP (E-Mobility Service Provider) who offers the tariff. In many cases this is also the CPO (Charge Point Operator) of this station. |
+| emp.name              | String       | `Energie Steiermark`                   | Company name of the EMP                                                                                                                  |
+| emp.is_direct_payment | Boolean      | `true`                                 | Indicates if the payment is direct payment without registration (ad-hoc).                                                                |
 
 ### Response
 
@@ -135,14 +136,16 @@ Body:
       "id": "29440f56-9763-4fde-a025-451b80c336f1",
       "type": "tariff",
       "attributes": {
-        "name": "Direct"
+        "name": "Direct",
+        "is_direct_payment": true
       }
     },
     {
       "id": "7f255408-92eb-4996-9787-7d15c33c183f",
       "type": "company",
       "attributes": {
-        "name": "IONITY"
+        "name": "IONITY",
+        "is_direct_payment": true
       }
     }
   ]

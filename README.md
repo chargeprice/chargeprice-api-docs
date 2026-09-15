@@ -20,9 +20,7 @@ Please get in touch via sales@chargeprice.net.
 
 ### Demo Access
 
-To get started quickly, **you can request a free demo API access via [this
-form](https://tally.so/r/w4pJAX)**. You will receive an email with the
-instructions automatically. 
+To get started quickly, **you can sign-up for the free demo API access [here](https://insights.chargeprice.app/signup?demo=true)**.
 
 *Please be aware that data is limited in the demo version and any commercial use
 is prohibited.*

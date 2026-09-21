@@ -36,6 +36,7 @@ The following table lists it's `attributes` and `relationships`:
 | available_vehicles                    | Relationship | `[{"id": "some-uuid", type:"car" }]`              | All vehicles that the user has added to their profile.                                                                                                                                                          |
 | favourite_stations                    | Relationship | `[{"id": "some-uuid", type:"charging_station" }]` | Stations that the user has added to their favourites. The type defines the source of the station: "charging_station" => Chargeprice Station DB, "going_electric_charging_station" => Going Electric Station DB. |
 | meta.products                         | Array        | `["mobile_premium"]`                              | List of products available to the user.<br>Possible values: `mobile_premium`, `web_pro`                                                                                                                         |
+| meta.product_sources                  | Array        | `["app_store"]`                                  | List of sources of the user's products.<br>Possible values: `manual`, `carbonify_thg`, `emc_membership`, `stripe`, `app_store`                                                                                 |
 
 ## Example
 
@@ -122,6 +123,10 @@ Body:
       "products": [
           "web_pro",
           "mobile_premium"
+      ],
+      "product_sources": [
+          "app_store",
+          "stripe"
       ]
   }
 }

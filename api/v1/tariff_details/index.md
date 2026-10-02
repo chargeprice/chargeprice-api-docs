@@ -274,6 +274,7 @@ Body:
               0.0,
               22.0
             ],
+            "weekdays": ["sat","sun"],
             "charge_point_energy_type": "ac",
             "car_ac_phase": 2,
             "charge_point_power_is_range": true,

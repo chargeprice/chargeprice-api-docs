@@ -46,6 +46,8 @@ string.
   * `tariff` (100, required): Name of the EMP + tariff, to which the price belongs to
   * `cpo` (200, required): Name of the CPO where the price is displayed
   * `price` (100, required): Price per kWh/minute etc.
+  * `price_segments` (array of [Price Segment](#price-segment), optional, max. 50 items):
+    Structured version of `price`
   * `charging_station_id` (100, optional): ID of the Chargeprice charging station
   * `tariff_id` (100, optional): ID of the Chargeprice tariff
   * `is_direct_payment` (boolean, optional): Whether the price is an ad-hoc / direct payment price
@@ -71,9 +73,31 @@ string.
   * `displayed_price` (500, required): Price displayed in the app.
   * `actual_price` (500, required): Either total price or price per kWh/minute. Whatever
     the user has at hand.
+  * `displayed_price_segments` (array of [Price Segment](#price-segment), optional, max. 50 items):
+    Structured version of `displayed_price`
+  * `actual_price_segments` (array of [Price Segment](#price-segment), optional, max. 50 items):
+    Structured version of `actual_price`
   * `charging_station_id` (100, optional): ID of the Chargeprice charging station
   * `tariff_id` (100, optional): ID of the Chargeprice tariff
   * `poi_link` (200, optional, deprecated): Same as for `missing_price`.
+
+### Price Segment
+
+Describes one part of a price, similar to `restricted_segments` of the
+[Tariff Details API](../tariff_details/index.md).
+
+* `dimension` (string, required): Either `minute` (while charging),
+  `parking_minute` (after charging), `kwh` or `session`
+* `price` (number, required): The price per dimension, e.g. `0.39`
+* `range_gte` (integer, optional): From which dimension value the price
+  applies, e.g. from 60 minutes on.
+* `range_lt` (integer, optional): Until which dimension value the price
+  applies, e.g. until 120 minutes.
+* `currency` (3, optional): ISO 4217 currency code, e.g. `EUR`
+* `time_of_day_start` (integer, optional): Time of day when this segment starts
+  to match. In minutes since midnight, e.g. `720` for 12:00.
+* `time_of_day_end` (integer, optional): Time of day when this segment stops to
+  match. In minutes since midnight.
 
 ## Example
 

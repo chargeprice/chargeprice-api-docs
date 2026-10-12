@@ -52,3 +52,5 @@ New APIs to upload and manage photos of charging stations
 # 2026-07-15 [Added] New API [CPOs](./api/v1/companies/cpos/index.md)
 
 # 2026-08-17 [Added] New facility types and facility details to [Charging Stations](./api/v1/charging_stations/show.md) and [Enums](./api/enums.md)
+
+# 2026-10-12 [Added] New fields to [User Feedback API](./api/v1/user_feedback/create.md)

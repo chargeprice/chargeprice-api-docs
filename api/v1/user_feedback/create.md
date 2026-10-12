@@ -37,29 +37,43 @@ brackets the max. length of the string.
 
 ### Attributes per type
 
-All of them are of type `string` and are required (but can have an empty
-value). In brackets the max. length of the string.
+Unless stated otherwise, attributes are of type `string`. Required attributes
+must be present but can have an empty value. In brackets the max. length of the
+string.
 
 * `other_feedback`: No extra attributes
 * `missing_price`
-  * `tariff` (100): Name of the EMP + tariff, to which the price belongs to
-  * `cpo` (200): Name of the CPO where the price is displayed
-  * `price` (100): Price per kWh/minute etc.
-  * `poi_link` (200): Link to `chargeprice.app?poi_id=..&poi_source=...`
+  * `tariff` (100, required): Name of the EMP + tariff, to which the price belongs to
+  * `cpo` (200, required): Name of the CPO where the price is displayed
+  * `price` (100, required): Price per kWh/minute etc.
+  * `charging_station_id` (100, optional): ID of the Chargeprice charging station
+  * `tariff_id` (100, optional): ID of the Chargeprice tariff
+  * `is_direct_payment` (boolean, optional): Whether the price is an ad-hoc / direct payment price
+  * `poi_link` (200, optional, deprecated): Use `charging_station_id` instead.
+    Link to `chargeprice.app?poi_id=..&poi_source=...`. The `poi_id` is used as
+    `charging_station_id` if `poi_source` is `chargeprice` (or missing). Ignored
+    if `charging_station_id` is given.
 * `missing_station`
-  * `location` (200): Where the station is located. Either address or
+  * `location` (200, required): Where the station is located. Either address or
     coordinates.
-  * `cpo` (200): Operator name of the station.
+  * `cpo` (200, required): Operator name of the station.
+  * `cpo_id` (100, optional): ID of the Chargeprice operator
+  * `charge_points` (array, optional, max. 50 items): Charge points of the station
+    * `plug` (string, required): [See supported values](../../enums.md#plugs)
+    * `power` (number, required): Power in kW
+    * `count` (integer, required): Number of charge points with this plug and power
 * `missing_vehicle`
-  * `brand` (100): Car brand (e.g. Tesla)
-  * `model` (100): Car model (e.g. Model 3)
+  * `brand` (100, required): Car brand (e.g. Tesla)
+  * `model` (100, required): Car model (e.g. Model 3)
 * `wrong_price`
-  * `tariff` (100): Name of the EMP + tariff, to which the price belongs to
-  * `cpo` (200): Name of the CPO where the price is displayed
-  * `displayed_price` (100): Price displayed in the app.
-  * `actual_price` (100): Either total price or price per kWh/minute. Whatever
+  * `tariff` (100, required): Name of the EMP + tariff, to which the price belongs to
+  * `cpo` (200, required): Name of the CPO where the price is displayed
+  * `displayed_price` (500, required): Price displayed in the app.
+  * `actual_price` (500, required): Either total price or price per kWh/minute. Whatever
     the user has at hand.
-  * `poi_link` (200): Link to `chargeprice.app?poi_id=..&poi_source=...`
+  * `charging_station_id` (100, optional): ID of the Chargeprice charging station
+  * `tariff_id` (100, optional): ID of the Chargeprice tariff
+  * `poi_link` (200, optional, deprecated): Same as for `missing_price`.
 
 ## Example
 

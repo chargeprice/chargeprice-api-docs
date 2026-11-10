@@ -35,17 +35,18 @@ The following query parameters are available.
 | deeplink_target         | String   | "premium"                                     | Deep link within the app.                                                                                                 |
 | banner_image_url        | String   | "https://www.chargeprice.app/images/test.png" | URL of Banner Image (=the Ad) that should be displayed.                                                                   |
 | placement_location      | String   | "map"                                         | Defines where in the app this ad should be displayed. Possible values: "map", "price_list1", "price_list2", "price_list3" |
-| impression_tracking_url | String   | "https://www.chargeprice.app/track"           | URL to be used for tracking ad impressions.                                                                                |
+| impression_tracking_url | String   | "https://www.chargeprice.app/track"           | URL to be used for tracking ad impressions.                                                                               |
 
 ### CRM Push Notification
 
-| **Name**     | **Type**                 | **Example**                                   | **Description**                                   |
-|--------------|--------------------------|-----------------------------------------------|---------------------------------------------------|
-| sending_time | Integer (Unix Timestamp) | 1546297200000                                 | Time at which this notification was/will be sent. |
-| title        | String                   | "New feature available"                       | Title of the push notification.                   |
-| content      | String                   | "Check out the new trip planner!"             | Body text of the push notification.               |
-| image_url    | String                   | "https://www.chargeprice.app/images/test.png" | URL of an image to display with the notification. |
-| buttons      | Array<Button>            |                                               | Buttons to display with the notification.         |
+| **Name**     | **Type**                 | **Example**                                   | **Description**                                                                                      |
+|--------------|--------------------------|-----------------------------------------------|------------------------------------------------------------------------------------------------------|
+| sending_time | Integer (Unix Timestamp) | 1546297200000                                 | Time at which this notification was/will be sent.                                                    |
+| title        | String                   | "New feature available"                       | Title of the push notification.                                                                      |
+| content      | String                   | "Check out the new trip planner!"             | Body text of the push notification.                                                                  |
+| image_url    | String                   | "https://www.chargeprice.app/images/test.png" | URL of an image to display with the notification.                                                    |
+| campaign_key | String                   | "v_go_nearby_push"                            | Key of the campaign this notification belongs to. It represents the `analytics_label` from Firebase. |
+| buttons      | Array<Button>            |                                               | Buttons to display with the notification.                                                            |
 
 #### Button
 
@@ -93,6 +94,7 @@ Body:
         "title": "New feature available",
         "content": "Check out the new trip planner!",
         "image_url": "https://www.chargeprice.app/images/test.png",
+        "campaign_key": "v_go_nearby_push",
         "buttons": [
           {
             "title": "Learn more",

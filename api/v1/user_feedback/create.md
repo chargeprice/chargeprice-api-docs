@@ -51,6 +51,8 @@ string.
   * `charging_station_id` (100, optional): ID of the Chargeprice charging station
   * `tariff_id` (100, optional): ID of the Chargeprice tariff
   * `is_direct_payment` (boolean, optional): Whether the price is an ad-hoc / direct payment price
+  * `plug` (string, optional): Plug the price applies to. [See supported values](../../enums.md#plugs)
+  * `power` (number, optional): Power in kW the price applies to
   * `poi_link` (200, optional, deprecated): Use `charging_station_id` instead.
     Link to `chargeprice.app?poi_id=..&poi_source=...`. The `poi_id` is used as
     `charging_station_id` if `poi_source` is `chargeprice` (or missing). Ignored
@@ -60,6 +62,8 @@ string.
     coordinates.
   * `cpo` (200, required): Operator name of the station.
   * `cpo_id` (100, optional): ID of the Chargeprice operator
+  * `latitude` (number, optional): Latitude of the station, e.g. `48.2082`
+  * `longitude` (number, optional): Longitude of the station, e.g. `16.3738`
   * `charge_points` (array, optional, max. 50 items): Charge points of the station
     * `plug` (string, required): [See supported values](../../enums.md#plugs)
     * `power` (number, required): Power in kW
@@ -79,6 +83,8 @@ string.
     Structured version of `actual_price`
   * `charging_station_id` (100, optional): ID of the Chargeprice charging station
   * `tariff_id` (100, optional): ID of the Chargeprice tariff
+  * `plug` (string, optional): Plug the price applies to. [See supported values](../../enums.md#plugs)
+  * `power` (number, optional): Power in kW the price applies to
   * `poi_link` (200, optional, deprecated): Same as for `missing_price`.
 
 ### Price Segment

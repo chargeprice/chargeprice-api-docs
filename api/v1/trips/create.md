@@ -81,7 +81,7 @@ The following table lists the `attributes` of a `trip` response:
 | stations_on_route.currency                 | String          | "EUR"                                  | Currency of the price                                                                                                                                                                   |
 | is_saved                                   | Boolean         | true                                   | Indicates whether the trip is saved. Unsaved trips will automatically be deleted after 48 hours.                                                                                        |
 | status                                     | String          | "completed"                            | "pending": Still calculating, fetch the result in a few seconds again. "completed": Calculation complete.                                                                               |
-| input_parameters                           | Object          | -                                      | Specific parameters provided in the trip request. Currently: `stops`, `route_strategy`, `state_of_charge_start`, `state_of_charge_destination`, `vehicle_consumption`, `exclude`        |
+| input_parameters                           | Object          | -                                      | Specific parameters provided in the trip request. Currently: `stops`, `route_strategy`, `state_of_charge_start`, `state_of_charge_destination`, `battery_reserve_at_charge_stop`, `charging_target`, `vehicle_consumption`, `exclude` |
 
 
 ### Steps & Types
@@ -128,6 +128,7 @@ When you need to charge during the trip.
 | station_candidates.station_id | String   | "46adf982-4e41-431b-833a-dfa89b484c71" | ID of the candidate station.                                                              |
 | station_candidates.score      | Float    | 10.9                                   | Higher score means better candidate.                                                      |
 | station_candidates.detour     | Float    | 5.0                                    | Detour to the route as if no charge stop was needed (in minutes).                         |
+| facilities                    | Array    | ["restaurant", "toilet"]               | Facilities near the station. [See supported values](../../enums.md#facilities).           |
 
 #### Route Leg
 
@@ -269,6 +270,10 @@ Body:
                   "score": 10.9,
                   "detour": 5.0
                 }
+              ],
+              "facilities": [
+                "restaurant",
+                "toilet"
               ]
             },
             {
@@ -349,6 +354,8 @@ Body:
             "route_strategy": "fastest",
             "state_of_charge_start": 0.9,
             "state_of_charge_destination": 0.2,
+            "battery_reserve_at_charge_stop": 0.2,
+            "charging_target": 0.8,
             "vehicle_consumption": 20,
             "exclude": ["motorway"]
           }

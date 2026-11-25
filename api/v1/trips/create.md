@@ -27,6 +27,8 @@ The following fields are to be sent in the request body, in the `attributes` sec
 | currency                       | String   | optional     | "EUR"              | Currency of the routing charging costs. Default: EUR                                                                                                                                                                            |
 | state_of_charge_start          | Float    | optional     | 0.9                | State of Charge at Start in Percentage (90%=0.9). Default: 90%                                                                                                                                                                  |
 | state_of_charge_destination    | Float    | optional     | 0.2                | Min. State of Charge when reaching destination in Percentage (20% = 0.2). Default: 20%                                                                                                                                          |
+| battery_reserve_at_charge_stop | Float    | optional     | 0.2                | State of Charge to arrive with at a charging stop in Percentage (20% = 0.2).                                                                                                                                                    |
+| charging_target                | Float    | optional     | 0.8                | State of Charge the planner assumes after a charging stop in Percentage (80% = 0.8), except the last one (up to 100%).                                                                                                          |
 | vehicle_consumption            | Float    | optional     | 20                 | Average consumption of the vehicle on the trip. Default: standard consumption of the vehicle.                                                                                                                                   |
 | route_strategy                 | String   | optional     | "fastest"          | Strategy for the route calculation. Possible values: `fastest`, `cheapest`. Default: `fastest`                                                                                                                                  |
 | exclude                        | Array    | optional     | ["motorway"]       | Exclude specific roads. Possible values: "motorway", "toll". Default: nothing excluded.                                                                                                                                         |
@@ -168,6 +170,8 @@ Api-Key: my-secret-key
       "route_strategy": "fastest",
       "state_of_charge_start": 0.9,
       "state_of_charge_destination": 0.2,
+      "battery_reserve_at_charge_stop": 0.2,
+      "charging_target": 0.8,
       "vehicle_consumption": 20,
       "exclude": ["motorway"],
       "user_products": ["mobile_premium"],

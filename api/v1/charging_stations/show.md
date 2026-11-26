@@ -24,7 +24,7 @@ The following query parameters are available:
 
 | **Name**     | **Type**                       | **Presence** | **Example** | **Description**                                                                                                                                                                                                  |
 |--------------|--------------------------------|--------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| availability | `true`, `false` or `limited`   | *optional*   | true        | Defines if the charge_points.available_count is returned. `true`: live status from all sources. `limited`: live status only from OCPI and Open Data sources. `false`: no live status is returned. Default: false |
+| availability | `true`, `false` or `limited`   | *optional*   | true        | Defines if the live status (charge_points.available_count, charge_points.evses and charge_points.inactivity_warning) is returned. `true`: live status from all sources. `limited`: live status only from OCPI and Open Data sources. `false`: no live status is returned. Default: false |
 | usage        | Boolean                        | *optional*   | true        | Defines if the charge_points.usage is returned. See [Usage](#usage). Default: false                                                                                                                              |
 
 ## Response Body
@@ -47,8 +47,10 @@ The following table lists it's `attributes`:
 | charge_points.power             | Float             | 50.0                       | Max. power                                                                                                                              |
 | charge_points.energy_type       | String            | `ac`                       | Energy Type of the charge point: `ac` (Alternating Current) or `dc`(Direct Current)                                                     |
 | charge_points.count             | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
+| charge_points.evse_ids          | Array<String>     | ["AT\*ION\*E1234"]         | EVSE IDs of the charge points of this type.                                                                                             |
 | charge_points.available_count   | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
 | charge_points.inactivity_warning | Boolean          | false                      | `true` if the live status of the charge points of this type might be outdated. See [Inactivity Warning](#inactivity-warning).          |
+| charge_points.evses             | Array or `null`   | See [EVSE Status](#evse-status) | Live status of every EVSE ID of the charge points of this type. `null` if the availability isn't requested or no live status is available. |
 | charge_points.usage             | Object or `null`  | See [Usage](#usage)        | Typical usage of the charge points of this type per weekday and hour of day. Only present if `usage=true`.                              |
 | parking_description             | String or `null`  | "0.5€/h"                   | Describes the parking situation with costs, times etc. in the provided language. Not available for all stations.                        |
 | facilities                      | Array<String>     | ["hotel"]                  | Facilities that closely located to the charging station. [See Supported values](../../enums.md#facilities).                             |
@@ -78,6 +80,34 @@ should not be trusted.
 
 * It's only evaluated if `availability` is requested (`true` or `limited`). Otherwise it's always `false`.
 * It's `false` if the charge points have no EVSE IDs or if the time of the last update of any of them is unknown.
+
+### EVSE Status
+
+`charge_points.evses` lists the live status of every EVSE ID in `charge_points.evse_ids`, in the same order. It's only
+filled if `availability` is requested (`true` or `limited`) and live status per EVSE is available for the station,
+otherwise it's `null`. Each entry has the following attributes:
+
+| **Name**     | **Type**            | **Example**    | **Description**                                                                                                                                                                                          |
+|--------------|---------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| evse_id      | String              | "AT\*ION\*E1234" | The EVSE ID.                                                                                                                                                                                             |
+| status       | String or `null`    | "charging"     | Current status of the EVSE, one of the values below. `null` if there is no live status for this EVSE ID.                                                                                                 |
+| status_since | Integer or `null`   | 1764064800000  | Since when the EVSE has its current status, as Unix timestamp in milliseconds. `null` if unknown, e.g. if the EVSE already had this status when we started receiving its data, or if the source doesn't provide it. |
+
+Values of `status`:
+
+| **Value**     | **Description**                                                |
+|---------------|----------------------------------------------------------------|
+| `available`   | Ready to use and not occupied.                                 |
+| `charging`    | A vehicle is charging or connected.                            |
+| `reserved`    | Reserved for a user.                                           |
+| `blocked`     | Not accessible, e.g. the parking spot is blocked.              |
+| `inoperative` | Temporarily not available, e.g. due to maintenance.            |
+| `outoforder`  | Out of order.                                                  |
+| `planned`     | Planned, not in operation yet.                                 |
+| `removed`     | Removed.                                                       |
+| `unknown`     | The source reports the status as unknown.                      |
+
+More values may be added in the future, so clients should handle values they don't know like `unknown`.
 
 ### Usage
 
@@ -152,15 +182,28 @@ Body:
       "address": "Stangersdorf-Gewerbegebiet 110 A, 8403 Lebring",
       "free_parking": true,
       "free_charging": false,
-      "evse_ids": ["AT*ION*E1234"],
+      "evse_ids": ["AT*ION*E1234", "AT*ION*E1235"],
       "charge_points": [
         {
           "plug": "ccs",
           "power": 50.0,
           "energy_type": "dc",
           "count": 2,
-          "available_count": 2,
+          "evse_ids": ["AT*ION*E1234", "AT*ION*E1235"],
+          "available_count": 1,
           "inactivity_warning": false,
+          "evses": [
+            {
+              "evse_id": "AT*ION*E1234",
+              "status": "charging",
+              "status_since": 1764064800000
+            },
+            {
+              "evse_id": "AT*ION*E1235",
+              "status": "available",
+              "status_since": null
+            }
+          ],
           "usage": {
             "monday": {
               "utilization": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.05, 0.12, 0.25, 0.31, 0.4, 0.45, 0.52, 0.48, 0.41, 0.38, 0.44, 0.5, 0.46, 0.33, 0.21, 0.12, 0.05, 0.01]

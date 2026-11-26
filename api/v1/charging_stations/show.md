@@ -22,9 +22,10 @@ This API follows the https://jsonapi.org specification.
 
 The following query parameters are available:
 
-| **Name**     | **Type** | **Presence** | **Example** | **Description**                                                          |
-|--------------|----------|--------------|-------------|--------------------------------------------------------------------------|
-| availability | Boolean  | *optional*   | true        | Defines if the charge_points.available_count is returned. Default: false |
+| **Name**     | **Type**                       | **Presence** | **Example** | **Description**                                                                                                                                                                                                  |
+|--------------|--------------------------------|--------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| availability | `true`, `false` or `limited`   | *optional*   | true        | Defines if the charge_points.available_count is returned. `true`: live status from all sources. `limited`: live status only from OCPI and Open Data sources. `false`: no live status is returned. Default: false |
+| usage        | Boolean                        | *optional*   | true        | Defines if the charge_points.usage is returned. See [Usage](#usage). Default: false                                                                                                                              |
 
 ## Response Body
 
@@ -47,6 +48,8 @@ The following table lists it's `attributes`:
 | charge_points.energy_type       | String            | `ac`                       | Energy Type of the charge point: `ac` (Alternating Current) or `dc`(Direct Current)                                                     |
 | charge_points.count             | Integer           | 2                          | Total number of charge points of this type at the station                                                                               |
 | charge_points.available_count   | Integer or `null` | 2                          | Number of charge points of this type at the station, which are ready to use and not occupied. (`null` = unknown)                        |
+| charge_points.inactivity_warning | Boolean          | false                      | `true` if the live status of the charge points of this type might be outdated. See [Inactivity Warning](#inactivity-warning).          |
+| charge_points.usage             | Object or `null`  | See [Usage](#usage)        | Typical usage of the charge points of this type per weekday and hour of day. Only present if `usage=true`.                              |
 | parking_description             | String or `null`  | "0.5€/h"                   | Describes the parking situation with costs, times etc. in the provided language. Not available for all stations.                        |
 | facilities                      | Array<String>     | ["hotel"]                  | Facilities that closely located to the charging station. [See Supported values](../../enums.md#facilities).                             |
 | facility_details                | Array             | Object                     | List of actual facilities located near the charging station.                                                                            |
@@ -59,6 +62,57 @@ The following table lists it's `attributes`:
 | source_label                    | String or null    | "ocpi"                     | Indicator for the source of the data.                                                                                                   |
 | meta.branding                   | Hash or null      | See below                  | Stations with an active promotion campaign.                                                                                             |
 | meta.branding.map_pin_icon_url  | String            | http://cp.com/logo.png     | URL to the map pin icon.                                                                                                                |
+
+### Inactivity Warning
+
+`charge_points.inactivity_warning` is `true` if the live status of **all** charge points of this type hasn't been
+updated for longer than:
+
+| **energy_type** | **Threshold** |
+|-----------------|---------------|
+| `dc`            | 24 hours      |
+| `ac`            | 48 hours      |
+
+This usually means that the status is outdated or that the charge points are out of service, so `available_count`
+should not be trusted.
+
+* It's only evaluated if `availability` is requested (`true` or `limited`). Otherwise it's always `false`.
+* It's `false` if the charge points have no EVSE IDs or if the time of the last update of any of them is unknown.
+
+### Usage
+
+`charge_points.usage` is only present if `usage=true` is requested and the API key belongs to the authorization group
+`ReadStationsWithAvailability`. It describes how the charge points of this type are typically used during the week.
+
+* It's `null` if there is no usage data for any of the EVSE IDs of the charge points.
+* Otherwise it's an object that always contains all seven weekdays as keys, in this order: `monday`, `tuesday`,
+  `wednesday`, `thursday`, `friday`, `saturday`, `sunday`.
+* Every weekday is an object with the following attributes:
+
+| **Name**    | **Type**                 | **Example**           | **Description**                                                                                                                                                                                                                       |
+|-------------|--------------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| utilization | Array<Float or `null`>   | [0.0, 0.05, 0.12, …]  | Always 24 values, one per hour of day. The index is the hour in the local time of the station, e.g. index `0` = 00:00 - 01:00, index `23` = 23:00 - 24:00. See below for the meaning of a value. |
+
+More attributes per weekday may be added in the future, so clients should ignore attributes they don't know.
+
+#### Utilization Values
+
+A utilization value is the share of time the charge points were occupied (= charging) in that hour, rounded to 2
+decimals:
+
+* `0.0`: never occupied, `0.5`: occupied half of the time, `1.0`: always occupied.
+* `null`: there is no data for that hour.
+
+How it's calculated:
+
+* It's based on the live status of each EVSE during the **last completed calendar month** (e.g. in December the data
+  of November is used). If no completed month is available yet, the current month so far is used.
+* For every EVSE and hour, the time it was occupied is divided by the time its status was known (`available`,
+  `charging`, `reserved` or `blocked`). Times with an unknown status or while the EVSE was out of order are left out,
+  so they don't lower the utilization.
+* A status of `charging` lasting more than 24 hours is considered stuck. The time beyond those 24 hours is left out.
+* The value of the charge point type is the average over all its EVSEs that have data for that hour, every EVSE
+  weighted equally.
 
 ### Included Section
 
@@ -74,7 +128,7 @@ The following table lists it's `attributes`:
 ### Request
 
 ```http
-GET http://example-base-url.com/v1/charging_stations/20006f18-3ed4-4715-92b5-08e37e6dd18c?availability=true
+GET http://example-base-url.com/v1/charging_stations/20006f18-3ed4-4715-92b5-08e37e6dd18c?availability=true&usage=true
 Content-Type: application/json
 Api-Key: my-secret-key
 ```
@@ -105,7 +159,23 @@ Body:
           "power": 50.0,
           "energy_type": "dc",
           "count": 2,
-          "available_count": 2
+          "available_count": 2,
+          "inactivity_warning": false,
+          "usage": {
+            "monday": {
+              "utilization": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.05, 0.12, 0.25, 0.31, 0.4, 0.45, 0.52, 0.48, 0.41, 0.38, 0.44, 0.5, 0.46, 0.33, 0.21, 0.12, 0.05, 0.01]
+            },
+            "tuesday": {
+              "utilization": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, 0.1, 0.22, 0.3, 0.38, 0.43, 0.5, 0.47, 0.4, 0.36, 0.42, 0.49, 0.45, 0.31, 0.2, 0.1, 0.04, 0.01]
+            },
+            "wednesday": { "utilization": ["..."] },
+            "thursday": { "utilization": ["..."] },
+            "friday": { "utilization": ["..."] },
+            "saturday": { "utilization": ["..."] },
+            "sunday": {
+              "utilization": [null, null, null, null, null, null, 0.02, 0.05, 0.1, 0.2, 0.3, 0.35, 0.4, 0.42, 0.38, 0.35, 0.3, 0.28, 0.22, 0.15, 0.1, 0.05, 0.02, 0.0]
+            }
+          }
         }
       ],
       "parking_description": "0.5€/h",
